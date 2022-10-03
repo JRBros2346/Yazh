@@ -7,7 +7,7 @@ print("Building everything...")
 try:
     os.chdir('engine')
     ERRORLEVEL=os.system('build.py')
-    if ERRORLEVEL!=None:
+    if ERRORLEVEL:
         sys.exit('Error:%s'%ERRORLEVEL)
     os.chdir('..')
 except:
@@ -16,7 +16,7 @@ except:
 try:
     os.chdir('testbed')
     ERRORLEVEL=os.system('build.py')
-    if ERRORLEVEL!=None:
+    if ERRORLEVEL:
         sys.exit('Error:%s'%ERRORLEVEL)
     os.chdir('..')
 except:

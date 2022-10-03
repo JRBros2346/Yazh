@@ -6,7 +6,7 @@ cppFilenames=''
 for (root,dirs,files) in os.walk(os.getcwd()):
     for file in files:
         if file.endswith('.cpp'):
-            cppFilenames+=' '+root+file
+            cppFilenames+=' '+root+'/'+file
 
 #print("Files:",cppFilenames)
 
