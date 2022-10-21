@@ -14,7 +14,7 @@ assembly='testbed'
 compilerFlags='-g'
 #'-Wall -Werror'
 includeFlags='-Isrc -I../engine/src/'
-linkerFlags='-L../bin/ -lengine.dll'
+linkerFlags='-L../bin/ -lengine'
 defines='-D_DEBUG -DKIMPORT'
 
 print("Building %s..."%assembly)

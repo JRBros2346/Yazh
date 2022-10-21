@@ -1,9 +1,7 @@
-#include"test.h"
+#include "test.h"
 
-#include<iostream>
-using namespace std;
+#include <stdio.h>
 
-void print_int(i32 i)
-{
-	cout<<"The number is: "<<i;
+void print_int(i32 i) {
+    printf("The number is: %i", i);
 }
