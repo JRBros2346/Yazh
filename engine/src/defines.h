@@ -19,8 +19,7 @@ typedef float f32;
 typedef double f64;
 
 // Boolean types
-typedef int b32;
-typedef char b8;
+typedef bool b;
 
 // Properly define static assertions.
 #if defined(__clang__) || defined(__gcc__)
@@ -86,14 +85,14 @@ typedef char b8;
 
 #ifdef KEXPORT
 // Exports
-#ifdef _MSC_VER
+#ifdef KPLATFORM_WINDOWS
 #define KAPI __declspec(dllexport)
 #else
 #define KAPI __attribute__((visibility("default")))
 #endif
 #else
 // Imports
-#ifdef _MSC_VER
+#ifdef KPLATFORM_WINDOWS
 #define KAPI __declspec(dllimport)
 #else
 #define KAPI
