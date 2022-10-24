@@ -1,8 +1,8 @@
+#!/usr/bin/env python3
 import os,sys,traceback
 #Build Everything...
 
 print("Building everything...")
-
 
 try:
     os.chdir('engine')
