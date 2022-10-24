@@ -15,7 +15,7 @@ compilerFlags='-g -shared -Wvarargs -Wall -Werror'
 #'-Wall -Werror'
 includeFlags='-Isrc -I%s/Include'%os.environ.get('VULKAN_SDK')
 linkerFlags='-luser32 -lvulkan-1 -L%s/Lib'%os.environ.get('VULKAN_SDK')
-defines='-D_DEBUG -DKEXPORT -D_CRT_SECURE_NO_WARNINGS'
+defines='-D_DEBUG -DYEXPORT -D_CRT_SECURE_NO_WARNINGS'
 
 print("Building %s..."%assembly)
 os.system('g++ %s %s -o ../bin/%s.dll %s %s %s'%(cppFilenames,compilerFlags,assembly,defines,includeFlags,linkerFlags))

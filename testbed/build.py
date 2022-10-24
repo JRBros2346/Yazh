@@ -15,7 +15,7 @@ compilerFlags='-g'
 #'-Wall -Werror'
 includeFlags='-Isrc -I../engine/src/'
 linkerFlags='-L../bin/ -lengine'
-defines='-D_DEBUG -DKIMPORT'
+defines='-D_DEBUG -DYIMPORT'
 
 print("Building %s..."%assembly)
 os.system('g++ %s %s -o ../bin/%s.exe %s %s %s'%(cppFilenames,compilerFlags,assembly,defines,includeFlags,linkerFlags))
