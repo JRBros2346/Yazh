@@ -36,7 +36,7 @@ elif OS=='Linux':
                 cppFilenames+=' '+root+'/'+file
 
     # print("Files:",cppFilenames)
-    
+
     assembly="engine"
     compilerFlags="-g -shared -fPIC"
     # -fms-extensions
