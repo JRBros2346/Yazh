@@ -42,7 +42,7 @@ elif OS=='Linux':
     # -fms-extensions
     # -Wall -Werror
     includeFlags="-Isrc -I%s/include"%os.environ.get("VULKAN_SDK")
-    linkerFlags="-lvulkan -lxcb -lX11 -lX11-xcb -lxkbcommon -L%s/lib -L/usr/X11R6/lib -Wl,-rpath,."%os.environ.get("VULKAN_SDK")
+    linkerFlags="-lvulkan -lxcb -lX11 -lX11-xcb -lxkbcommon -L%s/lib -L/usr/X11R6/lib"%os.environ.get("VULKAN_SDK")
     defines="-D_DEBUG -DYEXPORT"
 
     print("Building %s..."%assembly)

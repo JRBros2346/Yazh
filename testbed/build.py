@@ -42,7 +42,7 @@ elif OS=='Linux':
     # -fms-extensions
     # -Wall -Werror
     includeFlags="-Isrc -I../engine/src/"
-    linkerFlags="-L../bin/ -lengine -Wl,-rpath,."
+    linkerFlags="-Wl,-rpath=../bin -L../bin/ -lengine"
     defines="-D_DEBUG -DYIMPORT"
 
     print("Building %s..."%assembly)
