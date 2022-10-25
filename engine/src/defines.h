@@ -1,6 +1,6 @@
 #pragma once
 
-#include<stdint.h>
+#include<cstdint>
 
 // Unsigned int types.
 typedef uint8_t u8;
@@ -29,21 +29,8 @@ typedef bool b;
 #endif
 
 // Ensure all types are of the correct size.
-//STATIC_ASSERT(sizeof(u8) == 1, "Expected u8 to be 1 byte.");
-//STATIC_ASSERT(sizeof(u16) == 2, "Expected u16 to be 2 bytes.");
-//STATIC_ASSERT(sizeof(u32) == 4, "Expected u32 to be 4 bytes.");
-//STATIC_ASSERT(sizeof(u64) == 8, "Expected u64 to be 8 bytes.");
-
-//STATIC_ASSERT(sizeof(i8) == 1, "Expected i8 to be 1 byte.");
-//STATIC_ASSERT(sizeof(i16) == 2, "Expected i16 to be 2 bytes.");
-//STATIC_ASSERT(sizeof(i32) == 4, "Expected i32 to be 4 bytes.");
-//STATIC_ASSERT(sizeof(i64) == 8, "Expected i64 to be 8 bytes.");
-
 STATIC_ASSERT(sizeof(f32) == 4, "Expected f32 to be 4 bytes.");
 STATIC_ASSERT(sizeof(f64) == 8, "Expected f64 to be 8 bytes.");
-
-#define TRUE 1
-#define FALSE 0
 
 // Platform detection
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) 
@@ -57,9 +44,9 @@ STATIC_ASSERT(sizeof(f64) == 8, "Expected f64 to be 8 bytes.");
 #	if defined(__ANDROID__)
 #		define YPLATFORM_ANDROID 1
 #	endif
-#elif defined(__unix__)
+
 // Catch anything not caught by the above.
-#	define YPLATFORM_UNIX 1
+
 #elif defined(_POSIX_VERSION)
 // Posix
 #	define YPLATFORM_POSIX 1
@@ -79,6 +66,8 @@ STATIC_ASSERT(sizeof(f64) == 8, "Expected f64 to be 8 bytes.");
 #	else
 #		error "Unknown Apple platform"
 #	endif
+#elif defined(__unix__)
+#	define YPLATFORM_UNIX 1
 #else
 #	error "Unknown platform!"
 #endif
