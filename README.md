@@ -10,6 +10,11 @@ Following [Kohi](https://github.com/travisvroman/kohi)'s and [Nara](https://gith
 - G++ compiler
 
 # Specs
-- g++ compiler: (I use [this](https://sourceforge.net/projects/mingw-w64/))
-- Vulkan SDK: https://vulkan.lunarg.com/
-- Python: https://www.python.org
+- C++20 compliant compiler: (I recommend using g++, especially [this](https://sourceforge.net/projects/mingw-w64/) because all the scripts are written for g++. But you may use other compilers by editting the build scripts)
+- VulkanSDK version 3.x: https://vulkan.lunarg.com/
+- Python3: https://www.python.org
+
+#Compiling
+- Run `build.py` from the root folder of repo
+- do `cd bin`
+- Run `testbed`
