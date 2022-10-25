@@ -36,13 +36,13 @@ elif OS=='Linux':
                 cppFilenames+=' '+root+'/'+file
 
     # print("Files:",cppFilenames)
-    
+
     assembly="testbed"
     compilerFlags="-g -fPIC"
     # -fms-extensions
     # -Wall -Werror
     includeFlags="-Isrc -I../engine/src/"
-    linkerFlags="-L../bin/ -lengine -Wl,-rpath,%s/../bin"%os.environ.get('ORIGIN')
+    linkerFlags="-L../bin/ -lengine -Wl,-rpath='$ORIGIN'"
     defines="-D_DEBUG -DYIMPORT"
 
     print("Building %s..."%assembly)
