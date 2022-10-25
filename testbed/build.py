@@ -26,7 +26,7 @@ if OS=='Windows':
 elif OS=='Linux':
     # Build script for engine
 
-    os.makedirs('../bin')
+    os.makedirs('../bin',exist_ok=True)
 
     # Get a list of all the .cpp files.
     cppFilenames=''
