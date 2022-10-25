@@ -42,7 +42,7 @@ elif OS=='Linux':
     # -fms-extensions
     # -Wall -Werror
     includeFlags="-Isrc -I../engine/src/"
-    linkerFlags="-L../bin/ -lengine -Wl,-rpath=,%s/../bin"%os.environ.get('ORIGIN')
+    linkerFlags="-L../bin/ -lengine -Wl,-rpath,%s/../bin"%os.environ.get('ORIGIN')
     defines="-D_DEBUG -DYIMPORT"
 
     print("Building %s..."%assembly)
