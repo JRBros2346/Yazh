@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import platform,os
-OS=platform.system()
+operatingSystem=platform.system()
 
-if OS=='Windows':
+if operatingSystem=='Windows':
     #Build script for testbed
 
     #Get a list of all the .cpp files.
@@ -23,7 +23,7 @@ if OS=='Windows':
 
     print("Building %s..."%assembly)
     os.system('g++ %s %s -o ../bin/%s.exe %s %s %s'%(cppFilenames,compilerFlags,assembly,defines,includeFlags,linkerFlags))
-elif OS=='Linux':
+elif operatingSystem=='Linux':
     # Build script for engine
 
     os.makedirs('../bin',exist_ok=True)
@@ -42,7 +42,7 @@ elif OS=='Linux':
     # -fms-extensions
     # -Wall -Werror
     includeFlags="-Isrc -I../engine/src/"
-    linkerFlags="-L../bin/ -lengine -Wl,-rpath='$ORIGIN'"
+    linkerFlags="-L../bin/ -lengine -Wl,-rpath,'$ORIGIN'"
     defines="-D_DEBUG -DYIMPORT"
 
     print("Building %s..."%assembly)
