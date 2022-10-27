@@ -14,7 +14,7 @@ Following [Kohi](https://github.com/travisvroman/kohi)'s and [Nara](https://gith
 - VulkanSDK version 3.x: https://vulkan.lunarg.com/
 - Python3: https://www.python.org
 
-#Compiling
+# Compiling
 - Run `build.py` from the root folder of repo
 - do `cd bin`
 - Run `testbed`
