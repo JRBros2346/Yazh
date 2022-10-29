@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os,sys,traceback
+os.chdir(os.path.split(os.path.abspath(__file__))[0])
 #Build Everything...
 
 print("Building everything...")
