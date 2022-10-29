@@ -10,7 +10,7 @@ if operatingSystem=='Windows':
     for (root,dirs,files) in os.walk(os.getcwd()):
         for file in files:
             if file.endswith('.cpp'):
-                cppFilenames+=' '+root+'/'+file
+                cppFilenames+=' '+os.path.join(root,file)
 
     #print("Files:",cppFilenames)
 
@@ -21,8 +21,8 @@ if operatingSystem=='Windows':
     linkerFlags='-L../bin/ -lengine'
     defines='-D_DEBUG -DYIMPORT'
 
-    print("Building %s..."%assembly)
-    os.system('g++ %s %s -o ../bin/%s.exe %s %s %s'%(cppFilenames,compilerFlags,assembly,defines,includeFlags,linkerFlags))
+    print(f"Building {assembly}...")
+    os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly}.exe {defines} {includeFlags} {linkerFlags}')
 elif operatingSystem=='Linux':
     # Build script for engine
 
@@ -33,7 +33,7 @@ elif operatingSystem=='Linux':
     for (root,dirs,files) in os.walk(os.getcwd()):
         for file in files:
             if file.endswith('.cpp'):
-                cppFilenames+=' '+root+'/'+file
+                cppFilenames+=' '+os.path.join(root,file)
 
     # print("Files:",cppFilenames)
 
@@ -45,7 +45,7 @@ elif operatingSystem=='Linux':
     linkerFlags="-L../bin/ -lengine -Wl,-rpath,'$ORIGIN'"
     defines="-D_DEBUG -DYIMPORT"
 
-    print("Building %s..."%assembly)
-    print('g++ %s %s -o ../bin/%s %s %s %s'%(cppFilenames,compilerFlags,assembly,defines,includeFlags,linkerFlags))
-    os.system('g++ %s %s -o ../bin/%s %s %s %s'%(cppFilenames,compilerFlags,assembly,defines,includeFlags,linkerFlags))
+    print(f"Building {assembly}...")
+    print(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly} {defines} {includeFlags} {linkerFlags}')
+    os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly} {defines} {includeFlags} {linkerFlags}')
 

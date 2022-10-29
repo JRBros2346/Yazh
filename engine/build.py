@@ -10,19 +10,19 @@ if operatingSystem=='Windows':
     for (root,dirs,files) in os.walk(os.getcwd()):
         for file in files:
             if file.endswith('.cpp'):
-                cppFilenames+=' '+root+'/'+file
+                cppFilenames+=' '+os.path.join(root,file)
 
     #print("Files:",cppFilenames)
 
     assembly='engine'
     compilerFlags='-g -shared -Wvarargs -Wall -Werror'
     #-Wall -Werror
-    includeFlags='-Isrc -I%s/Include'%os.getenv('VULKAN_SDK')
-    linkerFlags='-luser32 -lvulkan-1 -L%s/Lib'%os.getenv('VULKAN_SDK')
+    includeFlags=f"-Isrc -I{os.getenv('VULKAN_SDK')}/Include"
+    linkerFlags=f"-luser32 -lvulkan-1 -L{os.getenv('VULKAN_SDK')}/Lib"
     defines='-D_DEBUG -DYEXPORT -D_CRT_SECURE_NO_WARNINGS'
 
-    print("Building %s..."%assembly)
-    os.system('g++ %s %s -o ../bin/%s.dll %s %s %s'%(cppFilenames,compilerFlags,assembly,defines,includeFlags,linkerFlags))
+    print(f"Building {assembly}...")
+    os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly}.dll {defines} {includeFlags} {linkerFlags}')
 elif operatingSystem=='Linux':
     # Build script for engine
 
@@ -33,7 +33,7 @@ elif operatingSystem=='Linux':
     for (root,dirs,files) in os.walk(os.getcwd()):
         for file in files:
             if file.endswith('.cpp'):
-                cppFilenames+=' '+root+'/'+file
+                cppFilenames+=' '+os.path.join(root,file)
 
     # print("Files:",cppFilenames)
 
@@ -41,9 +41,9 @@ elif operatingSystem=='Linux':
     compilerFlags="-g -shared -fPIC"
     # -fms-extensions
     # -Wall -Werror
-    includeFlags="-Isrc -I%s/include"%os.environ.get("VULKAN_SDK")
-    linkerFlags="-lvulkan -lxcb -lX11 -lX11-xcb -lxkbcommon -L%s/lib -L/usr/X11R6/lib"%os.getenv("VULKAN_SDK")
+    includeFlags=f"-Isrc -I{os.getenv('VULKAN_SDK')}/include"
+    linkerFlags=f"-lvulkan -lxcb -lX11 -lX11-xcb -lxkbcommon -L{os.getenv('VULKAN_SDK')}/lib -L/usr/X11R6/lib"
     defines="-D_DEBUG -DYEXPORT"
 
-    print("Building %s..."%assembly)
-    os.system('g++ %s %s -o ../bin/lib%s.so %s %s %s'%(cppFilenames,compilerFlags,assembly,defines,includeFlags,linkerFlags))
+    print(f"Building {assembly}...")
+    os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/lib{assembly}.so {defines} {includeFlags} {linkerFlags}')

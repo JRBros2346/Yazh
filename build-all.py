@@ -8,20 +8,30 @@ try:
     os.chdir('engine')
     ERRORLEVEL=os.system('python build.py')
     if ERRORLEVEL:
-        sys.exit('engine Error(terminal): \033[91m%s \033[0m'%ERRORLEVEL)
+        sys.exit(f'engine Error(terminal): \33[91m{ERRORLEVEL} \33[0m')
     os.chdir('..')
 except:
-    exc=sys.exc_info()
-    sys.exit("engine Error(python): \033[91m \ntype: %s \nvalue: %s \ntraceback: %s \033[0m"%(str(exc[0]),str(exc[1]),str(exc[2])))
+    etype,evalue,etb=sys.exc_info()
+    sys.exit(f"""engine Error(python):
+\33[92m{'''
+'''.join(traceback.format_tb(etb))}
+
+\33[93m{str(etype)[7:-1]}: \33[91m{evalue}
+\33[0m""")
 
 try:
     os.chdir('testbed')
     ERRORLEVEL=os.system('python build.py')
     if ERRORLEVEL:
-        sys.exit('testbed Error(terminal): \033[91m%s \033[0m'%ERRORLEVEL)
+        sys.exit(f'testbed Error(terminal): \033[91m{ERRORLEVEL} \033[0m')
     os.chdir('..')
 except:
-    exc=sys.exc_info()
-    sys.exit("testbed Error(python): \033[91m \ntype: %s \nvalue: %s \ntraceback: %s\033[0m"%(str(exc[0]),str(exc[1]),str(exc[2])))
+    etype,evalue,etb=sys.exc_info()
+    sys.exit(f"""testbed Error(python):
+\33[92m{'''
+'''.join(traceback.format_tb(etb))}
+
+\33[93m{str(etype)[7:-1]}: \33[91m{evalue}
+\33[0m""")
 
 print("All assemblies built successfully.")
