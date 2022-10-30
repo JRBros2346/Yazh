@@ -10,7 +10,7 @@ if operatingSystem=='Windows':
     for (root,dirs,files) in os.walk(os.getcwd()):
         for file in files:
             if file.endswith('.cpp'):
-                cppFilenames+=' '+os.path.join(root,file)
+                cppFilenames+=' '+os.path.relpath(os.path.join(root,file))
 
     #print("Files:",cppFilenames)
 
@@ -23,6 +23,7 @@ if operatingSystem=='Windows':
 
     print(f"Building {assembly}...")
     os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly}.dll {defines} {includeFlags} {linkerFlags}')
+    
 elif operatingSystem=='Linux':
     # Build script for engine
 
@@ -33,7 +34,7 @@ elif operatingSystem=='Linux':
     for (root,dirs,files) in os.walk(os.getcwd()):
         for file in files:
             if file.endswith('.cpp'):
-                cppFilenames+=' '+os.path.join(root,file)
+                cppFilenames+=' '+os.path.relpath(os.path.join(root,file))
 
     # print("Files:",cppFilenames)
 
