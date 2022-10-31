@@ -17,7 +17,7 @@ except:
 \33[92m{'''
 '''.join(traceback.format_tb(err_tb))}
 
-\33[93m{str(err_type)[7:-1]}: \33[91m{err_value}
+\33[93m{err_type.__name__}: \33[91m{err_value}
 \33[0m""")
 
 try:
@@ -32,7 +32,7 @@ except:
 \33[92m{'''
 '''.join(traceback.format_tb(err_tb))}
 
-\33[93m{str(err_type)[7:-1]}: \33[91m{err_value}
+\33[93m{err_type.__name__}: \33[91m{err_value}
 \33[0m""")
 
 print("All assemblies built successfully.")
