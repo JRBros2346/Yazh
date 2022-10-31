@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import platform,os
+import platform,os,sys
 operatingSystem=platform.system()
 
 if operatingSystem=='Windows':
@@ -22,7 +22,9 @@ if operatingSystem=='Windows':
     defines='-D_DEBUG -DYIMPORT'
 
     print(f"Building {assembly}...")
-    os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly}.exe {defines} {includeFlags} {linkerFlags}')
+    ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly}.exe {defines} {includeFlags} {linkerFlags}')
+    if ERRORLEVEL:
+        sys.exit(ERRORLEVEL)
     
 elif operatingSystem=='Linux':
     # Build script for engine
@@ -48,5 +50,7 @@ elif operatingSystem=='Linux':
 
     print(f"Building {assembly}...")
     print(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly} {defines} {includeFlags} {linkerFlags}')
-    os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly} {defines} {includeFlags} {linkerFlags}')
+    ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly} {defines} {includeFlags} {linkerFlags}')
+    if ERRORLEVEL:
+        sys.exit(ERRORLEVEL)
 

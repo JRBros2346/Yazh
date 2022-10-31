@@ -9,30 +9,30 @@ try:
     os.chdir('engine')
     ERRORLEVEL=os.system('python build.py')
     if ERRORLEVEL:
-        sys.exit(f'engine Error(terminal): \33[91m{ERRORLEVEL} \33[0m')
+        sys.exit(f'\33[91mengine Error(terminal):\33[31m {ERRORLEVEL} \33[m')
     os.chdir('..')
 except:
     err_type,err_value,err_tb=sys.exc_info()
-    sys.exit(f"""engine Error(python):
-\33[92m{'''
+    sys.exit(f"""\33[91mengine Error(python):
+\33[32m{'''
 '''.join(traceback.format_tb(err_tb))}
 
-\33[93m{err_type.__name__}: \33[91m{err_value}
-\33[0m""")
+\33[31m{err_type.__name__}: \33[36m{err_value}
+\33[m""")
 
 try:
     os.chdir('testbed')
     ERRORLEVEL=os.system('python build.py')
     if ERRORLEVEL:
-        sys.exit(f'testbed Error(terminal): \033[91m{ERRORLEVEL} \033[0m')
+        sys.exit(f'\33[91mtestbed Error(terminal):\033[31m {ERRORLEVEL} \033[m')
     os.chdir('..')
 except:
     err_type,err_value,err_tb=sys.exc_info()
-    sys.exit(f"""testbed Error(python):
-\33[92m{'''
+    sys.exit(f"""\33[91mtestbed Error(python):
+\33[32m{'''
 '''.join(traceback.format_tb(err_tb))}
 
-\33[93m{err_type.__name__}: \33[91m{err_value}
-\33[0m""")
+\33[31m{err_type.__name__}: \33[36m{err_value}
+\33[m""")
 
 print("All assemblies built successfully.")
