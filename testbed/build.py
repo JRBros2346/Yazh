@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import platform,os,sys
+os.chdir(os.path.split(os.path.abspath(__file__))[0])
 operatingSystem=platform.system()
 
 if operatingSystem=='Windows':
