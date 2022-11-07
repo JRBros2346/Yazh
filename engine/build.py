@@ -16,7 +16,7 @@ if operatingSystem=='Windows':
     #print("Files:",cppFilenames)
 
     assembly='engine'
-    compilerFlags='-g -shared -Wvarargs -Wall -Werror'
+    compilerFlags='-g -shared -Wvarargs -Wall -Werror -std=c++17'
     #-Wall -Werror
     includeFlags=f"-Isrc -I{os.getenv('VULKAN_SDK')}/Include"
     linkerFlags=f"-luser32 -lvulkan-1 -L{os.getenv('VULKAN_SDK')}/Lib"
@@ -42,7 +42,7 @@ elif operatingSystem=='Linux':
     # print("Files:",cppFilenames)
 
     assembly="engine"
-    compilerFlags="-g -shared -fPIC"
+    compilerFlags="-g -shared -fPIC -std=c++17"
     # -fms-extensions
     # -Wall -Werror
     includeFlags=f"-Isrc -I{os.getenv('VULKAN_SDK')}/include"

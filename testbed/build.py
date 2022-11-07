@@ -16,7 +16,7 @@ if operatingSystem=='Windows':
     #print("Files:",cppFilenames)
 
     assembly='testbed'
-    compilerFlags='-g'
+    compilerFlags='-g -std=c++17'
     #-Wall -Werror
     includeFlags='-Isrc -I../engine/src/'
     linkerFlags='-L../bin/ -lengine'
@@ -42,7 +42,7 @@ elif operatingSystem=='Linux':
     # print("Files:",cppFilenames)
 
     assembly="testbed"
-    compilerFlags="-g -fPIC"
+    compilerFlags="-g -fPIC -std=c++17"
     # -fms-extensions
     # -Wall -Werror
     includeFlags="-Isrc -I../engine/src/"
