@@ -1,6 +1,7 @@
 #pragma once
 
 #include<cstdint>
+#include<string>
 
 // Unsigned int types.
 typedef uint8_t u8;

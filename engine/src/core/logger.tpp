@@ -3,7 +3,7 @@
 
 namespace yazh::logger {
 	template<class ...Args>
-	YAPI void log_output(log_level level, Args &&...message) {
+	void log_output(log_level level, Args &&...message) {
 		const std::string level_strings[6] = {"[FATAL]: ", "[ERROR]: ", "[WARN]: ", "[INFO]: ", "[DEBUG]: ", "[TRACE]: "};
 		// b is_error = (int)level < 2;
 
