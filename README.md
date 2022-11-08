@@ -10,7 +10,7 @@ Following [Kohi](https://github.com/travisvroman/kohi)'s and [Nara](https://gith
 - G++ compiler
 
 # Specs
-- C++20 compliant compiler: (I recommend using g++, I use [this](https://sourceforge.net/projects/mingw-w64/) because all the scripts are written for g++. But you may use other compilers by editting the build scripts)
+- C++17 compliant compiler: (I recommend using g++, I use [this](https://sourceforge.net/projects/mingw-w64/) because all the scripts are written for g++. But you may use other compilers by editting the build scripts)
 - VulkanSDK version 3.x: https://vulkan.lunarg.com/
 - Python3: https://www.python.org
 
