@@ -1,4 +1,4 @@
-#include<core/logger.h>
+#include<core/logger.hpp>
 
 int main(void) {
     YFATAL("A test message: ",3.14f);
