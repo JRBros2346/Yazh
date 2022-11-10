@@ -2,8 +2,8 @@
 #include<iostream>
 
 namespace yazh::logger {
-	template<class ...Args>
-	void log_output(log_level level, Args &&...message) {
+	template<class ...fragments>
+	void log_output(log_level level, fragments &&...message) {
 		const std::string level_strings[6] = {"[FATAL]: ", "[ERROR]: ", "[WARN]: ", "[INFO]: ", "[DEBUG]: ", "[TRACE]: "};
 		// b is_error = (int)level < 2;
 
