@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
-import platform,os,sys
-os.chdir(os.path.split(os.path.abspath(__file__))[0])
+import platform,os,sys,pathlib
+os.chdir(pathlib.Path(__file__).parent)
 operatingSystem=platform.system()
 
 if operatingSystem=='Windows':
     #Build script for engine
 
     #Get a list of all the .cpp files.
-    cppFilenames=''
-    for (root,dirs,files) in os.walk(os.getcwd()):
-        for file in files:
-            if file.endswith('.cpp'):
-                cppFilenames+=' '+os.path.relpath(os.path.join(root,file))
+    cppFilenames=' '.join([str(file) for file in pathlib.Path().glob(r'**\*.cpp')])
 
     #print("Files:",cppFilenames)
 
@@ -33,11 +29,7 @@ elif operatingSystem=='Linux':
     os.makedirs('../bin',exist_ok=True)
 
     # Get a list of all the .cpp files.
-    cppFilenames=''
-    for (root,dirs,files) in os.walk(os.getcwd()):
-        for file in files:
-            if file.endswith('.cpp'):
-                cppFilenames+=' '+os.path.relpath(os.path.join(root,file))
+    cppFilenames=' '.join([str(file) for file in pathlib.Path().glob(r'**/*.cpp')])
 
     # print("Files:",cppFilenames)
 
