@@ -15,6 +15,5 @@ namespace yazh::logger {
 	
 	void shutdown_logging() {
 		/* TODO (#1#): cleanup logging/write queued entries. */
-	
 	}
 } // namespace yazh::logger
