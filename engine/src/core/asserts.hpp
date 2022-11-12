@@ -16,33 +16,33 @@ namespace yazh::logger {
 
 		YAPI void report_assertion_failure(std::string expression, std::string message, std::string file, i32 line);
 
-	#	define YASSERT(expr)                                                	\
-			(                                                               	\
-				if (expr) {                                                 	\
-				} else {                                                    	\
-					report_assertion_failure(#expr, "", __FILE__, __LINE__);	\
-					debugBreak();                                           	\
-				}                                                           	\
-			)
+	#	define YASSERT(expr)                                                              	\
+			{                                                                             	\
+				if (expr) {                                                               	\
+				} else {                                                                  	\
+					yazh::logger::report_assertion_failure(#expr, "", __FILE__, __LINE__);	\
+					debugBreak();                                                         	\
+				}                                                                         	\
+			}
 		
-	#	define YASSERT_MSG(expr, message)                                        	\
-			(                                                                    	\
-				if (expr) {                                                      	\
-				} else {                                                         	\
-					report_assertion_failure(#expr, message, __FILE__, __LINE__);	\
-					debugBreak();                                                	\
-				}                                                                	\
-			)
+	#	define YASSERT_MSG(expr, message)                                                      	\
+			{                                                                                  	\
+				if (expr) {                                                                    	\
+				} else {                                                                       	\
+					yazh::logger::report_assertion_failure(#expr, message, __FILE__, __LINE__);	\
+					debugBreak();                                                              	\
+				}                                                                              	\
+			}
 		
 	#	ifdef _DEBUG
-	#		define YASSERT_DEBUG(expr)                                          	\
-				(                                                               	\
-					if (expr) {                                                 	\
-					} else {                                                    	\
-						report_assertion_failure(#expr, "", __FILE__, __LINE__);	\
-						debugBreak();                                           	\
-					}                                                           	\
-				)
+	#		define YASSERT_DEBUG(expr)                                                        	\
+				{                                                                             	\
+					if (expr) {                                                               	\
+					} else {                                                                  	\
+						yazh::logger::report_assertion_failure(#expr, "", __FILE__, __LINE__);	\
+						debugBreak();                                                         	\
+					}                                                                         	\
+				}
 	#	else
 	#		define YASSERT_DEBUG(expr) // Does nothing at all
 	#	endif
