@@ -5,11 +5,11 @@ os.chdir(pathlib.Path(__file__).parent)
 
 print("Building everything...")
 
-ERRORLEVEL=os.system('python {}'.format(pathlib.Path(r'.\engine\build.py')))
+ERRORLEVEL=os.system('python {}'.format(pathlib.Path('.','engine','build.py')))
 if ERRORLEVEL:
     sys.exit(ERRORLEVEL)
 
-ERRORLEVEL=os.system('python {}'.format(pathlib.Path(r'.\testbed\build.py')))
+ERRORLEVEL=os.system('python {}'.format(pathlib.Path('.','testbed','build.py')))
 if ERRORLEVEL:
     sys.exit(ERRORLEVEL)
 
