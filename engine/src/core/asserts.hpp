@@ -2,7 +2,7 @@
 
 #include"defines.hpp"
 
-namespace yazh::logger {
+namespace Yazh::Logger {
 	// Disable assertions by commenting out the below line.
 	#define YASSERTIONS_ENABLED
 
@@ -14,13 +14,13 @@ namespace yazh::logger {
 	#		define debugBreak() __builtin_trap()
 	#	endif
 
-		YAPI void report_assertion_failure(std::string expression, std::string message, std::string file, i32 line);
+		YAPI void reportAssertionFailure(std::string expression, std::string message, std::string file, i32 line);
 
 	#	define YASSERT(expr)                                                              	\
 			{                                                                             	\
 				if (expr) {                                                               	\
 				} else {                                                                  	\
-					yazh::logger::report_assertion_failure(#expr, "", __FILE__, __LINE__);	\
+					Yazh::Logger::reportAssertionFailure(#expr, "", __FILE__, __LINE__);	\
 					debugBreak();                                                         	\
 				}                                                                         	\
 			}
@@ -29,7 +29,7 @@ namespace yazh::logger {
 			{                                                                                  	\
 				if (expr) {                                                                    	\
 				} else {                                                                       	\
-					yazh::logger::report_assertion_failure(#expr, message, __FILE__, __LINE__);	\
+					Yazh::Logger::reportAssertionFailure(#expr, message, __FILE__, __LINE__);	\
 					debugBreak();                                                              	\
 				}                                                                              	\
 			}
@@ -39,7 +39,7 @@ namespace yazh::logger {
 				{                                                                             	\
 					if (expr) {                                                               	\
 					} else {                                                                  	\
-						yazh::logger::report_assertion_failure(#expr, "", __FILE__, __LINE__);	\
+						Yazh::Logger::reportAssertionFailure(#expr, "", __FILE__, __LINE__);	\
 						debugBreak();                                                         	\
 					}                                                                         	\
 				}
@@ -52,4 +52,4 @@ namespace yazh::logger {
 	#	define YASSERT_MSG(expr, message)	// Does nothing at all
 	#	define YASSERT_DEBUG(expr)       	// Does nothing at all
 	#endif
-} // namespace yazh::logger
+} // namespace Yazh::Logger
