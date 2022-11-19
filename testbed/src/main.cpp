@@ -9,5 +9,11 @@ int main(void) {
     YDEBUG("A test message: ",3.14f);
     YTRACE("A test message: ",3.14f);
     
-    YASSERT(1 == 0);
+    Yazh::Platfrom platform();
+    if (platform.startup(&state, "Yazh Engine Testbed", 100, 100, 1280, 720)) {
+    	while (true) {
+    		platform.pumpMessages(&state)
+		}
+	}
+	platform.shutdown();
 }
