@@ -5,7 +5,7 @@
 namespace Yazh::Logger {
 	// Disable assertions by commenting out the below line.
 	#define YASSERTIONS_ENABLED
-
+	
 	#ifdef YASSERTIONS_ENABLED
 	#	if _MSC_VER
 	#		include<intrin.h>
@@ -13,9 +13,9 @@ namespace Yazh::Logger {
 	#	else
 	#		define debugBreak() __builtin_trap()
 	#	endif
-
+		
 		YAPI void reportAssertionFailure(std::string expression, std::string message, std::string file, i32 line);
-
+		
 	#	define YASSERT(expr)                                                              	\
 			{                                                                             	\
 				if (expr) {                                                               	\
@@ -46,7 +46,7 @@ namespace Yazh::Logger {
 	#	else
 	#		define YASSERT_DEBUG(expr) // Does nothing at all
 	#	endif
-
+	
 	#else
 	#	define YASSERT(expr)             	// Does nothing at all
 	#	define YASSERT_MSG(expr, message)	// Does nothing at all
