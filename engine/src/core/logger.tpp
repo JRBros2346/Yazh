@@ -2,7 +2,6 @@
 
 #include"platform/platform.hpp"
 
-#include<iostream>
 #include<sstream>
 
 namespace Yazh::Logger {
