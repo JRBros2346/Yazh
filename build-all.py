@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os,sys,pathlib
-os.chdir(pathlib.Path(__file__).parent)
+from pathlib import Path
+os.chdir(Path(__file__).parent)
 #Build Everything...
 
 print("Building everything...")
