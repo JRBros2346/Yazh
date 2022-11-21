@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-import platform,os,sys,pathlib
+import platform,os,sys
+from pathlib import Path
 os.chdir(pathlib.Path(__file__).parent)
 operatingSystem=platform.system()
 
@@ -7,7 +8,7 @@ if operatingSystem=='Windows':
     #Build script for engine
 
     #Get a list of all the .cpp files.
-    cppFilenames=' '.join([str(file) for file in pathlib.Path().glob(r'**\*.cpp')])
+    cppFilenames=' '.join([str(file) for file in Path().rglob(r'*.cpp')])
 
     #print("Files:",cppFilenames)
 
@@ -26,10 +27,10 @@ if operatingSystem=='Windows':
 elif operatingSystem=='Linux':
     # Build script for engine
 
-    os.makedirs('../bin',exist_ok=True)
+    Path('../bin').mkdir(parents=True, exist_ok=True)
 
     # Get a list of all the .cpp files.
-    cppFilenames=' '.join([str(file) for file in pathlib.Path().glob(r'**/*.cpp')])
+    cppFilenames=' '.join([str(file) for file in Path().rglob(r'*.cpp')])
 
     # print("Files:",cppFilenames)
 
