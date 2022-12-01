@@ -6,6 +6,7 @@
 	
 #	include<windows.h>
 #	include<windowsx.h> // param input extraction
+#	include<iostream>
 #	include<cstdlib>
 	
 	namespace Yazh {
@@ -117,6 +118,8 @@
 			}
 		}
 		
+		Platfrom::~Platform = Platform::shutdown;
+		
 		b Platform::pumpMessages() {
 			MSG message;
 			while (PeekMessageA(&message, nullptr, 0, 0, PM_REMOVE)) {
@@ -127,55 +130,45 @@
 			return true;
 		}
 		
-		void *Platform::allocate(u64 size, b aligned) {
+		std::unique_ptr<void> Platform::allocate(u64 size, b aligned) {
 			return malloc(size);
 		}
 		
-		void Platform::free(void *block, b alligned) {
+		void Platform::free(std::unique_ptr<void> block, b alligned) {
 			free(block);
 		}
 		
-		void *Platform::zeroMemory(void *block, u64 size) {
+		std::unique_ptr<void> Platform::zeroMemory(std::unique_ptr<void> block, u64 size) {
 			return memset(block, 0, size);
 		}
 		
-		void *Platform::copyMemory(void *dest, const void *source, u64 size) {
+		std::unique_ptr<void> Platform::copyMemory(std::unique_ptr<void> dest, const std::unique_ptr<void> source, u64 size) {
 			return memcpy(dest, source, size);
 		}
 		
-		void *Platform::setMemory(void *dest, i32 value, u64 size) {
+		std::unique_ptr<void> Platform::setMemory(std::unique_ptr<void> dest, i32 value, u64 size) {
 			return memset(dest, value, size);
 		}
 		
-		static void Platform::consoleWrite(const std::string message, u8 color) {
-			HANDLE console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+		void consoleWrite(const std::string message, u8 color) {
 			// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
 			static u8 levels[6] = {64, 4, 6, 2, 1, 8};
-			SetConsoleTextAttribute(console_handle, levels[colour]);
-			OutputDebugStringA(message);
-			u64 length = strlen(message);
-			LPDWORD number_written = 0;
-			WriteConsoleA(GetStdHandle(STD_OUTPUT_HANDLE), message, (DWORD)length, number_written, 0);
+			std::clog << message << '\n';
 		}
 		
-		static void Platform::consoleWriteError(const std::string message, u8 colour) {
-			HANDLE console_handle = GetStdHandle(STD_ERROR_HANDLE);
+		void consoleWriteError(const std::string message, u8 colour) {
 			// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
 			static u8 levels[6] = {64, 4, 6, 2, 1, 8};
-			SetConsoleTextAttribute(console_handle, levels[colour]);
-			OutputDebugStringA(message);
-			u64 length = strlen(message);
-			LPDWORD number_written = 0;
-			WriteConsoleA(GetStdHandle(STD_ERROR_HANDLE), message, (DWORD)length, number_written, 0);
+			std::cerr << message << '\n';
 		}
 		
-		f64 platform_get_absolute_time() {
+		f64 Platform::getAbsoluteTime() {
 			LARGE_INTEGER now_time;
 			QueryPerformanceCounter(&now_time);
 			return (f64)now_time.QuadPart * clock_frequency;
 		}
 		
-		void platform_sleep(u64 ms) {
+		void Platfrom::sleep(u64 ms) {
 			Sleep(ms);
 		}
 		
