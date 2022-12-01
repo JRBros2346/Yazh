@@ -5,33 +5,7 @@ ESC='\33' # Escape
 # Fe
 CSI=ESC+'[' # Control Sequence Introducer
 
-# ANSI Control Sequences
-def CUU(n=None):
-    # Cursor Up
-    return f'{CSI}{n}A'
-def CUD(n=None):
-    # Cursor Down
-    return f'{CSI}{n}B'
-def CUF(n=None):
-    # Cursor Forward
-    return f'{CSI}{n}C'
-def CUB(n=None):
-    # Cursor Backward
-    return f'{CSI}{n}D'
-def CUP(n=None,m=None):
-    # Cursor Position
-    return f'{CSI}{n};{m}H'
-def EL(n=None):
-    # Erase in Line
-    # -------------
-    # 0: Cursor to End of Line
-    # 1: Cursor to Beginning of Line
-    # 2: Entire Line
-    return f'{CSI}{n}K'
-def HVP(n=None,m=None):
-    # Horizontal Vertical Position
-    return f'{CSI}{n};{m}f'
-def SGR(n=None):
+def SGR(n=''):
     return f'{CSI}{n}m'
 
 # Some SGR's 
@@ -45,7 +19,7 @@ RAPID_BLINK = SGR(6)
 REVERSE_VIDEO = INVERT = SGR(7)
 CONCEAL = HIDE = SGR(8)
 CROSSED_OUT = STRIKE = SGR(10)
-ALTERNATIVE_FONT=[SGR(n) for n in range(11,20)]
+FONT=[SGR(n) for n in range(11,20)]
 FRAKTUR = GOTHIC = SGR(20)
 NOT_BOLD = SGR(21)
 NORMAL_INTENSITY = SGR(22)
@@ -56,7 +30,7 @@ PROPORTIONAL_SPACING = SGR(26)
 NOT_REVERSED = SGR(27)
 REVEAL = SGR(28)
 NOT_CROSSED_OUT = SGR(29)
-FOREGROUND_3={
+FG3={
     # Foreground 3-bit
     "BLACK": SGR(30),
     "RED": SGR(31),
@@ -67,14 +41,14 @@ FOREGROUND_3={
     "CYAN": SGR(36),
     "WHITE": SGR(37)
 }
-def FOREGROUND_8(n=None):
+def FG8(n=''):
     # Foreground 8-bit
     return SGR("38;5;{n}")
-def FOREGROUND_24(n=None):
+def FG24(n=''):
     # Foreground 24-bit
     return SGR("38;2;{r};{g};{b}")
 DEFAULT_FOREGROUND = SGR(39)
-BACKGROUND_3={
+BG3={
     # Background 3-bit
     "BLACK": SGR(40),
     "RED": SGR(41),
@@ -85,15 +59,15 @@ BACKGROUND_3={
     "CYAN": SGR(46),
     "WHITE": SGR(47)
 }
-def BACKGROUND_8(n=None):
+def BG8(n=''):
     # Background 8-bit
     return SGR("48;5;{n}")
-def FOREGROUND_24(n=None):
+def BG24(n=None):
     # Background 24-bit
     return SGR("48;2;{r};{g};{b}")
 DEFAULT_BACKGROUND = SGR(49)
 DISABLE_PROPORTIONAL_SPACING = SGR(50)
-FOREGROUND_4={
+FG4={
     # Foreground 4-bit (Bright)
     "BLACK": SGR(90),
     "RED": SGR(91),
@@ -104,7 +78,7 @@ FOREGROUND_4={
     "CYAN": SGR(96),
     "WHITE": SGR(97)
 }
-BACKGROUND_4={
+BG4={
     # Background 4-bit (Bright)
     "BLACK": SGR(100),
     "RED": SGR(101),
@@ -115,3 +89,42 @@ BACKGROUND_4={
     "CYAN": SGR(106),
     "WHITE": SGR(107)
 }
+
+if __name__=='__main__':
+    print(BEL, 'bell')
+    print(BOLD, 'bold',
+          ITALIC, 'italic',
+          FAINT, 'faint',
+          UNDERLINE, 'line below',
+          SLOW_BLINK, 'blink slow',
+          RAPID_BLINK, 'blink fast',
+          INVERT, 'INVERTED',
+          CONCEAL, 'hide', RESET+'<-hidden',
+          STRIKE, 'line through', RESET)
+    for font in FONT:
+        print(font,f'font{FONT.index(font)}')
+    print(FRAKTUR, 'fraktur',
+          BOLD, 'bold', NOT_BOLD, 'notbold',
+          BOLD, 'bold', FAINT, 'faint', NORMAL_INTENSITY, 'not bold or faint',
+          ITALIC, 'italic', 'notitalic',
+          UNDERLINE, 'line below', NOT_UNDERLINED, 'noline below',
+          SLOW_BLINK, 'blink slow', RAPID_BLINK, 'blink fast', NOT_BLINKING, 'blink not',
+          PROPORTIONAL_SPACING, 'spaced...', RESET,
+          INVERT, 'reversed', NOT_REVERSED, 'no reverse',
+          CONCEAL, 'hidden', REVEAL, 'nohidden',
+          STRIKE, 'striken', NOT_CROSSED_OUT, 'no strike')
+    for color in FOREGROUND_3:
+        print(FOREGROUND_3[color], color)
+    print(DEFAULT_FOREGROUND, 'default')
+    for color in BACKGROUND_3:
+        print(BACKGROUND_3[color], color)
+    print(DEFAULT_BACKGROUND, 'default')
+    print(PROPORTIONAL_SPACING, 'spaced...', DISABLE_PROPORTIONAL_SPACING, 'Not Spaced!')
+    for color in FOREGROUND_4:
+        print(FOREGROUND_4[color], color)
+    print(DEFAULT_FOREGROUND, 'default')
+    for color in BACKGROUND_4:
+        print(BACKGROUND_4[color], color)
+    print(DEFAULT_BACKGROUND, 'default')
+    input()
+    print(RESET)
