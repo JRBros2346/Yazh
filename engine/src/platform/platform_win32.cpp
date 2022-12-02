@@ -130,23 +130,23 @@
 			return true;
 		}
 		
-		std::unique_ptr<void> Platform::allocate(u64 size, b aligned) {
+		void *Platform::allocate(u64 size, b aligned) {
 			return malloc(size);
 		}
 		
-		void Platform::free(std::unique_ptr<void> block, b alligned) {
+		void Platform::free(void *block, b alligned) {
 			free(block);
 		}
 		
-		std::unique_ptr<void> Platform::zeroMemory(std::unique_ptr<void> block, u64 size) {
+		void *Platform::zeroMemory(void *block, u64 size) {
 			return memset(block, 0, size);
 		}
 		
-		std::unique_ptr<void> Platform::copyMemory(std::unique_ptr<void> dest, const std::unique_ptr<void> source, u64 size) {
+		void *Platform::copyMemory(void *dest, const void *source, u64 size) {
 			return memcpy(dest, source, size);
 		}
 		
-		std::unique_ptr<void> Platform::setMemory(std::unique_ptr<void> dest, i32 value, u64 size) {
+		void *Platform::setMemory(void *dest, i32 value, u64 size) {
 			return memset(dest, value, size);
 		}
 		

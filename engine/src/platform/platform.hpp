@@ -21,11 +21,11 @@ namespace Yazh {
 			
 			b pumpMessages();
 			
-			std::unique_ptr<void> allocate(u64 size, b aligned);
-			void free(std::unique_ptr<void> block, b aligned);
-			std::unique_ptr<void> zeroMemory(std::unique_ptr<void> block, u64 size);
-			std::unique_ptr<void> copyMemory(std::unique_ptr<void> dest, const std::unique_ptr<void> source, u64 size);
-			std::unique_ptr<void> setMemory(std::unique_ptr<void> dest, i32 value, u64 size);
+			void *allocate(u64 size, b aligned);
+			void free(void *block, b aligned);
+			void *zeroMemory(void *block, u64 size);
+			void *copyMemory(void *dest, const void *source, u64 size);
+			void *setMemory(void *dest, i32 value, u64 size);
 			
 			f64 getAbsoluteTime();
 			
