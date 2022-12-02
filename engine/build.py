@@ -23,7 +23,7 @@ if operatingSystem=='Windows':
     ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly}.dll {defines} {includeFlags} {linkerFlags}')
     if ERRORLEVEL:
         sys.exit(ERRORLEVEL)
-    
+
 elif operatingSystem=='Linux':
     # Build script for engine
 
