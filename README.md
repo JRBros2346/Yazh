@@ -15,6 +15,5 @@ Following [Kohi](https://github.com/travisvroman/kohi)'s and [Nara](https://gith
 - Python3: https://www.python.org
 
 # Compiling
-- Run `build.py` from the root folder of repo
-- do `cd bin`
-- Run `testbed`
+- Build via `python Yazh`
+- Run `testbed` in `bin` folder
