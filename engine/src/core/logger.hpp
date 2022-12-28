@@ -3,15 +3,15 @@
 #include"defines.hpp"
 
 namespace Yazh::Logger {
-	#define LOG_WARN_ENABLED true
-	#define LOG_INFO_ENABLED true
-	#define LOG_DEBUG_ENABLED true
-	#define LOG_TRACE_ENABLED true
+#define LOG_WARN_ENABLED true
+#define LOG_INFO_ENABLED true
+#define LOG_DEBUG_ENABLED true
+#define LOG_TRACE_ENABLED true
 	
-	#if YRELEASE == 1
-	#	define LOG_DEBUG_ENABLED false
-	#	define LOG_TRACE_ENABLED false
-	#endif
+#if YRELEASE == 1
+#	define LOG_DEBUG_ENABLED false
+#	define LOG_TRACE_ENABLED false
+#endif
 	
 	enum class log_level {
 		FATAL, ERROR, WARN, INFO, DEBUG, TRACE

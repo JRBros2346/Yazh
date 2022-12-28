@@ -1,7 +1,6 @@
 #pragma once
 
-#include"platform/platform.hpp"
-
+#include<iostream>
 #include<sstream>
 
 namespace Yazh::Logger {
@@ -17,9 +16,11 @@ namespace Yazh::Logger {
 		
 		// platform specific output.
 		if (is_error) {
-			consoleWriteError(outmessage, (u8)level);
+			// consoleWriteError(outmessage, (u8)level);
+			std::cerr << outmessage;
 		} else {
-			consoleWrite(outmessage, (u8)level);
+			// consoleWrite(outmessage, (u8)level);
+			std::clog << outmessage;
 		}
 	}
 } // namespace Yazh::Logger

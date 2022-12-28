@@ -4,12 +4,8 @@
 #include"defines.hpp"
 
 namespace Yazh {
-	class Platform {
-		struct state;
-		std::unique_ptr<state> pimpl;
+	class PlatformBase {
 		public:
-			Platform();
-			~Platform();
 			b startup(
 				const std::string application_name,
 				i32 x,
@@ -17,7 +13,7 @@ namespace Yazh {
 				i32 width,
 				i32 height);
 			
-			shutdown();
+			void shutdown();
 			
 			b pumpMessages();
 			
@@ -27,15 +23,19 @@ namespace Yazh {
 			void *copyMemory(void *dest, const void *source, u64 size);
 			void *setMemory(void *dest, i32 value, u64 size);
 			
+			static void consoleWrite(const std::string message, u8 color);
+			static void consoleWriteError(const std::string message, u8 color);
+			
 			f64 getAbsoluteTime();
 			
 			// Sleep on the thread for the provided ms. This blocks the main thread.
 			// Should only be used for giving time back to the OS for unused update power.
 			// Therefore it is not exported.
 			void sleep(u64 ms);
+			
+			PlatformBase();
+			~PlatformBase();
 	};
 	
-	void consoleWrite(const std::string message, u8 color);
-	void consoleWriteError(const std::string message, u8 color);
 	
 } // namespace Yazh

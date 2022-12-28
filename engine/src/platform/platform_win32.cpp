@@ -1,6 +1,6 @@
 #include"platform/platform.hpp"
 
-#if KPLATFORM_WINDOWS
+#if YPLATFORM_WINDOWS
 	
 #	include"core/logger.hpp"
 	
@@ -10,16 +10,15 @@
 #	include<cstdlib>
 	
 	namespace Yazh {
-		class Platform::state {
+		class Platform : public PlatformBase {
 			HINSTANCE h_instance;
 			HWND hwnd;
-		};
-		
-		Platform::Platform() = default;
-		
-		// Clock
-		static Platform::f64 sclock_frequency;
-		static Platform::LARG_INTEGER sstart_time;
+			
+			public:
+				// Clock
+				static f64 clock_frequency;
+				static LARGE_INTEGER start_time;
+		}
 		
 		LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param);
 		
@@ -28,19 +27,19 @@
 			i32 x,
 			i32 y,
 			i32 width,
-			i32 height) : pimpl(new state(move(state))) {
+			i32 height) {
 			
-			state->h_instance = GetModuleHandleA(0);
+			h_instance = GetModuleHandleA(0);
 			
 			// Setup and register window class.
-			HICON icon = loadIcon(state->h_instance, IDI_APPLICATION);
+			HICON icon = loadIcon(h_instance, IDI_APPLICATION);
 			WNDCLASSA wc;
 			memset(&wc, 0, sizeof(wc));
 			wc.style = CS_DBLCLKS; // Get double-clicks
 			wc.lpfnWndProc = win32_process_message;
 			wc.cbClsExtra = 0;
 			wc.cbWndExtra = 0;
-			wc.hInstance = state->h_instance;
+			wc.hInstance = h_instance;
 			wc.hIcon = icon;
 			wc.hCursor = LoadCursor(nullptr, IDC_ARROW);  // nullptr; // Manage the cursor manually
 			wc.hbrBackground = nullptr;                   // Transparent
@@ -48,7 +47,7 @@
 			
 			if (!RegisterClassA(&wc)) {
 				MessageBoxA(0, "Window registration failed", "Error", MB_ICONEXCLAMATION | MB_OK);
-				return false
+				return false;
 			}
 			
 			// Create window
@@ -84,15 +83,15 @@
 			HWND handle = CreateWindowExA(
 				window_ex_style, "yazh_window_class", application_name,
 				window_style, window_x, window_y, window_width, window_height,
-				0, 0, state->h_instance, 0);
+				0, 0, h_instance, 0);
 			
 			if (handle == nullptr) {
 				MessageBoxA(NULL, "Window creation failed!", "Error!", MB_ICONEXCLAMATION | MB_OK);
 				
-				KFATAL("Window creation failed!");
+				YFATAL("Window creation failed!");
 				return false;
 			} else {
-				state->hwnd = handle;
+				hwnd = handle;
 			}
 			
 			// Show the window
@@ -100,25 +99,23 @@
 			i32 show_window_command_flags = should_activate ? SW_SHOW : SW_SHOWNOACTIVATE;
 			// If initially minimized, use SW_MINIMIZE : SW_SHOWMINNOACTIVE;
 			// If initially maximized, use SW_SHOWMAXIMIZED : SW_MAXIMIZE
-			ShowWindow(state->hwnd, show_window_command_flags);
+			ShowWindow(hwnd, show_window_command_flags);
 			
 			// Clock setup
 			LARGE_INTEGER frequency;
 			QueryPerformanceFrequency(&frequency);
-			sclock_frequency = 1.0 / (f64)frequency.QuadPart;
-			QueryPerformanceCounter(&sstart_time);
+			clock_frequency = 1.0 / (f64)frequency.QuadPart;
+			QueryPerformanceCounter(&start_time);
 			
-			return true
+			return true;
 		}
 		
 		void Platform::shutdown() {
-			if (state->hwnd) {
-				DestroyWindow(state->hwnd);
-				state->hwnd = nullptr;
+			if (hwnd) {
+				DestroyWindow(hwnd);
+				hwnd = nullptr;
 			}
 		}
-		
-		Platfrom::~Platform = Platform::shutdown;
 		
 		b Platform::pumpMessages() {
 			MSG message;
@@ -135,7 +132,7 @@
 		}
 		
 		void Platform::free(void *block, b alligned) {
-			free(block);
+			::free(block);
 		}
 		
 		void *Platform::zeroMemory(void *block, u64 size) {
@@ -150,26 +147,32 @@
 			return memset(dest, value, size);
 		}
 		
-		void consoleWrite(const std::string message, u8 color) {
+		void Platform::consoleWrite(const std::string message, u8 color) {
 			// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
-			static u8 levels[6] = {64, 4, 6, 2, 1, 8};
+			// static u8 levels[6] = {64, 4, 6, 2, 1, 8};
 			std::clog << message << '\n';
 		}
 		
-		void consoleWriteError(const std::string message, u8 colour) {
+		void Platform::consoleWriteError(const std::string message, u8 colour) {
 			// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
-			static u8 levels[6] = {64, 4, 6, 2, 1, 8};
+			// static u8 levels[6] = {64, 4, 6, 2, 1, 8};
 			std::cerr << message << '\n';
 		}
 		
 		f64 Platform::getAbsoluteTime() {
 			LARGE_INTEGER now_time;
 			QueryPerformanceCounter(&now_time);
-			return (f64)now_time.QuadPart * clock_frequency;
+			return (f64)now_time.QuadPart * PlatformBase::clock_frequency;
 		}
 		
-		void Platfrom::sleep(u64 ms) {
+		void Platform::sleep(u64 ms) {
 			Sleep(ms);
+		}
+		
+		Platform::Platform = default;
+		
+		Platform::~Platform() {
+			Platform::shutdown();
 		}
 		
 		LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param) {
