@@ -162,6 +162,9 @@ namespace Yazh {
 			~Platform() { shutdown(); }
 	};
 	
+	f64 Platform::clock_frequency;
+	LARGE_INTEGER Platform::start_time;
+	
 	void Platform::consoleWrite(const std::string message, u8 color) {
 		// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
 		// static u8 levels[6] = {64, 4, 6, 2, 1, 8};
