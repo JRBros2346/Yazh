@@ -3,6 +3,8 @@
 #include<iostream>
 #include<sstream>
 
+// #include"platform/platform.hpp"
+
 namespace Yazh::Logger {
 	template<class ...fragments>
 	void logOutput(log_level level, fragments &&...message) {
@@ -16,10 +18,10 @@ namespace Yazh::Logger {
 		
 		// platform specific output.
 		if (is_error) {
-			// consoleWriteError(outmessage, (u8)level);
+			// consoleWriteError(outmessage, level);
 			std::cerr << outmessage;
 		} else {
-			// consoleWrite(outmessage, (u8)level);
+			// consoleWrite(outmessage, level);
 			std::clog << outmessage;
 		}
 	}

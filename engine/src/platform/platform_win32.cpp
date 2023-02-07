@@ -7,7 +7,6 @@
 #	include<windows.h>
 #	include<windowsx.h> // param input extraction
 #	include<iostream>
-#	include<cstdlib>
 
 namespace Yazh {
 	LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param);
@@ -155,29 +154,27 @@ namespace Yazh {
 				Sleep(ms);
 			}
 			
-			static void consoleWrite(const std::string message, u8 color);
-			static void consoleWriteError(const std::string message, u8 color);
-			
 			Platform();
-			~Platform() { shutdown(); }
+			~Platform();
 	};
 	
 	f64 Platform::clock_frequency;
 	LARGE_INTEGER Platform::start_time;
 	
-	void Platform::consoleWrite(const std::string message, u8 color) {
-		// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
-		// static u8 levels[6] = {64, 4, 6, 2, 1, 8};
-		std::clog << message << '\n';
-	}
+//	void consoleWrite(const std::string message, Logger::log_level color) {
+//		// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
+//		// static u8 levels[6] = {64, 4, 6, 2, 1, 8};
+//		std::clog << message << '\n';
+//	}
 			
-	void Platform::consoleWriteError(const std::string message, u8 colour) {
-		// FATAL,ERROR,WARN,INFO,DEBUG,TRACE                                 
-		// static u8 levels[6] = {64, 4, 6, 2, 1, 8};
-		std::cerr << message << '\n';
-	}
+//	void consoleWriteError(const std::string message, Logger::log_level color) {
+//		// FATAL,ERROR,WARN,INFO,DEBUG,TRACE                                 
+//		// static u8 levels[6] = {64, 4, 6, 2, 1, 8};
+//		std::cerr << message << '\n';
+//	}
 	
 	Platform::Platform() = default;
+	Platform::~Platform() { shutdown(); }
 	
 	LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param) {
 		switch (msg) {

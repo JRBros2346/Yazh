@@ -29,10 +29,8 @@ namespace Yazh {
 			// Should only be used for giving time back to the OS for unused update power.
 			// Therefore it is not exported.
 			virtual void sleep(u64 ms);
-			
-			virtual ~_Platform();
 	};
-	_Platform::~_Platform() = default;
 	
-	
+	// void consoleWrite(const std::string message, Logger::log_level color);
+	// void consoleWriteError(const std::string message, Logger::log_level color);
 } // namespace Yazh
