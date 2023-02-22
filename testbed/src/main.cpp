@@ -1,5 +1,6 @@
 #include<core/logger.hpp>
 #include<core/asserts.hpp>
+#include<platform/platform_win32.cpp>
 
 int main(void) {
     YFATAL("A test message: ",3.14f);
@@ -9,7 +10,7 @@ int main(void) {
     YDEBUG("A test message: ",3.14f);
     YTRACE("A test message: ",3.14f);
     
-    Yazh::Platfrom platform();
+    Yazh::Platform platform();
     if (platform.startup(&state, "Yazh Engine Testbed", 100, 100, 1280, 720)) {
     	while (true) {
     		platform.pumpMessages(&state)

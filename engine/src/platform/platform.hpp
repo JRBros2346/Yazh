@@ -11,26 +11,28 @@ namespace Yazh {
 				i32 x,
 				i32 y,
 				i32 width,
-				i32 height);
+				i32 height) { return true; };
 			
-			virtual void shutdown();
+			virtual void shutdown() {};
 			
-			virtual b pumpMessages();
+			virtual b pumpMessages() { return false; };
 			
-			virtual void *allocate(u64 size, b aligned);
-			virtual void free(void *block, b aligned);
-			virtual void *zeroMemory(void *block, u64 size);
-			virtual void *copyMemory(void *dest, const void *source, u64 size);
-			virtual void *setMemory(void *dest, i32 value, u64 size);
+			virtual void *allocate(u64 size, b aligned) { return malloc(0); };
+			virtual void free(void *block, b aligned) {};
+			virtual void *zeroMemory(void *block, u64 size) { return block; };
+			virtual void *copyMemory(void *dest, const void *source, u64 size) { return dest; };
+			virtual void *setMemory(void *dest, i32 value, u64 size) { return dest; };
 			
-			virtual f64 getAbsoluteTime();
+			virtual f64 getAbsoluteTime() { return 0.0f; };
 			
 			// Sleep on the thread for the provided ms. This blocks the main thread.
 			// Should only be used for giving time back to the OS for unused update power.
 			// Therefore it is not exported.
-			virtual void sleep(u64 ms);
+			virtual void sleep(u64 ms) {};
 	};
 	
 	// void consoleWrite(const std::string message, Logger::log_level color);
 	// void consoleWriteError(const std::string message, Logger::log_level color);
 } // namespace Yazh
+
+// #include<platform/platform_win32.cpp>
