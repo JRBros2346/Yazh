@@ -11,9 +11,9 @@ int main(void) {
     YTRACE("A test message: ",3.14f);
     
     Yazh::Platform platform();
-    if (platform.startup(&state, "Yazh Engine Testbed", 100, 100, 1280, 720)) {
+    if (platform.startup("Yazh Engine Testbed", 100, 100, 1280, 720)) {
     	while (true) {
-    		platform.pumpMessages(&state)
+    		platform.pumpMessages()
 		}
 	}
 	platform.shutdown();
