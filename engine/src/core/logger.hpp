@@ -29,7 +29,7 @@ namespace Yazh::Logger {
 
 #ifndef YERROR
 // Logs an error-level message.
-#	define YERROR(...) Yazh::Logger::logOutput(Yazh::Logger::log_level::ERROR, ##__VA_ARGS__);
+#	define YERROR(message...) Yazh::Logger::logOutput(Yazh::Logger::log_level::ERROR, ##message);
 #endif
 
 #if LOG_WARN_ENABLED
