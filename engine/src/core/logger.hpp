@@ -14,7 +14,12 @@ namespace Yazh::Logger {
 #endif
 	
 	enum class log_level {
-		FATAL, ERROR, WARN, INFO, DEBUG, TRACE
+		FATAL, 
+		ERROR, 
+		WARN, 
+		INFO, 
+		DEBUG, 
+		TRACE
 	};
 	
 	b initializeLogging();
