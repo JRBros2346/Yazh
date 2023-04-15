@@ -9,7 +9,7 @@ namespace Yazh::Logger {
 	template<class ...fragments>
 	void logOutput(log_level level, fragments &&...message) {
 		const std::string level_strings[6] = {"[ FATAL ]: ", "[ ERROR ]: ", "[ WARN  ]: ", "[ INFO  ]: ", "[ DEBUG ]: ", "[ TRACE ]: "};
-		auto is_error = (u8)level < (u8)log_level::WARN;
+		auto is_error = (u8)level < (u8)log_level::WRN;
 		
 		std::stringstream buffer;
 		std::string outmessage;

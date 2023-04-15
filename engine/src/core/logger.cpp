@@ -5,7 +5,7 @@
 
 namespace Yazh::Logger {
 	void reportAssertionFailure(std::string expression, std::string message, std::string file, i32 line) {
-		logOutput(log_level::FATAL, "Assertion failure: ", expression, ", message: '", message, "', in file: ", file, ", line: ", line, '\n');
+		logOutput(log_level::FTL, "Assertion failure: ", expression, ", message: '", message, "', in file: ", file, ", line: ", line, '\n');
 	}
 	
 	b initializeLogging() {
