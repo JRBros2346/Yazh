@@ -31,8 +31,10 @@ namespace Yazh {
 			virtual void sleep(u64 ms) {};
 	};
 	
-	// void consoleWrite(const std::string message, Logger::log_level color);
-	// void consoleWriteError(const std::string message, Logger::log_level color);
+	template<class ...fragments>
+	YAPI void consoleWrite(Logger::log_level level, const fragments &&...message);
+	template<class ...fragments>
+	YAPI void consoleWriteError(Logger::log_level level, const fragments &&...message);
 } // namespace Yazh
 
-// #include<platform/platform_win32.cpp>
+#include<platform/platform_win32.tpp>

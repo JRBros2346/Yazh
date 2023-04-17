@@ -161,18 +161,6 @@ namespace Yazh {
 	f64 Platform::clock_frequency;
 	LARGE_INTEGER Platform::start_time;
 	
-//	void consoleWrite(const std::string message, Logger::log_level color) {
-//		// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
-//		// static u8 levels[6] = {64, 4, 6, 2, 1, 8};
-//		std::clog << message << '\n';
-//	}
-			
-//	void consoleWriteError(const std::string message, Logger::log_level color) {
-//		// FATAL,ERROR,WARN,INFO,DEBUG,TRACE                                 
-//		// static u8 levels[6] = {64, 4, 6, 2, 1, 8};
-//		std::cerr << message << '\n';
-//	}
-	
 	Platform::Platform() = default;
 	Platform::~Platform() { shutdown(); }
 	
