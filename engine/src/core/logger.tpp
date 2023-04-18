@@ -7,7 +7,7 @@
 namespace Yazh::Logger {
 	template<class ...fragments>
 	void logOutput(log_level level, fragments ...message) {
-		auto is_error = (u8)level < (u8)log_level::WRN;
+		auto is_error = level < log_level::WRN;
 		
 		// platform specific output.
 		if (is_error)

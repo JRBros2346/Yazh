@@ -22,6 +22,48 @@ namespace Yazh::Logger {
 		TRC
 	};
 	
+//	b operator<(const log_level &x, const log_level &y) {
+//		if ( (u8)x < (u8)y )
+//			return true;
+//		else
+//			return false;
+//	}
+//	
+//	b operator>(const log_level &x, const log_level &y) {
+//		if ( (u8)x > (u8)y )
+//			return true;
+//		else
+//			return false;
+//	}
+//	
+//	b operator<=(const log_level &x, const log_level &y) {
+//		if ( (u8)x <= (u8)y )
+//			return true;
+//		else
+//			return false;
+//	}
+//	
+//	b operator>=(const log_level &x, const log_level &y) {
+//		if ( (u8)x >= (u8)y )
+//			return true;
+//		else
+//			return false;
+//	}
+//	
+//	b operator==(const log_level &x, const log_level &y) {
+//		if ( (u8)x == (u8)y )
+//			return true;
+//		else
+//			return false;
+//	}
+//	
+//	b operator!=(const log_level &x, const log_level &y) {
+//		if ( (u8)x != (u8)y )
+//			return true;
+//		else
+//			return false;
+//	}
+	
 	b initializeLogging();
 	void shutdownLogging();
 	
