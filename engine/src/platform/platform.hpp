@@ -2,6 +2,7 @@
 #include<memory>
 
 #include"defines.hpp"
+#include"core/logger.hpp"
 
 namespace Yazh {
 	class _Platform {

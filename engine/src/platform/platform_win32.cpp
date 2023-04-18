@@ -2,8 +2,6 @@
 
 #if YPLATFORM_WINDOWS
 	
-#	include"core/logger.hpp"
-	
 #	include<windows.h>
 #	include<windowsx.h> // param input extraction
 #	include<iostream>

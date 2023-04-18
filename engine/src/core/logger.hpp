@@ -22,53 +22,11 @@ namespace Yazh::Logger {
 		TRC
 	};
 	
-//	b operator<(const log_level &x, const log_level &y) {
-//		if ( (u8)x < (u8)y )
-//			return true;
-//		else
-//			return false;
-//	}
-//	
-//	b operator>(const log_level &x, const log_level &y) {
-//		if ( (u8)x > (u8)y )
-//			return true;
-//		else
-//			return false;
-//	}
-//	
-//	b operator<=(const log_level &x, const log_level &y) {
-//		if ( (u8)x <= (u8)y )
-//			return true;
-//		else
-//			return false;
-//	}
-//	
-//	b operator>=(const log_level &x, const log_level &y) {
-//		if ( (u8)x >= (u8)y )
-//			return true;
-//		else
-//			return false;
-//	}
-//	
-//	b operator==(const log_level &x, const log_level &y) {
-//		if ( (u8)x == (u8)y )
-//			return true;
-//		else
-//			return false;
-//	}
-//	
-//	b operator!=(const log_level &x, const log_level &y) {
-//		if ( (u8)x != (u8)y )
-//			return true;
-//		else
-//			return false;
-//	}
-	
 	b initializeLogging();
 	void shutdownLogging();
 	
 	template<class ...fragments>
-	YAPI void logOutput(log_level level, fragments ...message);
+	YAPI void logOutput(log_level level, fragments &&...message);
 } // namespace Yazh::Logger
 
 // Logs a fatal-level message.
