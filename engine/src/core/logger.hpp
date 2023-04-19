@@ -30,6 +30,7 @@ namespace Yazh::Logger {
 			case log_level::INF:	os << "INFO "; return os;
 			case log_level::DBG:	os << "DEBUG"; return os;
 			case log_level::TRC:	os << "TRACE"; return os;
+			default:			return os;
 		};
 	};
 	
