@@ -1,6 +1,7 @@
 #pragma once
 
 #include"defines.hpp"
+#include<map>
 
 namespace Yazh::Logger {
 #define LOG_WARN_ENABLED true
