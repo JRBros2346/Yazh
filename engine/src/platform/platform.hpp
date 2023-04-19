@@ -8,7 +8,7 @@ namespace Yazh {
 	class _Platform {
 		public:
 			virtual b startup(
-				const char *application_name,
+				const char* application_name,
 				i32 x,
 				i32 y,
 				i32 width,
@@ -18,11 +18,11 @@ namespace Yazh {
 			
 			virtual b pumpMessages() { return false; };
 			
-			virtual void *allocate(u64 size, b aligned) { return malloc(0); };
-			virtual void free(void *block, b aligned) {};
-			virtual void *zeroMemory(void *block, u64 size) { return block; };
-			virtual void *copyMemory(void *dest, const void *source, u64 size) { return dest; };
-			virtual void *setMemory(void *dest, i32 value, u64 size) { return dest; };
+			virtual void* allocate(u64 size, b aligned) { return malloc(0); };
+			virtual void free(void* block, b aligned) {};
+			virtual void* zeroMemory(void* block, u64 size) { return block; };
+			virtual void* copyMemory(void* dest, const void* source, u64 size) { return dest; };
+			virtual void* setMemory(void* dest, i32 value, u64 size) { return dest; };
 			
 			virtual f64 getAbsoluteTime() { return 0.0f; };
 			
@@ -33,9 +33,9 @@ namespace Yazh {
 	};
 	
 	template<class ...fragments>
-	YAPI void consoleWrite(Logger::log_level level, const fragments &&...message);
+	YAPI void consoleWrite(Logger::log_level level, const fragments&& ...message);
 	template<class ...fragments>
-	YAPI void consoleWriteError(Logger::log_level level, const fragments &&...message);
+	YAPI void consoleWriteError(Logger::log_level level, const fragments&& ...message);
 } // namespace Yazh
 
 #include<platform/platform_win32.tpp>

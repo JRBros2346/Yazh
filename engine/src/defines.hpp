@@ -2,6 +2,7 @@
 
 #include<cstdint>
 #include<string>
+#include<iostream>
 
 // Unsigned int types.
 typedef uint8_t u8;
