@@ -33,9 +33,9 @@ namespace Yazh {
 	};
 	
 	template<class ...fragments>
-	YAPI void consoleWrite(Logger::log_level level, const fragments&& ...message);
+	YAPI void consoleWrite(Logger::log_level level, fragments&& ...message);
 	template<class ...fragments>
-	YAPI void consoleWriteError(Logger::log_level level, const fragments&& ...message);
+	YAPI void consoleWriteError(Logger::log_level level, fragments&& ...message);
 } // namespace Yazh
 
 #include<platform/platform_win32.tpp>
