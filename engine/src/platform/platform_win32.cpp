@@ -219,5 +219,5 @@ namespace Yazh {
 		return DefWindowProcA(hwnd, msg, w_param, l_param);
 	}
 }
-	
+
 #endif // KPLATFORM_WINDOWS

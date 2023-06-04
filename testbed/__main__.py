@@ -20,6 +20,7 @@ if operatingSystem=='Windows':
     defines='-D_DEBUG -DYIMPORT'
 
     print(f"Building {assembly}...")
+    print(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly}.exe {defines} {includeFlags} {linkerFlags}')
     ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly}.exe {defines} {includeFlags} {linkerFlags}')
     if ERRORLEVEL:
         sys.exit(ERRORLEVEL)
