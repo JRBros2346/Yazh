@@ -20,7 +20,6 @@ if operatingSystem=='Windows':
     defines='-D_DEBUG -DYEXPORT -D_CRT_SECURE_NO_WARNINGS'
 
     print(f"Building {assembly}...")
-    print(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly}.dll {defines} {includeFlags} {linkerFlags}')
     ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly}.dll {defines} {includeFlags} {linkerFlags}')
     if ERRORLEVEL:
         sys.exit(ERRORLEVEL)
@@ -44,7 +43,6 @@ elif operatingSystem=='Linux':
     defines="-D_DEBUG -DYEXPORT"
 
     print(f"Building {assembly}...")
-    print(f'g++ {cppFilenames} {compilerFlags} -o ../bin/lib{assembly}.so {defines} {includeFlags} {linkerFlags}')
     ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/lib{assembly}.so {defines} {includeFlags} {linkerFlags}')
     if ERRORLEVEL:
         sys.exit(ERRORLEVEL)

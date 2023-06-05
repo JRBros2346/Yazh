@@ -1,7 +1,8 @@
-#include"platform/platform.hpp"
+#include"platform.hpp"
 
 #if YPLATFORM_WINDOWS
-	
+#	include"platform_win32.tpp"
+
 #	include<windows.h>
 #	include<windowsx.h> // param input extraction
 #	include<iostream>

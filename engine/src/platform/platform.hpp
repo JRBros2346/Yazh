@@ -31,11 +31,9 @@ namespace Yazh {
 			// Therefore it is not exported.
 			virtual void sleep(u64 ms) {};
 	};
-	
+
 	template<class ...fragments>
 	YAPI void consoleWrite(Logger::log_level level, fragments&& ...message);
 	template<class ...fragments>
 	YAPI void consoleWriteError(Logger::log_level level, fragments&& ...message);
 } // namespace Yazh
-
-#include<platform/platform_win32.tpp>
