@@ -1,9 +1,11 @@
 #include"platform.hpp"
 
 #if YPLATFORM_WINDOWS
+#	include"platform_win32.tpp"
 
 #	include<windows.h>
 #	include<windowsx.h> // param input extraction
+#	include<iostream>
 
 namespace Yazh {
 	LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param);

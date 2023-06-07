@@ -1,7 +1,6 @@
 #pragma once
 #include<memory>
 #include<map>
-#include<iostream>
 
 #include"defines.hpp"
 #include"core/logger.hpp"
@@ -39,7 +38,3 @@ namespace Yazh {
 	template<class ...fragments>
 	YAPI void consoleWriteError(Logger::log_level level, fragments&& ...message);
 } // namespace Yazh
-
-#if YPLATFORM_WINDOWS
-#	include"platform_win32.tpp"
-#endif
