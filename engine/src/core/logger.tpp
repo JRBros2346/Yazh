@@ -1,8 +1,5 @@
 #pragma once
 
-#include<iostream>
-
-#include"platform/platform.hpp"
 #if YPLATFORM_WINDOWS
 #	include"platform/platform_win32.tpp"
 #endif

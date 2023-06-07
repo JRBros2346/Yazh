@@ -1,6 +1,7 @@
 #pragma once
 
 #include"defines.hpp"
+#include"platform/platform.hpp"
 
 namespace Yazh::Logger {
 #define LOG_WARN_ENABLED true
@@ -21,18 +22,7 @@ namespace Yazh::Logger {
 		DBG, 
 		TRC
 	};
-	
-	std::ostream& operator<<(std::ostream& os, const log_level& level) {
-		switch(level) {
-			case log_level::FTL:	os << "FATAL"; return os;
-			case log_level::ERR:	os << "ERROR"; return os;
-			case log_level::WRN:	os << "WARN "; return os;
-			case log_level::INF:	os << "INFO "; return os;
-			case log_level::DBG:	os << "DEBUG"; return os;
-			case log_level::TRC:	os << "TRACE"; return os;
-			default:			return os;
-		};
-	};
+	std::ostream& operator<<(std::ostream&, const log_level&);
 	
 	b initializeLogging();
 	void shutdownLogging();
