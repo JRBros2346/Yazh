@@ -38,3 +38,7 @@ namespace Yazh {
 	template<class ...fragments>
 	YAPI void consoleWriteError(Logger::log_level level, fragments&& ...message);
 } // namespace Yazh
+
+#if YPLATFORM_WINDOWS
+#	include"platform/platform_win32.tpp"
+#endif
