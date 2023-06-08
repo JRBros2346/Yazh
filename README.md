@@ -16,5 +16,5 @@ Following [Kohi](https://github.com/travisvroman/kohi)'s name following four let
 - Python3: https://www.python.org
 
 # Compiling
-- Build via `python Yazh`
+- Build via `python build`
 - Run `testbed` in `bin` folder
