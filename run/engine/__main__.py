@@ -7,6 +7,8 @@ operatingSystem=platform.system()
 if operatingSystem=='Windows':
     #Build script for engine
 
+    Path('../../bin').mkdir(parents=True, exist_ok=True)
+
     #Get a list of all the .cpp files.
     cppFilenames=' '.join([str(file) for file in Path().rglob(r'*.cpp')])
 
@@ -20,14 +22,14 @@ if operatingSystem=='Windows':
     defines='-D_DEBUG -DYEXPORT -D_CRT_SECURE_NO_WARNINGS'
 
     print(f"Building {assembly}...")
-    ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/{assembly}.dll {defines} {includeFlags} {linkerFlags}')
+    ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/{assembly}.dll {defines} {includeFlags} {linkerFlags}')
     if ERRORLEVEL:
         sys.exit(ERRORLEVEL)
 
 elif operatingSystem=='Linux':
     # Build script for engine
 
-    Path('../bin').mkdir(parents=True, exist_ok=True)
+    Path('../../bin').mkdir(parents=True, exist_ok=True)
 
     # Get a list of all the .cpp files.
     cppFilenames=' '.join([str(file) for file in Path().rglob(r'*.cpp')])
@@ -43,6 +45,6 @@ elif operatingSystem=='Linux':
     defines="-D_DEBUG -DYEXPORT"
 
     print(f"Building {assembly}...")
-    ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../bin/lib{assembly}.so {defines} {includeFlags} {linkerFlags}')
+    ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/lib{assembly}.so {defines} {includeFlags} {linkerFlags}')
     if ERRORLEVEL:
         sys.exit(ERRORLEVEL)

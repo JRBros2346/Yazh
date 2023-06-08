@@ -40,5 +40,5 @@ namespace Yazh {
 } // namespace Yazh
 
 #if YPLATFORM_WINDOWS
-#	include"platform/platform_win32.tpp"
+#	include"platform_win32.tpp"
 #endif
