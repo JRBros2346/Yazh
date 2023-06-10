@@ -1,9 +1,7 @@
 #pragma once
 
 #include"platform/platform.hpp"
-#if YPLATFORM_WINDOWS
-#	include"platform/platform_win32.tpp"
-#endif
+#include"platform/platform.tpp"
 
 namespace Yazh::Logger {
 	template<class ...fragments>
