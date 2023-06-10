@@ -39,6 +39,4 @@ namespace Yazh {
 	YAPI void consoleWriteError(Logger::log_level level, fragments&& ...message);
 } // namespace Yazh
 
-#if YPLATFORM_WINDOWS
-#	include"platform_win32.tpp"
-#endif
+#include"platform.tpp"

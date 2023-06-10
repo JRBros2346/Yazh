@@ -1,6 +1,8 @@
 #include<core/logger.hpp>
 #include<core/asserts.hpp>
+#include<platform/platform_win32.cpp>
 #include<platform/platform_linux.cpp>
+
 
 int main(void) {
     YFATAL("A test message: ",3.14f);
