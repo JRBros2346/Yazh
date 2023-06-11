@@ -7,7 +7,7 @@
 
 namespace Yazh {
 	LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param);
-	class YAPI Platform : public _Platform {
+	class Platform : public _Platform {
 		HINSTANCE h_instance;
 		HWND hwnd;
 		
@@ -17,7 +17,7 @@ namespace Yazh {
 			static LARGE_INTEGER start_time;
 			
 			b startup(
-				const char *application_name,
+				const char* application_name,
 				i32 x,
 				i32 y,
 				i32 width,
@@ -104,6 +104,13 @@ namespace Yazh {
 				return true;
 			}
 			
+			void shutdown() override {
+				if (hwnd) {
+					DestroyWindow(hwnd);
+					hwnd = nullptr;
+				}
+			}
+			
 			b pumpMessages() override {
 				MSG message;
 				while (PeekMessageA(&message, nullptr, 0, 0, PM_REMOVE)) {
@@ -112,13 +119,6 @@ namespace Yazh {
 				}
 				
 				return true;
-			}
-			
-			void shutdown() override {
-				if (hwnd) {
-					DestroyWindow(hwnd);
-					hwnd = nullptr;
-				}
 			}
 			
 			void *allocate(u64 size, b aligned) override {
@@ -150,16 +150,10 @@ namespace Yazh {
 			void sleep(u64 ms) override {
 				Sleep(ms);
 			}
-			
-			Platform();
-			~Platform();
 	};
 	
 	f64 Platform::clock_frequency;
 	LARGE_INTEGER Platform::start_time;
-	
-	Platform::Platform() = default;
-	Platform::~Platform() { shutdown(); }
 	
 	LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param) {
 		switch (msg) {

@@ -10,23 +10,24 @@
 #	include<sys/time.h>
 
 #	include<chrono>
-#	include<thread> // std::this_thread::sleep_for(std::chrono::nanoseconds())
+#	include<thread> // std::this_thread::sleep_for(std::chrono::milliseconds())
 
 #	include<cstdlib>
 #	include<cstring>
 #	include<iostream>
 
 namespace Yazh {
-	class YAPI Platform : public _Platform {
+	class Platform : public _Platform {
 		Display* display;
 		xcb_connection_t* connection;
 		xcb_window_t window;
 		xcb_screen_t* screen;
 		xcb_atom_t wm_protocols;
 		xcb_atom_t wm_delete_win;
+		
 		public:
 			b startup(
-				const char *application_name,
+				const char* application_name,
 				i32 x,
 				i32 y,
 				i32 width,

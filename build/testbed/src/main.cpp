@@ -1,21 +1,19 @@
 #include<core/logger.hpp>
 #include<core/asserts.hpp>
-#include<platform/platform_linux.cpp>
-#include<platform/platform_win32.cpp>
+
+/* TODO (#1#): Test */
+#include<core/application.hpp>
 
 int main(void) {
-    YFATAL("A test message: ",3.14f);
-    YERROR("A test message: ",3.14f);
-    YWARN("A test message: ",3.14f);
-    YINFO("A test message: ",3.14f);
-    YDEBUG("A test message: ",3.14f);
-    YTRACE("A test message: ",3.14f);
-    
-    Yazh::Platform platform;
-    if (platform.startup("Yazh Engine Testbed", 100, 100, 1280, 720)) {
-    	while (true) {
-    		platform.pumpMessages();
-	}
-    }
-    platform.shutdown();
+	// Application configuration.
+	Yazh::Application.config.startPosX = 100;
+	Yazh::Application.config.startPosY = 100;
+	Yazh::Application.config.startWidth = 1280;
+	Yazh::Application.config.startHeight = 720;
+	Yazh::Application.config.name = "Yazh Engine Testbed";
+	Yazh::Application app;
+	
+	app.create();
+	
+	app.run()
 }
