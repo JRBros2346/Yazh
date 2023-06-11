@@ -3,49 +3,26 @@ import platform,os,sys
 from pathlib import Path
 os.chdir(Path(__file__).parent)
 operatingSystem=platform.system()
+#Build script for testbed
 
-if operatingSystem=='Windows':
-    #Build script for testbed
+Path('../../bin').mkdir(parents=True, exist_ok=True)
 
-    Path('../../bin').mkdir(parents=True, exist_ok=True)
+#Get a list of all the .cpp files.
+cppFilenames=' '.join([str(file) for file in Path().rglob(r'*.cpp')])
 
-    #Get a list of all the .cpp files.
-    cppFilenames=' '.join([str(file) for file in Path().rglob(r'*.cpp')])
+#print("Files:",cppFilenames)
 
-    #print("Files:",cppFilenames)
+assembly='testbed'
+compilerFlags = { 'Windows': '-g -std=c++17',                            #-Wall -Werror
+                  'Linux'  : '-g -fPIC -std=c++17' }[operatingSystem]    # -fms-extensions    # -Wall -Werror
+includeFlags='-Isrc -I../engine/src/'
+linkerFlags={
+    'Windows': '-L../../bin/ -lengine',
+    'Linux'  : "-L../../bin/ -lengine -lxcb -lX11 -lX11-xcb -lxkbcommon -Wl,-rpath,'$ORIGIN'" }[operatingSystem]
+defines='-D_DEBUG -DYIMPORT'
+outputExtension = { 'Windows': '.exe', 'Linux': '' }[operatingSystem]
 
-    assembly='testbed'
-    compilerFlags='-g -std=c++17'
-    #-Wall -Werror
-    includeFlags='-Isrc -I../engine/src/'
-    linkerFlags='-L../../bin/ -lengine'
-    defines='-D_DEBUG -DYIMPORT'
-
-    print(f"Building {assembly}...")
-    ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/{assembly}.exe {defines} {includeFlags} {linkerFlags}')
-    if ERRORLEVEL:
-        sys.exit(ERRORLEVEL)
-
-elif operatingSystem=='Linux':
-    # Build script for engine
-
-    Path('../../bin').mkdir(parents=True, exist_ok=True)
-
-    # Get a list of all the .cpp files.
-    cppFilenames=' '.join([str(file) for file in Path().rglob(r'*.cpp')])
-
-    # print("Files:",cppFilenames)
-
-    assembly="testbed"
-    compilerFlags="-g -fPIC -std=c++17"
-    # -fms-extensions
-    # -Wall -Werror
-    includeFlags="-Isrc -I../engine/src/"
-    linkerFlags="-L../../bin/ -lengine -Wl,-rpath,'$ORIGIN'"
-    defines="-D_DEBUG -DYIMPORT"
-
-    print(f"Building {assembly}...")
-    print(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/{assembly} {defines} {includeFlags} {linkerFlags}')
-    ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/{assembly} {defines} {includeFlags} {linkerFlags}')
-    if ERRORLEVEL:
-        sys.exit(ERRORLEVEL)
+print(f"Building {assembly}...")
+ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/{assembly}{outputExtension} {defines} {includeFlags} {linkerFlags}')
+if ERRORLEVEL:
+    sys.exit(ERRORLEVEL)

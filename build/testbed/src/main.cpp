@@ -1,8 +1,7 @@
 #include<core/logger.hpp>
 #include<core/asserts.hpp>
-#include<platform/platform_win32.cpp>
 #include<platform/platform_linux.cpp>
-
+#include<platform/platform_win32.cpp>
 
 int main(void) {
     YFATAL("A test message: ",3.14f);
@@ -16,7 +15,7 @@ int main(void) {
     if (platform.startup("Yazh Engine Testbed", 100, 100, 1280, 720)) {
     	while (true) {
     		platform.pumpMessages();
-		}
 	}
-	platform.shutdown();
+    }
+    platform.shutdown();
 }
