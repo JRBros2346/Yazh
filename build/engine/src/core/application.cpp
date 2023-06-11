@@ -24,11 +24,11 @@ namespace Yazh {
 		is_suspended = false;
 		
 		if (!platform.startup(
-				config.name, 
-				config.startPosX, 
-				config.startPosY, 
-				config.startWidth, 
-				config.startHeight)) {
+				name, 
+				startPosX, 
+				startPosY, 
+				startWidth, 
+				startHeight)) {
 	   		return false;
 		}
 		

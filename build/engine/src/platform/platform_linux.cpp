@@ -134,7 +134,7 @@ namespace Yazh {
 		xcb_destroy_window(connection, window);
 	}
 
-	b Platform::pumpMessages() override {
+	b Platform::pumpMessages() {
 		xcb_generic_event_t* event;
 		xcb_client_message_event_t* cm;
 
