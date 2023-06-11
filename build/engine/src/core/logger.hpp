@@ -1,6 +1,7 @@
 #pragma once
 
 #include"defines.hpp"
+#include<map>
 #include<iostream>
 
 namespace Yazh::Logger {
