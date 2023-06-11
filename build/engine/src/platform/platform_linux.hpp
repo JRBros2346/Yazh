@@ -1,20 +1,21 @@
 #pragma once
 
 #include"defines.hpp"
+#include"core/logger.hpp"
 
-#	include<xcb/xcb.h>
-#	include<X11/keysym.h>
-#	include<X11/XKBlib.h>  	// sudo apt-get install libx11-dev
-#	include<X11/Xlib.h>
-#	include<X11/Xlib-xcb.h>	// sudo apt-get install libxkbcommon-x11-dev
-#	include<sys/time.h>
+#include<xcb/xcb.h>
+#include<X11/keysym.h>
+#include<X11/XKBlib.h>  	// sudo apt-get install libx11-dev
+#include<X11/Xlib.h>
+#include<X11/Xlib-xcb.h>	// sudo apt-get install libxkbcommon-x11-dev
+#include<sys/time.h>
 
-#	include<chrono>
-#	include<thread> // std::this_thread::sleep_for(std::chrono::nanoseconds())
+#include<chrono>
+#include<thread> // std::this_thread::sleep_for(std::chrono::nanoseconds())
 
-#	include<cstdlib>
-#	include<cstring>
-#	include<iostream>
+#include<cstdlib>
+#include<cstring>
+#include<iostream>
 
 namespace Yazh {
 	class YAPI Platform {

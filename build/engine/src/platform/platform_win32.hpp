@@ -1,6 +1,7 @@
 #pragma once
 
 #include"defines.hpp"
+#include"core/logger.hpp"
 
 #include<windows.h>
 #include<windowsx.h> // param input extraction
