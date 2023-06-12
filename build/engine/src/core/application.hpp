@@ -41,6 +41,7 @@ namespace Yazh {
 			
 			b run();
 	};
+	Game::game* Application::gameInst;
 	b Application::isRunning;
 	b Application::isSuspended;
 	Platform Application::platform;
