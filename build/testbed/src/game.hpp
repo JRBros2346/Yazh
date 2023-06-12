@@ -3,12 +3,12 @@
 #include<defines.hpp>
 #include<game_types.hpp>
 
-class Game {
+class Game :: public Yazh::Game::GameState {
 	f32 deltaTime;
 	public:
-		b initialize(Yazh::Game::GameState);
-		b update(Yazh::Game::GameState, f32);
-		b render(Yazh::Game::GameState, f32);
-		void onResize(Yazh::Game::GameState, u32, u32);
+		b initialize();
+		b update(f32);
+		b render(f32);
+		void onResize(u32, u32);
 		
 };

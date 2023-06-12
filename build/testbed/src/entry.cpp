@@ -10,10 +10,6 @@ b Yazh::Game::create(Yazh::Game::GameState* outGame) {
 	outGame->appConfig.startWidth = 1280;
 	outGame->appConfig.startHeight = 720;
 	outGame->appConfig.name = (char*)"Yazh Engine Testbed";
-	outGame->update = ::Game::update;
-	outGame->render = ::Game::render;
-	outGame->initialize = ::Game::initialize;
-	outGame->onResize = ::Game::onResize;
 	
 	return true;
 }

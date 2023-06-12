@@ -36,12 +36,12 @@ namespace Yazh {
 		}
 		
 		// Initialize the game.
-		if (!gameInst->initialize(gameInst)) {
+		if (!gameInst->initialize()) {
 			YFATAL("Game failed to initialize.");
 			return false;
 		}
 		
-		gameInst->onResize(gameInst, width, height);
+		gameInst->onResize(width, height);
 		
 		initialized = true;
 		
@@ -55,14 +55,14 @@ namespace Yazh {
 			}
 			
 			if(!isSuspended) {
-				if (!gameInst->update(gameInst, (f32)0)) {
+				if (!gameInst->update((f32)0)) {
 					YFATAL("Game update failed, shutting down.")
 					isRunning = false;
 					break;
 				}
 			
 				// Call the game's render routine.
-				if (!gameInst->render(gameInst, (f32)0)) {
+				if (!gameInst->render((f32)0)) {
 					YFATAL("Game render failed, shutting down.")
 					isRunning = false;
 					break;

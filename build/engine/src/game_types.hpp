@@ -13,16 +13,16 @@ namespace Yazh::Game {
 			Yazh::Application::config appConfig;
 			
 			// Function pointer to game's initialize function.
-			b (*initialize)(GameState* gameInit);
+			b initialize();
 			
 			// Function pointer to game's update function.
-			b (*update)(GameState* gameInit, f32 deltaTime);
+			b update(f32 deltaTime);
 			
 			// Function pointer to game's render function.
-			b (*render)(GameState* gameInit, f32 deltaTime);
+			b render(f32 deltaTime);
 			
 			// Function pointer to handle resizes. If applicable.
-			void (*onResize)(GameState* gameInit, u32 width, u32 height);
+			void onResize(u32 width, u32 height);
 			
 //			// Game-specific game state. Created and managed by the game
 //			void* state;
