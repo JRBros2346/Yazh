@@ -18,7 +18,7 @@ namespace Yazh {
 	
 		public:
 			// Application configuration.
-			typedef struct {
+			struct config {
 				// Window starting position x axis. If applicable.
 				i16 startPosX;
 				
@@ -33,7 +33,7 @@ namespace Yazh {
 				
 				// The application name used in windowing. If applicable.
 				char* name;
-			} config;
+			};
 
 			static b initialized;
 			

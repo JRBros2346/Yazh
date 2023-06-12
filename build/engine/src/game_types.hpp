@@ -9,7 +9,7 @@
 namespace Yazh::Game {
 	struct game {
 		// The application configuration
-		Application::config appConfig;
+		Yazh::Application::config appConfig;
 		
 		// Function pointer to game's initialize function.
 		b (*_initialize)(game* gameInit);
