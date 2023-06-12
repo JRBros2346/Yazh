@@ -6,14 +6,15 @@
 
 int main(void) {
 	// Application configuration.
-	Yazh::Application::startPosX = 100;
-	Yazh::Application::startPosY = 100;
-	Yazh::Application::startWidth = 1280;
-	Yazh::Application::startHeight = 720;
-	Yazh::Application::name = (char*)"Yazh Engine Testbed";
+	Yazh::Application::config appConfig;
+	appConfig.startPosX = 100;
+	appConfig.startPosY = 100;
+	appConfig.startWidth = 1280;
+	appConfig.startHeight = 720;
+	appConfig.name = (char*)"Yazh Engine Testbed";
 	Yazh::Application app;
 	
-	app.create();
+	app.create(&appConfig);
 	
 	app.run();
 }

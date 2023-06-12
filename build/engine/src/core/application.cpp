@@ -3,7 +3,7 @@
 #include"logger.hpp"
 
 namespace Yazh {
-	b Application::create() {
+	b Application::create(config* appConfig) {
 		if(initialized) {
 			YERROR("Application::create called more than once.")
 			return false;
@@ -24,11 +24,11 @@ namespace Yazh {
 		is_suspended = false;
 		
 		if (!platform.startup(
-				name, 
-				startPosX, 
-				startPosY, 
-				startWidth, 
-				startHeight)) {
+				appConfig->name, 
+				appConfig->startPosX, 
+				appConfig->startPosY, 
+				appConfig->startWidth, 
+				appConfig->startHeight)) {
 	   		return false;
 		}
 		
