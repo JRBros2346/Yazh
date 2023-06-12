@@ -11,7 +11,7 @@ namespace Yazh {
 			i32 height) {
 
 		// Connect to X
-		display = XOpenDisplay(NULL);
+		display = XOpenDisplay(nullptr);
 
 		// Turn off key repeats.
 		XAutoRepeatOff(display);
@@ -96,11 +96,11 @@ namespace Yazh {
 		xcb_intern_atom_reply_t* wm_delete_reply = xcb_intern_atom_reply(
 			connection,
 			wm_delete_cookie,
-			NULL);
+			nullptr);
 		xcb_intern_atom_reply_t* wm_protocols_reply = xcb_intern_atom_reply(
 			connection,
 			wm_protocols_cookie,
-			NULL);
+			nullptr);
 		wm_delete_win = wm_delete_reply->atom;
 		wm_protocols = wm_protocols_reply->atom;
 

@@ -67,7 +67,7 @@ namespace Yazh {
 			0, 0, h_instance, 0);
 
 		if (handle == nullptr) {
-			MessageBoxA(NULL, "Window creation failed!", "Error!", MB_ICONEXCLAMATION | MB_OK);
+			MessageBoxA(nullptr, "Window creation failed!", "Error!", MB_ICONEXCLAMATION | MB_OK);
 
 			YFATAL("Window creation failed!");
 			return false;

@@ -1,18 +1,20 @@
 #pragma once
 
 #include"defines.hpp"
+#include"game_types.hpp"
 
 #include"platform/platform_win32.cpp"
 #include"platform/platform_linux.cpp"
 
 namespace Yazh {
 	class YAPI Application {
-		static b is_running;
-		static b is_suspended;
+		static Game::game* gameInst;
+		static b isRunning;
+		static b isSuspended;
 		static Platform platform;
 		static i16 width;
 		static i16 height;
-		static f64 last_time;
+		static f64 lastTime;
 	
 		public:
 			// Application configuration.
@@ -35,16 +37,16 @@ namespace Yazh {
 
 			static b initialized;
 			
-			b create(config*);
+			b create(Game::game*);
 			
 			b run();
 	};
-	b Application::is_running;
-	b Application::is_suspended;
+	b Application::isRunning;
+	b Application::isSuspended;
 	Platform Application::platform;
 	i16 Application::width;
 	i16 Application::height;
-	f64 Application::last_time;
+	f64 Application::lastTime;
 	
 	b Application::initialized = false;
 } // namespace Yazh
