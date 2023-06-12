@@ -1,9 +1,10 @@
 #include"application.hpp"
+#include"game_types.hpp"
 
 #include"logger.hpp"
 
 namespace Yazh {
-	b Application::create(Game::game* _gameInst) {
+	b Application::create(Game::GameState* _gameInst) {
 		if(initialized) {
 			YERROR("Application::create called more than once.")
 			return false;
@@ -35,12 +36,12 @@ namespace Yazh {
 		}
 		
 		// Initialize the game.
-		if (!gameInst->_initialize(gameInst)) {
+		if (!gameInst->initialize(gameInst)) {
 			YFATAL("Game failed to initialize.");
 			return false;
 		}
 		
-		gameInst->_onResize(gameInst, width, height);
+		gameInst->onResize(gameInst, width, height);
 		
 		initialized = true;
 		
@@ -54,14 +55,14 @@ namespace Yazh {
 			}
 			
 			if(!isSuspended) {
-				if (!gameInst->_update(gameInst, (f32)0)) {
+				if (!gameInst->update(gameInst, (f32)0)) {
 					YFATAL("Game update failed, shutting down.")
 					isRunning = false;
 					break;
 				}
 			
 				// Call the game's render routine.
-				if (!gameInst->_render(gameInst, (f32)0)) {
+				if (!gameInst->render(gameInst, (f32)0)) {
 					YFATAL("Game render failed, shutting down.")
 					isRunning = false;
 					break;

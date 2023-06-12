@@ -1,14 +1,17 @@
 #pragma once
 
 #include"defines.hpp"
-#include"game_types.hpp"
 
 #include"platform/platform_win32.cpp"
 #include"platform/platform_linux.cpp"
 
 namespace Yazh {
+	// Forward declaration.
+	namespace Game {
+		class GameState;
+	}
 	class YAPI Application {
-		static Game::game* gameInst;
+		static Yazh::Game::GameState* gameInst;
 		static b isRunning;
 		static b isSuspended;
 		static Platform platform;
@@ -37,11 +40,11 @@ namespace Yazh {
 
 			static b initialized;
 			
-			b create(Game::game*);
+			b create(Yazh::Game::GameState*);
 			
 			b run();
 	};
-	Game::game* Application::gameInst;
+	Yazh::Game::GameState* Application::gameInst;
 	b Application::isRunning;
 	b Application::isSuspended;
 	Platform Application::platform;

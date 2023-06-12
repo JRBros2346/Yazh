@@ -4,10 +4,10 @@
 #include"core/logger.hpp"
 #include"game_types.hpp"
 
-namespace Yazh::Game {
+namespace Yazh {
 	namespace Game {
 		// Externally defined function to create a Game
-		extern b create(game* outGame);
+		extern b create(GameState* outGame);
 	} // namespace Game
 	
 	/**
@@ -16,8 +16,8 @@ namespace Yazh::Game {
 	int main(void) {
 		
 		// Request the game instance from the application.
-		Game::game gameInst;
-		if (!gameInst.createGame(&gameInst)) {
+		Game::GameState gameInst;
+		if (!Game::create(&gameInst)) {
 			YFATAL("Could not create game!");
 			return -1;
 		}
@@ -25,7 +25,7 @@ namespace Yazh::Game {
 		// Ensure the funtion pointers are defined.
 		if (!gameInst.render || !gameInst.update || !gameInst.initialize || !gameInst.onResize) {
 			YFATAL("The game's funtion pointers must be defined!");
-			return -2
+			return -2;
 		}
 		
 		Application app;
@@ -33,7 +33,7 @@ namespace Yazh::Game {
 		// Initialization.
 		if (!app.create(&gameInst)) {
 			YINFO("Application failed to create!");
-			return 1
+			return 1;
 		}
 		
 		// Begin the game loop.
