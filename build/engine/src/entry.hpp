@@ -16,7 +16,7 @@ namespace Yazh {
 	int main(void) {
 		
 		// Request the game instance from the application.
-		Game::GameState gameInst;
+		Game::Game gameInst;
 		if (!Game::create(&gameInst)) {
 			YFATAL("Could not create game!");
 			return -1;

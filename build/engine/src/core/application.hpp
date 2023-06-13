@@ -8,10 +8,10 @@
 namespace Yazh {
 	// Forward declaration.
 	namespace Game {
-		class GameState;
+		extern class Game;
 	}
 	class YAPI Application {
-		static Yazh::Game::GameState* gameInst;
+		static Yazh::Game::Game* gameInst;
 		static b isRunning;
 		static b isSuspended;
 		static Platform platform;
@@ -40,11 +40,11 @@ namespace Yazh {
 
 			static b initialized;
 			
-			b create(Yazh::Game::GameState*);
+			b create(Yazh::Game::Game*);
 			
 			b run();
 	};
-	Yazh::Game::GameState* Application::gameInst;
+	Yazh::Game::Game* Application::gameInst;
 	b Application::isRunning;
 	b Application::isSuspended;
 	Platform Application::platform;

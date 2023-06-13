@@ -3,7 +3,7 @@
 #include<defines.hpp>
 #include<game_types.hpp>
 
-class Game :: public Yazh::Game::GameState {
+class Yazh::Game::Game : public Yazh::Game::GameState {
 	f32 deltaTime;
 	public:
 		b initialize();
