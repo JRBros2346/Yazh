@@ -4,7 +4,7 @@
 #include"logger.hpp"
 
 namespace Yazh {
-	b Application::create(Game::GameState* _gameInst) {
+	b Application::create(Game::Game* _gameInst) {
 		if(initialized) {
 			YERROR("Application::create called more than once.")
 			return false;

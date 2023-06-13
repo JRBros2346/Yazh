@@ -8,7 +8,7 @@
 namespace Yazh {
 	// Forward declaration.
 	namespace Game {
-		extern class Game;
+		extern class Game : public GameState;
 	}
 	class YAPI Application {
 		static Yazh::Game::Game* gameInst;
