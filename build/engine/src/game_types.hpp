@@ -22,6 +22,6 @@ namespace Yazh::Game {
 			virtual bool render(f32 deltaTime) { return nullptr; } ;
 			
 			// Virtual function to handle resizes, If applicable.
-			virtual void onResize(u32 width, u32 height) {};
+			virtual void onResize(u32 width, u32 height) { return nullptr; };
 	};
 } // namespace Yazh
