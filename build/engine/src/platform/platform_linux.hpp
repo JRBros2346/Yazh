@@ -26,7 +26,7 @@ namespace Yazh {
 		xcb_atom_t wm_protocols;
 		xcb_atom_t wm_delete_win;
 		public:
-			b startup(
+			bool startup(
 				const char* application_name,
 				i32 x,
 				i32 y,
@@ -35,10 +35,10 @@ namespace Yazh {
 			
 			void shutdown();
 			
-			b pumpMessages();
+			bool pumpMessages();
 			
-			void* allocate(u64 size, b aligned);
-			void free(void* block, b aligned);
+			void* allocate(u64 size, bool aligned);
+			void free(void* block, bool aligned);
 			void* zeroMemory(void* block, u64 size);
 			void* copyMemory(void* dest, const void* source, u64 size);
 			void* setMemory(void* dest, i32 value, u64 size);

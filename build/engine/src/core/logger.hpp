@@ -25,7 +25,7 @@ namespace Yazh::Logger {
 	};
 	std::ostream& operator<<(std::ostream&, const log_level&);
 	
-	b initializeLogging();
+	bool initializeLogging();
 	void shutdownLogging();
 	
 	template<class ...fragments>

@@ -7,8 +7,8 @@
 
 namespace Yazh {
 	class YAPI Application {
-		static b is_running;
-		static b is_suspended;
+		static bool isRunning;
+		static bool isSuspended;
 		static Platform platform;
 		static i16 width;
 		static i16 height;
@@ -33,18 +33,18 @@ namespace Yazh {
 				char* name;
 			} config;
 
-			static b initialized;
+			static bool initialized;
 			
-			b create(config*);
+			bool create(config*);
 			
-			b run();
+			bool run();
 	};
-	b Application::is_running;
-	b Application::is_suspended;
+	bool Application::isRunning;
+	bool Application::isSuspended;
 	Platform Application::platform;
 	i16 Application::width;
 	i16 Application::height;
 	f64 Application::last_time;
 	
-	b Application::initialized = false;
+	bool Application::initialized = false;
 } // namespace Yazh

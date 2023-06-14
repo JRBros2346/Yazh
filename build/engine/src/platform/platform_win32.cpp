@@ -3,7 +3,7 @@
 #	include"platform_win32.hpp"
 
 namespace Yazh {
-	b Platform::startup(
+	bool Platform::startup(
 			const char *application_name,
 			i32 x,
 			i32 y,
@@ -76,7 +76,7 @@ namespace Yazh {
 		}
 
 		// Show the window
-		b should_activate = true; /* TODO (#1#): if the window should not accept input, this should be false. */
+		bool should_activate = true; /* TODO (#1#): if the window should not accept input, this should be false. */
 		i32 show_window_command_flags = should_activate ? SW_SHOW : SW_SHOWNOACTIVATE;
 		// If initially minimized, use SW_MINIMIZE : SW_SHOWMINNOACTIVE;
 		// If initially maximized, use SW_SHOWMAXIMIZED : SW_MAXIMIZE
@@ -98,7 +98,7 @@ namespace Yazh {
 		}
 	}
 
-	b Platform::pumpMessages() {
+	bool Platform::pumpMessages() {
 		MSG message;
 		while (PeekMessageA(&message, nullptr, 0, 0, PM_REMOVE)) {
 			TranslateMessage(&message);
@@ -108,11 +108,11 @@ namespace Yazh {
 		return true;
 	}
 
-	void* Platform::allocate(u64 size, b aligned) {
+	void* Platform::allocate(u64 size, bool aligned) {
 		return malloc(size);
 	}
 
-	void Platform::free(void *block, b alligned) {
+	void Platform::free(void *block, bool alligned) {
 		::free(block);
 	}
 
@@ -190,7 +190,7 @@ namespace Yazh {
 			case WM_LBUTTONUP:
 			case WM_MBUTTONUP:
 			case WM_RBUTTONUP: {
-				//b pressed = msg == WM_LBUTTONDOWN || msg == WM_RBUTTONDOWN || msg == WM_MBUTTONDOWN;
+				//bool pressed = msg == WM_LBUTTONDOWN || msg == WM_RBUTTONDOWN || msg == WM_MBUTTONDOWN;
 				/* TODO (#1#): input processing. */
 			} break;
 		}

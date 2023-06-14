@@ -21,7 +21,7 @@ namespace Yazh::Logger {
 		logOutput(log_level::FTL, std::string("Assertion failure: "), expression, std::string(", message: '"), message, std::string("', in file: "), file, std::string(", line: "), line, '\n');
 	}
 	
-	b initializeLogging() {
+	bool initializeLogging() {
 		/* TODO (#1#): create log file. */
 		return true;
 	}

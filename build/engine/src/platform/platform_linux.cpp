@@ -3,7 +3,7 @@
 #	include"platform_linux.hpp"
 
 namespace Yazh {
-	b Platform::startup(
+	bool Platform::startup(
 			const char *application_name,
 			i32 x,
 			i32 y,
@@ -134,11 +134,11 @@ namespace Yazh {
 		xcb_destroy_window(connection, window);
 	}
 
-	b Platform::pumpMessages() {
+	bool Platform::pumpMessages() {
 		xcb_generic_event_t* event;
 		xcb_client_message_event_t* cm;
 
-		b quit_flagged = false;
+		bool quit_flagged = false;
 
 		// Poll for events until null is returned.
 		while (event != 0) {
@@ -183,11 +183,11 @@ namespace Yazh {
 		return !quit_flagged;
 	}
 
-	void* Platform::allocate(u64 size, b aligned) {
+	void* Platform::allocate(u64 size, bool aligned) {
 		return malloc(size);
 	}
 
-	void Platform::free(void *block, b aligned) {
+	void Platform::free(void *block, bool aligned) {
 		::free(block);
 	}
 

@@ -3,7 +3,7 @@
 #include"logger.hpp"
 
 namespace Yazh {
-	b Application::create(config* appConfig) {
+	bool Application::create(config* appConfig) {
 		if(initialized) {
 			YERROR("Application::create called more than once.")
 			return false;
@@ -20,8 +20,8 @@ namespace Yazh {
 		YDEBUG("A test message: ",3.14f);
 		YTRACE("A test message: ",3.14f);
 		
-		is_running = true;
-		is_suspended = false;
+		isRunning = true;
+		isSuspended = false;
 		
 		if (!platform.startup(
 				appConfig->name, 
@@ -37,14 +37,14 @@ namespace Yazh {
 		return true;
 	}
 
-	b Application::run() {
-		while (is_running) {
+	bool Application::run() {
+		while (isRunning) {
 			if(!platform.pumpMessages()) {
-				is_running = false;
+				isRunning = false;
 			}
 		}
 		
-		is_running = false;
+		isRunning = false;
 		
 		platform.shutdown();
 		return true;

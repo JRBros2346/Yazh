@@ -18,7 +18,7 @@ namespace Yazh {
 			static f64 clock_frequency;
 			static LARGE_INTEGER start_time;
 			
-			b startup(
+			bool startup(
 				const char* application_name,
 				i32 x,
 				i32 y,
@@ -27,20 +27,20 @@ namespace Yazh {
 			
 			void shutdown();
 			
-			b pumpMessages();
+			bool pumpMessages();
 			
-			void* allocate(u64 size, b aligned);
-			void free(void* block, b aligned);
+			void* allocate(u64 size, bool aligned);
+			void free(void* block, bool aligned);
 			void* zeroMemory(void* block, u64 size);
 			void* copyMemory(void* dest, const void* source, u64 size);
 			void* setMemory(void* dest, i32 value, u64 size);
 			
-			virtual f64 getAbsoluteTime();
+			f64 getAbsoluteTime();
 			
 			// Sleep on the thread for the provided ms. This blocks the main thread.
 			// Should only be used for giving time back to the OS for unused update power.
 			// Therefore it is not exported.
-			virtual void sleep(u64 ms);
+			void sleep(u64 ms);
 	};
 } // namespace Yazh
 
