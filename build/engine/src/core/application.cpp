@@ -2,6 +2,11 @@
 
 #include"logger.hpp"
 
+/* Application Layer is not Object Oriented.
+ * Because, it is hardcoded to exist only one at a time
+ * So, it is optimized for speed by sacrificing OOPS
+ */
+
 namespace Yazh::Application {
 	static struct {
 		bool isRunning;
