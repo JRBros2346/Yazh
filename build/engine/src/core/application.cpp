@@ -2,15 +2,26 @@
 
 #include"logger.hpp"
 
-namespace Yazh {
-	bool Application::create(config* appConfig) {
+namespace Yazh::Application {
+	static struct {
+		bool isRunning;
+		bool isSuspended;
+		Yazh::Platform platform;
+		i16 width;
+		i16 height;
+		f64 lastTime;
+	} state;
+	
+	static bool initialized = false;
+	
+	bool create(config* appConfig) {
 		if(initialized) {
-			YERROR("Application::create called more than once.")
+			YERROR("Yazh::Application::create called more than once.");
 			return false;
 		}
 		
 		// Initialize subsystems.
-		Logger::initializeLogging();
+		Yazh::Logger::initializeLogging();
 		
 		/* TODO (#1#): Remove this */
 		YFATAL("A test message: ",3.14f);
@@ -20,33 +31,34 @@ namespace Yazh {
 		YDEBUG("A test message: ",3.14f);
 		YTRACE("A test message: ",3.14f);
 		
-		isRunning = true;
-		isSuspended = false;
+		state.isRunning = true;
+		state.isSuspended = false;
 		
-		if (!platform.startup(
-				appConfig->name, 
-				appConfig->startPosX, 
-				appConfig->startPosY, 
-				appConfig->startWidth, 
+		if(!state.platform.startup(
+				appConfig->name,
+				appConfig->startPosX,
+				appConfig->startPosY,
+				appConfig->startWidth,
 				appConfig->startHeight)) {
-	   		return false;
+			return false;
 		}
 		
 		initialized = true;
 		
 		return true;
 	}
-
-	bool Application::run() {
-		while (isRunning) {
-			if(!platform.pumpMessages()) {
-				isRunning = false;
+	
+	bool run() {
+		while(state.isRunning) {
+			if(!state.platform.pumpMessages()) {
+				state.isRunning = false;
 			}
 		}
 		
-		isRunning = false;
+		state.isRunning = false;
 		
-		platform.shutdown();
+		state.platform.shutdown();
+		
 		return true;
 	}
-} // namespace Yazh
+} // namespace Yazh::Application

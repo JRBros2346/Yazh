@@ -1,7 +1,3 @@
-#include<core/logger.hpp>
-#include<core/asserts.hpp>
-
-/* TODO (#1#): Test */
 #include<core/application.hpp>
 
 int main(void) {
@@ -12,9 +8,8 @@ int main(void) {
 	appConfig.startWidth = 1280;
 	appConfig.startHeight = 720;
 	appConfig.name = (char*)"Yazh Engine Testbed";
-	Yazh::Application app;
 	
-	app.create(&appConfig);
+	Yazh::Application::create(&appConfig);
 	
-	app.run();
+	Yazh::Application::run();
 }
