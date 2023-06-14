@@ -2,21 +2,21 @@
 
 #include"defines.hpp"
 
-#include"platform/platform_win32.cpp"
-#include"platform/platform_linux.cpp"
+#include"platform/platform_win32.hpp"
+#include"platform/platform_linux.hpp"
 
 namespace Yazh {
 	class YAPI Application {
 		static bool isRunning;
 		static bool isSuspended;
 		static Platform platform;
-		static i16 width;
-		static i16 height;
-		static f64 last_time;
+		i16 width;
+		i16 height;
+		f64 last_time;
 	
 		public:
 			// Application configuration.
-			typedef struct {
+			using config = struct {
 				// Window starting position x axis. If applicable.
 				i16 startPosX;
 				
@@ -31,8 +31,8 @@ namespace Yazh {
 				
 				// The application name used in windowing. If applicable.
 				char* name;
-			} config;
-
+			};
+			
 			static bool initialized;
 			
 			bool create(config*);
@@ -42,9 +42,6 @@ namespace Yazh {
 	bool Application::isRunning;
 	bool Application::isSuspended;
 	Platform Application::platform;
-	i16 Application::width;
-	i16 Application::height;
-	f64 Application::last_time;
 	
 	bool Application::initialized = false;
 } // namespace Yazh

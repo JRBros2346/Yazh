@@ -223,3 +223,5 @@ namespace Yazh {
 			void sleep(u64 ms);
 	};
 } // namespace Yazh
+
+#endif // YPLATFORM_LINUX

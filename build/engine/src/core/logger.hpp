@@ -15,7 +15,7 @@ namespace Yazh::Logger {
 #	define LOG_TRACE_ENABLED false
 #endif
 	
-	enum class log_level {
+	enum class LogLevel {
 		FTL, 
 		ERR, 
 		WRN, 
@@ -23,26 +23,26 @@ namespace Yazh::Logger {
 		DBG, 
 		TRC
 	};
-	std::ostream& operator<<(std::ostream&, const log_level&);
+	std::ostream& operator<<(std::ostream&, const LogLevel&);
 	
 	bool initializeLogging();
 	void shutdownLogging();
 	
 	template<class ...fragments>
-	YAPI void logOutput(log_level level, fragments&& ...message);
+	YAPI void logOutput(LogLevel level, fragments&& ...message);
 } // namespace Yazh::Logger
 
 // Logs a fatal-level message.
-#define YFATAL(message...) Yazh::Logger::logOutput(Yazh::Logger::log_level::FTL, ##message);
+#define YFATAL(message...) Yazh::Logger::logOutput(Yazh::Logger::LogLevel::FTL, ##message);
 
 #ifndef YERROR
 // Logs an error-level message.
-#	define YERROR(message...) Yazh::Logger::logOutput(Yazh::Logger::log_level::ERR, ##message);
+#	define YERROR(message...) Yazh::Logger::logOutput(Yazh::Logger::LogLevel::ERR, ##message);
 #endif
 
 #if LOG_WARN_ENABLED
 // Logs a warning-level message.
-#	define YWARN(message...) Yazh::Logger::logOutput(Yazh::Logger::log_level::WRN, ##message);
+#	define YWARN(message...) Yazh::Logger::logOutput(Yazh::Logger::LogLevel::WRN, ##message);
 #else
 // Does nothing when LOG_WARN_ENABLED != true
 #	define YWARN(message...)
@@ -50,7 +50,7 @@ namespace Yazh::Logger {
 
 #if LOG_INFO_ENABLED
 // Logs a info-level message.
-#	define YINFO(message...) Yazh::Logger::logOutput(Yazh::Logger::log_level::INF, ##message);
+#	define YINFO(message...) Yazh::Logger::logOutput(Yazh::Logger::LogLevel::INF, ##message);
 #else
 // Does nothing when LOG_INFO_ENABLED != true
 #	define YINFO(message...)
@@ -58,7 +58,7 @@ namespace Yazh::Logger {
 
 #if LOG_DEBUG_ENABLED
 // Logs a debug-level message.
-#	define YDEBUG(message...) Yazh::Logger::logOutput(Yazh::Logger::log_level::DBG, ##message);
+#	define YDEBUG(message...) Yazh::Logger::logOutput(Yazh::Logger::LogLevel::DBG, ##message);
 #else
 // Does nothing when LOG_DEBUG_ENABLED != true
 #	define YDEBUG(message...)
@@ -66,7 +66,7 @@ namespace Yazh::Logger {
 
 #if LOG_TRACE_ENABLED
 // Logs a trace-level message.
-#	define YTRACE(message...) Yazh::Logger::logOutput(Yazh::Logger::log_level::TRC, ##message);
+#	define YTRACE(message...) Yazh::Logger::logOutput(Yazh::Logger::LogLevel::TRC, ##message);
 #else
 // Does nothing when LOG_TRACE_ENABLED != true
 #	define YTRACE(message...)

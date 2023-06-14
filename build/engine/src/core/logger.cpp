@@ -5,20 +5,20 @@
 
 namespace Yazh::Logger {
 	
-	std::ostream& operator<<(std::ostream& os, const log_level& level) {
+	std::ostream& operator<<(std::ostream& os, const LogLevel& level) {
 		switch(level) {
-			case log_level::FTL:	os << "FATAL"; return os;
-			case log_level::ERR:	os << "ERROR"; return os;
-			case log_level::WRN:	os << " WARN"; return os;
-			case log_level::INF:	os << " INFO"; return os;
-			case log_level::DBG:	os << "DEBUG"; return os;
-			case log_level::TRC:	os << "TRACE"; return os;
+			case LogLevel::FTL:	os << "FATAL"; return os;
+			case LogLevel::ERR:	os << "ERROR"; return os;
+			case LogLevel::WRN:	os << " WARN"; return os;
+			case LogLevel::INF:	os << " INFO"; return os;
+			case LogLevel::DBG:	os << "DEBUG"; return os;
+			case LogLevel::TRC:	os << "TRACE"; return os;
 			default:			return os;
 		};
 	};
 	
 	void reportAssertionFailure(std::string expression, std::string message, std::string file, i32 line) {
-		logOutput(log_level::FTL, std::string("Assertion failure: "), expression, std::string(", message: '"), message, std::string("', in file: "), file, std::string(", line: "), line, '\n');
+		logOutput(LogLevel::FTL, std::string("Assertion failure: "), expression, std::string(", message: '"), message, std::string("', in file: "), file, std::string(", line: "), line, '\n');
 	}
 	
 	bool initializeLogging() {
