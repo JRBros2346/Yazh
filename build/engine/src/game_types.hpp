@@ -13,15 +13,15 @@ namespace Yazh::Game {
 		
 		public:
 			// Virtual function to game's initialize function.
-			virtual bool initialize() { return nullptr; } ;
+			virtual bool initialize() = 0;
 			
 			// Virtual function to game's update function.
-			virtual bool update(f32 deltaTime) { return nullptr; };
+			virtual bool update(f32 deltaTime) = 0;
 			
 			// Virtual function to game's render function.
-			virtual bool render(f32 deltaTime) { return nullptr; } ;
+			virtual bool render(f32 deltaTime) = 0;
 			
 			// Virtual function to handle resizes, If applicable.
-			virtual void onResize(u32 width, u32 height) { return nullptr; };
+			virtual void onResize(u32 width, u32 height) = 0;
 	};
 } // namespace Yazh
