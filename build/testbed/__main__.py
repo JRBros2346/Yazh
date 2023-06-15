@@ -23,6 +23,6 @@ defines='-D_DEBUG -DYIMPORT'
 outputFilename = { 'Windows': f'{assembly}.exe', 'Linux': f'{assembly}' }[operatingSystem]
 
 print(f"Building {assembly}...")
-ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/{assembly}{outputFilename} {defines} {includeFlags} {linkerFlags}')
+ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/{outputFilename} {defines} {includeFlags} {linkerFlags}')
 if ERRORLEVEL:
     sys.exit(ERRORLEVEL)
