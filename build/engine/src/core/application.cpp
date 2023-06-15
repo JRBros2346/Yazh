@@ -8,7 +8,7 @@
  */
 
 namespace Yazh::Application {
-	static struct {
+	static struct state {
 		bool isRunning;
 		bool isSuspended;
 		Yazh::Platform platform;
