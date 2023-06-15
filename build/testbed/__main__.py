@@ -20,9 +20,9 @@ linkerFlags={
     'Windows': '-L../../bin/ -lengine',
     'Linux'  : "-L../../bin/ -lengine -lxcb -lX11 -lX11-xcb -lxkbcommon -Wl,-rpath,'$ORIGIN'" }[operatingSystem]
 defines='-D_DEBUG -DYIMPORT'
-outputExtension = { 'Windows': '.exe', 'Linux': '' }[operatingSystem]
+outputFilename = { 'Windows': f'{assembly}.exe', 'Linux': f'{assembly}' }[operatingSystem]
 
 print(f"Building {assembly}...")
-ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/{assembly}{outputExtension} {defines} {includeFlags} {linkerFlags}')
+ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/{assembly}{outputFilename} {defines} {includeFlags} {linkerFlags}')
 if ERRORLEVEL:
     sys.exit(ERRORLEVEL)

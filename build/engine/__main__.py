@@ -25,9 +25,9 @@ linkerFlags={
 defines={
     'Windows':    "-D_DEBUG -DYEXPORT -D_CRT_SECURE_NO_WARNINGS",
     'Linux'  :    "-D_DEBUG -DYEXPORT" }[operatingSystem]
-outputFileName = { 'Windows': f'{assembly}.dll', 'Linux': f'lib{assembly}.so' }[operatingSystem]
+outputFilename = { 'Windows': f'{assembly}.dll', 'Linux': f'lib{assembly}.so' }[operatingSystem]
 
 print(f"Building {assembly}...")
-ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/{outputFileName} {defines} {includeFlags} {linkerFlags}')
+ERRORLEVEL=os.system(f'g++ {cppFilenames} {compilerFlags} -o ../../bin/{outputFilename} {defines} {includeFlags} {linkerFlags}')
 if ERRORLEVEL:
     sys.exit(ERRORLEVEL)
