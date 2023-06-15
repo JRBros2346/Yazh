@@ -9,7 +9,7 @@
 namespace Yazh::Game {
 	class _Game {
 		// The application configuration.
-		Application::config appConfig;
+		Yazh::Application::config appConfig;
 		
 		public:
 			// Virtual function to game's initialize function.
