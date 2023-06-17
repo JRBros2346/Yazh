@@ -20,11 +20,11 @@ int main(void) {
 		return -1;
 	}
 	
-	// Ensure the virtual functions are overriden.
-	if (!game->render || !game->update || !game->initialize || !game->onResize) {
-		YFATAL("The game's virtual functions must be overriden.");
-		return -2;
-	}
+//	// Ensure the virtual functions are overriden.
+//	if (!game->render || !game->update || !game->initialize || !game->onResize) {
+//		YFATAL("The game's virtual functions must be overriden.");
+//		return -2;
+//	}
 	
 	// Initialization
 	if (!Yazh::Application::create(game)) {
