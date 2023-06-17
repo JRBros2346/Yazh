@@ -6,7 +6,7 @@
 
 // Externally defined function to create game.
 namespace Yazh::Game {
-	extern Game* create();
+	extern _Game* create();
 }
 /**
  * The main entry point of the app.
@@ -14,17 +14,11 @@ namespace Yazh::Game {
 int main(void) {
 	
 	// Request the game instance from the app.
-	Yazh::Game::Game* game = Yazh::Game::create();
+	Yazh::Game::_Game* game = Yazh::Game::create();
 	if (!game) {
 		YFATAL("Could not create game!");
 		return -1;
 	}
-	
-//	// Ensure the virtual functions are overriden.
-//	if (!game->render || !game->update || !game->initialize || !game->onResize) {
-//		YFATAL("The game's virtual functions must be overriden.");
-//		return -2;
-//	}
 	
 	// Initialization
 	if (!Yazh::Application::create(game)) {

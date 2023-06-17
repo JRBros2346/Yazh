@@ -3,7 +3,7 @@
 
 namespace Yazh::Game {
 	class Game : public _Game {
-		f32 deltaTime
+		f32 deltaTime;
 		public:
 			bool initialize() override {
 				YDEBUG("Yazh::Game::Game::initialize() called!");

@@ -5,7 +5,7 @@
 // Define the function to create a game.
 namespace Yazh::Game {
 	Game game;
-	Game* create() {
+	_Game* create() {
 		// Application configuration.
 		game.appConfig.startPosX = 100;
 		game.appConfig.startPosY = 100;

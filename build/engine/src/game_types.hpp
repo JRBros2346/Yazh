@@ -13,5 +13,4 @@ namespace Yazh::Game {
 			virtual bool render(f32 deltaTime) = 0;
 			virtual void onResize(u32 width, u32 height) = 0;
 	};
-	class Game : public _Game {};
 }

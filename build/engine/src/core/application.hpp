@@ -6,7 +6,7 @@
 #include"platform/platform_linux.hpp"
 
 namespace Yazh::Game {
-	class Game;
+	class _Game;
 }
 namespace Yazh::Application {
 	// Application configuration.
@@ -28,7 +28,7 @@ namespace Yazh::Application {
 	};
 	
 	
-	YAPI bool create(Yazh::Game::Game* game);
+	YAPI bool create(Yazh::Game::_Game* game);
 	
 	YAPI bool run();
 } // namespace Yazh::Application
