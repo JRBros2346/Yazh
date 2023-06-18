@@ -3,8 +3,8 @@
 #include"defines.hpp"
 #include"core/application.hpp"
 
-namespace Yazh::Game {
-	class _Game {
+namespace Yazh {
+	class Game {
 		public:
 			Yazh::Application::config appConfig;
 			

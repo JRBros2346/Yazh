@@ -5,9 +5,9 @@
 #include"platform/platform_win32.hpp"
 #include"platform/platform_linux.hpp"
 
-namespace Yazh::Game {
-	class _Game;
-}
+// Forward declaration
+namespace Yazh { class Game; }
+
 namespace Yazh::Application {
 	// Application configuration.
 	using config = struct config {
@@ -28,7 +28,7 @@ namespace Yazh::Application {
 	};
 	
 	
-	YAPI bool create(Yazh::Game::_Game* game);
+	YAPI bool create(Yazh::Game* game);
 	
 	YAPI bool run();
 } // namespace Yazh::Application

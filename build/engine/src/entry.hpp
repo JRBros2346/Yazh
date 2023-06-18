@@ -5,9 +5,8 @@
 #include"game_types.hpp"
 
 // Externally defined function to create game.
-namespace Yazh::Game {
-	extern _Game* create();
-}
+Yazh::Game* create();
+
 /**
  * The main entry point of the app.
  */
