@@ -9,7 +9,7 @@ namespace Yazh {
 	}
 
 	void Platform::free(void *block, bool aligned) {
-		::free(block);
+		free(block);
 	}
 
 	void* Platform::zeroMemory(void *block, u64 size) {
@@ -22,16 +22,6 @@ namespace Yazh {
 
 	void* Platform::setMemory(void *dest, i32 value, u64 size) {
 		return memset(dest, value, size);
-	}
-
-	f64 Platform::getAbsoluteTime() {
-		struct timespec now;
-		clock_gettime(CLOCK_MONOTONIC, &now);
-		return now.tv_sec + now.tv_nsec * 0.000000001;
-	}
-
-	void Platform::sleep(u64 ms) {
-		std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 	}
 } // namespace Yazh
 

@@ -1,9 +1,10 @@
 #pragma once
 
 #include"defines.hpp"
+#include<thread>
 
 namespace Yazh {
-	class _Platform {
+	class VirtualPlatform {
 		public:
 			virtual bool startup(
 				const char* applicationName,
