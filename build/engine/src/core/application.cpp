@@ -10,7 +10,7 @@
 
 namespace Yazh::Application {
 	static struct state {
-		Yazh::Game* game;
+		Yazh::VirtualGame* game;
 		bool isRunning;
 		bool isSuspended;
 		Yazh::Platform platform;
@@ -21,7 +21,7 @@ namespace Yazh::Application {
 	
 	static bool initialized = false;
 	
-	bool create(Yazh::Game* game) {
+	bool create(Yazh::VirtualGame* game) {
 		if(initialized) {
 			YERROR("Yazh::Application::create called more than once.");
 			return false;

@@ -4,7 +4,7 @@
 #include"core/application.hpp"
 
 namespace Yazh {
-	class Game {
+	class VirtualGame {
 		public:
 			Yazh::Application::config appConfig;
 			

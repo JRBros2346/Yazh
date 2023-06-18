@@ -6,7 +6,7 @@
 #include"platform/platform_linux.hpp"
 
 // Forward declaration
-namespace Yazh { class Game; }
+namespace Yazh { class VirtualGame; }
 
 namespace Yazh::Application {
 	// Application configuration.
@@ -28,7 +28,7 @@ namespace Yazh::Application {
 	};
 	
 	
-	YAPI bool create(Yazh::Game* game);
+	YAPI bool create(Yazh::VirtualGame* game);
 	
 	YAPI bool run();
 } // namespace Yazh::Application
