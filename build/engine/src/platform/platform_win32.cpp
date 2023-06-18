@@ -8,7 +8,7 @@ namespace Yazh {
 	}
 
 	void Platform::free(void *block, bool alligned) {
-		::free(block);
+		free(block);
 	}
 
 	void* Platform::zeroMemory(void *block, u64 size) {
@@ -22,16 +22,6 @@ namespace Yazh {
 	void* Platform::setMemory(void *dest, i32 value, u64 size) {
 		return memset(dest, value, size);
 	}
-
-	f64 Platform::getAbsoluteTime() {
-		LARGE_INTEGER now_time;
-		QueryPerformanceCounter(&now_time);
-		return (f64)now_time.QuadPart * Platform::clock_frequency;
-	}
-
-	void Platform::sleep(u64 ms) {
-		Sleep(ms);
-	}
 }
 
-#endif // KPLATFORM_WINDOWS
+#endif // YPLATFORM_WINDOWS

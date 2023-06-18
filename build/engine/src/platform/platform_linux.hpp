@@ -20,7 +20,7 @@
 #	include<iostream>
 
 namespace Yazh {
-	class YAPI Platform : public _Platform {
+	class YAPI Platform : public VirtualPlatform {
 		Display* display;
 		xcb_connection_t* connection;
 		xcb_window_t window;
@@ -209,18 +209,18 @@ namespace Yazh {
 				return !quit_flagged;
 			}
 			
-			void* allocate(u64 size, bool aligned);
-			void free(void* block, bool aligned);
-			void* zeroMemory(void* block, u64 size);
-			void* copyMemory(void* dest, const void* source, u64 size);
-			void* setMemory(void* dest, i32 value, u64 size);
-			
-			f64 getAbsoluteTime();
+			static void* allocate(u64 size, bool aligned);
+			static void free(void* block, bool aligned);
+			static void* zeroMemory(void* block, u64 size);
+			static void* copyMemory(void* dest, const void* source, u64 size);
+			static void* setMemory(void* dest, i32 value, u64 size);
+				
+			static f64 getAbsoluteTime();
 			
 			// Sleep on the thread for the provided ms. This blocks the main thread.
 			// Should only be used for giving time back to the OS for unused update power.
 			// Therefore it is not exported.
-			void sleep(u64 ms);
+			static void sleep(u64 ms);
 	};
 } // namespace Yazh
 

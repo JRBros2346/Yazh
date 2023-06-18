@@ -11,7 +11,7 @@
 
 namespace Yazh {
 	LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param);
-	class YAPI Platform : public _Platform {
+	class YAPI Platform : public VirtualPlatform {
 		HINSTANCE h_instance;
 		HWND hwnd;
 		
