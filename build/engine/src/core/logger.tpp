@@ -1,5 +1,7 @@
 #pragma once
 
+#include<map>
+
 namespace Yazh::Logger {
 	template<class ...fragments>
 	void logOutput(LogLevel level, fragments&& ...message) {

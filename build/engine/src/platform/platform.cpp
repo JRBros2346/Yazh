@@ -1,10 +1,7 @@
 #include"platform.hpp"
 
-#if YPLATFORM_WINDOWS
-#	include"platform_win32.hpp"
-#elif YPLATFORM_LINUX
-#	include"platform_linux.hpp"
-#endif
+#include"platform_win32.hpp"
+#include"platform_linux.hpp"
 
 namespace Yazh {
 	f64 Platform::getAbsoluteTime() {

@@ -1,13 +1,12 @@
 #pragma once
 
-#if YPLATFORM_WINDOWS
-#	include"platform.hpp"
-#	include"defines.hpp"
-#	include"core/logger.hpp"
+#include"platform.hpp"
+#include"defines.hpp"
+#include"core/logger.hpp"
 
+#if YPLATFORM_WINDOWS
 #	include<windows.h>
 #	include<windowsx.h> // param input extraction
-#	include<iostream>
 
 namespace Yazh {
 	class YAPI Platform : public VirtualPlatform {

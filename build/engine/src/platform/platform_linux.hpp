@@ -1,10 +1,10 @@
 #pragma once
 
-#if YPLATFORM_LINUX
-#	include"platform.hpp"
-#	include"defines.hpp"
-#	include"core/logger.hpp"
+#include"platform.hpp"
+#include"defines.hpp"
+#include"core/logger.hpp"
 
+#if YPLATFORM_LINUX
 #	include<xcb/xcb.h>
 #	include<X11/keysym.h>
 #	include<X11/XKBlib.h>  	// sudo apt-get install libx11-dev
@@ -12,12 +12,8 @@
 #	include<X11/Xlib-xcb.h>	// sudo apt-get install libxkbcommon-x11-dev
 #	include<sys/time.h>
 
-#	include<chrono>
-#	include<thread> // std::this_thread::sleep_for(std::chrono::nanoseconds())
-
 #	include<cstdlib>
 #	include<cstring>
-#	include<iostream>
 
 namespace Yazh {
 	class YAPI Platform : public VirtualPlatform {
