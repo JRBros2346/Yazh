@@ -1,6 +1,8 @@
 #pragma once
 #include<game_types.hpp>
 
+#include<core/logger.hpp>
+
 class Game : public Yazh::VirtualGame {
 	f32 deltaTime;
 	public:

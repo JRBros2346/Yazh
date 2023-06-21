@@ -2,9 +2,6 @@
 
 #include"defines.hpp"
 
-#include"platform/platform_win32.hpp"
-#include"platform/platform_linux.hpp"
-
 // Forward declaration
 namespace Yazh { class VirtualGame; }
 

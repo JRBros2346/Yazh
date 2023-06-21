@@ -11,7 +11,7 @@ namespace Yazh {
 	}
 
 	void Platform::free(void *block, bool alligned) {
-		free(block);
+		::free(block);
 	}
 
 	void* Platform::zeroMemory(void *block, u64 size) {
@@ -26,7 +26,7 @@ namespace Yazh {
 		return memset(dest, value, size);
 	}
 		
-	LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param) {
+	LRESULT CALLBACK Platform::win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param) {
 		switch (msg) {
 			case WM_ERASEBKGND:
 			// Notify the OS that erasing will be handled by the application to prevent flicker.

@@ -2,6 +2,7 @@
 
 #include"defines.hpp"
 #include"core/application.hpp"
+#include"core/logger.hpp"
 #include"game_types.hpp"
 
 // Externally defined function to create game.

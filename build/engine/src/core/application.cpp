@@ -1,6 +1,9 @@
 #include"application.hpp"
 #include"game_types.hpp"
 
+#include"platform/platform_win32.cpp"
+#include"platform/platform_linux.cpp"
+
 #include"logger.hpp"
 
 /* Application Layer is NOT Object Oriented.

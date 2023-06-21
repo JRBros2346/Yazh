@@ -10,8 +10,9 @@
 #	include<iostream>
 
 namespace Yazh {
-	LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param);
 	class YAPI Platform : public VirtualPlatform {
+		static LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param);
+		
 		HINSTANCE h_instance;
 		HWND hwnd;
 		
@@ -138,6 +139,8 @@ namespace Yazh {
 			// Therefore it is not exported.
 			static void sleep(u64 ms);
 	};
+	
+	
 } // namespace Yazh
 
 #endif // YPLATFORM_WINDOWS
