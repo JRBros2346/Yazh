@@ -16,6 +16,8 @@ namespace Yazh {
  */
 int main(void) {
 	
+	Yazh::Memory::initialize();
+	
 	// Request the game instance from the app.
 	auto game = Yazh::createGame();
 	if (!game) {
@@ -34,6 +36,8 @@ int main(void) {
 		YINFO("Application did not shutdown gracefully");
 		return 2;
 	}
+	
+	Yazh::Memory::shutdown();
 	
 	return 0;
 }
