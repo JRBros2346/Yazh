@@ -17,11 +17,9 @@ namespace Yazh::Logger {
 			{LogLevel::TRC, "\033[37m"}
 		};
 		
-		// platform specific output.
-		if (is_error) {
+		if (is_error)
 			(std::cerr << colors[level] << "[ " << level << " ]" << "\033[m" << ": " << ... << message) << '\n';
-		} else {
+		else
 			(std::clog << colors[level] << "[ " << level << " ]" << "\033[m" << ": " << ... << message) << '\n';
-		}
 	}
 } // namespace Yazh::Logger
