@@ -3,6 +3,7 @@
 
 #include"platform/platform_win32.cpp"
 #include"platform/platform_linux.cpp"
+#include"ymemory.hpp"
 
 #include"logger.hpp"
 
@@ -22,7 +23,7 @@ namespace Yazh::Application {
 		f64 lastTime;
 	} state;
 	
-	static bool initialized = false;
+	static auto initialized = false;
 	
 	bool create(Yazh::VirtualGame* game) {
 		if(initialized) {
@@ -68,6 +69,7 @@ namespace Yazh::Application {
 	}
 	
 	bool run() {
+		YINFO(Yazh::Memory::getMemoryUsageString())
 		while (state.isRunning) {
 			if (!state.platform.pumpMessages()) {
 				state.isRunning = false;

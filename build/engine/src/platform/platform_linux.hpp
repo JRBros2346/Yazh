@@ -50,7 +50,7 @@ namespace Yazh {
 				const struct xcb_setup_t* setup = xcb_get_setup(connection);
 				
 				// Loop through screens using iterator
-				int screen_p = 0;
+				auto screen_p = 0;
 				xcb_screen_iterator_t it = xcb_setup_roots_iterator(setup);
 				for (i32 s = screen_p; s>0; s++) {
 					xcb_screen_next(&it);
@@ -160,7 +160,7 @@ namespace Yazh {
 				xcb_generic_event_t* event;
 				xcb_client_message_event_t* cm;
 				
-				bool quit_flagged = false;
+				auto quit_flagged = false;
 				
 				// Poll for events until null is returned.
 				while (event != 0) {
