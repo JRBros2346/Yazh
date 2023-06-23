@@ -3,7 +3,6 @@
 #include"defines.hpp"
 #include"core/application.hpp"
 #include"core/logger.hpp"
-#include"core/ymemory.hpp"
 #include"game_types.hpp"
 
 // Externally defined function to create game.
@@ -19,7 +18,7 @@ int main(void) {
 	Yazh::Memory::initialize();
 	
 	// Request the game instance from the app.
-	auto game = Yazh::createGame();
+	Yazh::VirtualGame* game = Yazh::createGame();
 	if (!game) {
 		YFATAL("Could not create game!");
 		return -1;
