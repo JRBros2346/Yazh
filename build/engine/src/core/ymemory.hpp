@@ -21,8 +21,6 @@ namespace Yazh::Memory {
 		
 		END,
 	};
-	// std::string operator+(std::string, Tag);
-	// void operator+=(std::string&, Tag&);
 	
 	void initialize();
 	void shutdowm();
