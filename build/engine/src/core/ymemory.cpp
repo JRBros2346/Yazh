@@ -74,9 +74,9 @@ namespace Yazh::Memory {
 		const u64 KiB = 1024;
 		
 		std::string output = "System memory use (tagged):\n";
-		for (Tag t = Tag::Unknown; t < Tag::END; ++t) {
+		for (const auto& [tag, memory] : Statistics.TaggedAllocation) {
 			std::string unit = "B";
-			f64 value = Statistics::TaggedAllocation[t];
+			f64 value = memory;
 			if (value >= GiB) {
 				unit = "GiB";
 				value /= GiB;
@@ -87,7 +87,7 @@ namespace Yazh::Memory {
 				unit = "KiB";
 				value /= KiB;
 			}
-			output += "  " + Stringify[t] + ": " + std::string(value) + " " + unit;
+			output += "  " + Stringify[tag] + ": " + std::to_string(value) + " " + unit;
 		}
 		
 		return output;
