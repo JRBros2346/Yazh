@@ -15,7 +15,7 @@ namespace Yazh::Logger {
 			{LogLevel::TRC, "\033[37m"}  // White
 		};
 		
-		os << colors[level];
+		os << colors[level] << "\033[1m"; // Bold and Underline
 		switch(level) {
 			case LogLevel::FTL:	os << "[ FATAL ]"; break;
 			case LogLevel::ERR:	os << "[ ERROR ]"; break;
