@@ -5,21 +5,27 @@
 #include"platform/platform_linux.hpp"
 
 namespace Yazh::Memory {
-	static const std::map<Tag, std::string> Stringify {
-		{ Tag::Unknown,          "Unknown           " },
-		{ Tag::RingQueue,        "Ring Queue        " },
-		{ Tag::BST,              "BST               " },
-		{ Tag::Application,      "Application       " },
-		{ Tag::Job,              "Job               " },
-		{ Tag::Texture,          "Texture           " },
-		{ Tag::MaterialInstance, "Material Instance " },
-		{ Tag::Renderer,         "Renderer          " },
-		{ Tag::Game,             "Game              " },
-		{ Tag::Transform,        "Transform         " },
-		{ Tag::Entity,           "Entity            " },
-		{ Tag::EntityNode,       "Entity Node       " },
-		{ Tag::Scene,            "Scene             " }
-	};
+	
+	inline std::string string(Tag tag) {
+		switch(tag) {
+			case Tag::Unknown          : return "           Unknown";
+			case Tag::RingQueue        : return "        Ring Queue";
+			case Tag::BST              : return "               BST";
+			case Tag::Application      : return "       Application";
+			case Tag::Job              : return "               Job";
+			case Tag::Texture          : return "           Texture";
+			case Tag::MaterialInstance : return " Material Instance";
+			case Tag::Renderer         : return "          Renderer";
+			case Tag::Game             : return "              Game";
+			case Tag::Transform        : return "         Transform";
+			case Tag::Entity           : return "            Entity";
+			case Tag::EntityNode       : return "       Entity Node";
+			case Tag::Scene            : return "             Scene";
+			
+			default: return "";
+		}
+	}
+	
 	static struct Statistics {
 		u64 TotalAllocation;
 		std::map<Tag, u64> TaggedAllocation;
@@ -68,28 +74,35 @@ namespace Yazh::Memory {
 		return Platform::setMemory(dest, value, size);
 	}
 	
-	std::string getMemoryUsageString() {
+	std::string :getMemoryUsageString() {
 		const u64 GiB = 1024 * 1024 * 1024;
 		const u64 MiB = 1024 * 1024;
 		const u64 KiB = 1024;
 		
 		std::string output = "System memory use (tagged):\n";
+		YDEBUG("starting loop");
 		for (const auto& [tag, memory] : Statistics.TaggedAllocation) {
+			YDEBUG("setting unit and value")
 			std::string unit = "B";
 			f64 value = memory;
 			if (value >= GiB) {
+				YDEBUG("Checking GiB");
 				unit = "GiB";
 				value /= GiB;
 			} else if (value >= MiB) {
+				YDEBUG("Checking MiB");
 				unit = "MiB";
 				value /= MiB;
 			} else if (value >= KiB) {
+				YDEBUG("Checking KiB");
 				unit = "KiB";
 				value /= KiB;
-			}
-			output += "  " + Stringify[tag] + ": " + std::to_string(value) + " " + unit;
+			} else { YDEBUG("defaulted to B"); }
+			YDEBUG("preparing output");
+			output += "    " + string(tag) + " : " + std::to_string(value) + " " + unit;
 		}
 		
+		YDEBUG("returning output");
 		return output;
 	}
 }

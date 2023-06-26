@@ -3,6 +3,7 @@
 
 #include"platform/platform_win32.cpp"
 #include"platform/platform_linux.cpp"
+#include"ymemory.hpp"
 
 #include"logger.hpp"
 
@@ -68,6 +69,7 @@ namespace Yazh::Application {
 	}
 	
 	bool run() {
+		YINFO(Yazh::Memory::getMemoryUsageString());
 		while (state.isRunning) {
 			if (!state.platform.pumpMessages()) {
 				state.isRunning = false;

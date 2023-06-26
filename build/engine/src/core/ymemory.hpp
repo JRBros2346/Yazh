@@ -21,9 +21,10 @@ namespace Yazh::Memory {
 		
 		END,
 	};
+	inline std::string string(Tag);
 	
 	void initialize();
-	void shutdowm();
+	void shutdown();
 	
 	YAPI void* yallocate(u64, Tag);
 	
