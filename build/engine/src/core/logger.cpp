@@ -4,17 +4,29 @@
 /* TODO (#1#): temporary */
 
 namespace Yazh::Logger {
-	
 	std::ostream& operator<<(std::ostream& os, const LogLevel& level) {
-		switch(level) {
-			case LogLevel::FTL:	os << "FATAL"; return os;
-			case LogLevel::ERR:	os << "ERROR"; return os;
-			case LogLevel::WRN:	os << " WARN"; return os;
-			case LogLevel::INF:	os << " INFO"; return os;
-			case LogLevel::DBG:	os << "DEBUG"; return os;
-			case LogLevel::TRC:	os << "TRACE"; return os;
-			default:			return os;
+		// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
+		static std::map<LogLevel, std::string> colors{
+			{LogLevel::FTL, "\033[41m"}, // Red background 
+			{LogLevel::ERR, "\033[31m"}, // Red
+			{LogLevel::WRN, "\033[33m"}, // Yellow
+			{LogLevel::INF, "\033[32m"}, // Green
+			{LogLevel::DBG, "\033[34m"}, // Blue
+			{LogLevel::TRC, "\033[37m"}  // White
 		};
+		
+		os << colors[level];
+		switch(level) {
+			case LogLevel::FTL:	os << "[ FATAL ]"; break;
+			case LogLevel::ERR:	os << "[ ERROR ]"; break;
+			case LogLevel::WRN:	os << "[  WARN ]"; break;
+			case LogLevel::INF:	os << "[  INFO ]"; break;
+			case LogLevel::DBG:	os << "[ DEBUG ]"; break;
+			case LogLevel::TRC:	os << "[ TRACE ]"; break;
+			default: return os;
+		};
+		os << "\033[m";
+		return os;
 	};
 	
 	void reportAssertionFailure(std::string expression, std::string message, std::string file, i32 line) {
