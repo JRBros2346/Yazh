@@ -6,7 +6,7 @@
 
 namespace Yazh::Memory {
 	
-	inline std::string string(Tag tag) {
+	inline std::string Stringify(Tag tag) {
 		switch(tag) {
 			case Tag::Unknown          : return "           Unknown";
 			case Tag::Array            : return "             Array";
@@ -36,7 +36,9 @@ namespace Yazh::Memory {
 	} Statistics;
 	
 	void initialize() {
-		Platform::zeroMemory(&Statistics, sizeof(Statistics));
+		Statistics.TotalAllocation = 0;
+		for (auto i = 0; i < (int)Tag::END; i++)
+			Statistics.TaggedAllocation[(Tag)i] = 0;
 	}
 	
 	void shutdown() {
@@ -84,29 +86,22 @@ namespace Yazh::Memory {
 		const u64 KiB = 1024;
 		
 		std::string output = "System memory use (tagged):\n";
-		YDEBUG("starting loop");
 		for (const auto& [tag, memory] : Statistics.TaggedAllocation) {
-			YDEBUG("setting unit and value")
 			std::string unit = "B";
 			f64 value = memory;
 			if (value >= GiB) {
-				YDEBUG("Checking GiB");
 				unit = "GiB";
 				value /= GiB;
 			} else if (value >= MiB) {
-				YDEBUG("Checking MiB");
 				unit = "MiB";
 				value /= MiB;
 			} else if (value >= KiB) {
-				YDEBUG("Checking KiB");
 				unit = "KiB";
 				value /= KiB;
-			} else { YDEBUG("defaulted to B"); }
-			YDEBUG("preparing output");
-			output += "    " + string(tag) + " : " + std::to_string(value) + " " + unit;
+			}
+			output += "    " + Stringify(tag) + " : " + std::to_string(value) + " " + unit + "\n";
 		}
 		
-		YDEBUG("returning output");
 		return output;
 	}
 }
