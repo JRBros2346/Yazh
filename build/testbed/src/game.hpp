@@ -7,7 +7,7 @@ class Game : public Yazh::VirtualGame {
 	f32 deltaTime;
 	public:
 		bool initialize() override {
-			YDEBUG("Yazh::Game::Game::initialize() called!");
+			YDEBUG("Game::initialize() called!");
 			return true;
 		}
 		bool update(f32 deltaTime) {
