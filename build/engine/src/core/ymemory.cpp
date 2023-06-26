@@ -8,23 +8,23 @@ namespace Yazh::Memory {
 	
 	inline std::string Stringify(Tag tag) {
 		switch(tag) {
-			case Tag::Unknown          : return "           Unknown";
-			case Tag::Array            : return "             Array";
-			case Tag::Vector           : return "            Vector";
-			case Tag::Map              : return "               Map";
-			case Tag::RingQueue        : return "        Ring Queue";
-			case Tag::BST              : return "               BST";
-			case Tag::String           : return "            String";
-			case Tag::Application      : return "       Application";
-			case Tag::Job              : return "               Job";
-			case Tag::Texture          : return "           Texture";
-			case Tag::MaterialInstance : return " Material Instance";
-			case Tag::Renderer         : return "          Renderer";
-			case Tag::Game             : return "              Game";
-			case Tag::Transform        : return "         Transform";
-			case Tag::Entity           : return "            Entity";
-			case Tag::EntityNode       : return "       Entity Node";
-			case Tag::Scene            : return "             Scene";
+			case Tag::Unknown          : return "          Unknown";
+			case Tag::Array            : return "            Array";
+			case Tag::Vector           : return "           Vector";
+			case Tag::Map              : return "              Map";
+			case Tag::RingQueue        : return "       Ring Queue";
+			case Tag::BST              : return "              BST";
+			case Tag::String           : return "           String";
+			case Tag::Application      : return "      Application";
+			case Tag::Job              : return "              Job";
+			case Tag::Texture          : return "          Texture";
+			case Tag::MaterialInstance : return "Material Instance";
+			case Tag::Renderer         : return "         Renderer";
+			case Tag::Game             : return "             Game";
+			case Tag::Transform        : return "        Transform";
+			case Tag::Entity           : return "           Entity";
+			case Tag::EntityNode       : return "      Entity Node";
+			case Tag::Scene            : return "            Scene";
 			
 			default: return "";
 		}
