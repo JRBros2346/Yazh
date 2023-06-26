@@ -9,8 +9,12 @@ namespace Yazh::Memory {
 	inline std::string string(Tag tag) {
 		switch(tag) {
 			case Tag::Unknown          : return "           Unknown";
+			case Tag::Array            : return "             Array";
+			case Tag::Vector           : return "            Vector";
+			case Tag::Map              : return "               Map";
 			case Tag::RingQueue        : return "        Ring Queue";
 			case Tag::BST              : return "               BST";
+			case Tag::String           : return "            String";
 			case Tag::Application      : return "       Application";
 			case Tag::Job              : return "               Job";
 			case Tag::Texture          : return "           Texture";
@@ -74,7 +78,7 @@ namespace Yazh::Memory {
 		return Platform::setMemory(dest, value, size);
 	}
 	
-	std::string :getMemoryUsageString() {
+	std::string getMemoryUsageString() {
 		const u64 GiB = 1024 * 1024 * 1024;
 		const u64 MiB = 1024 * 1024;
 		const u64 KiB = 1024;

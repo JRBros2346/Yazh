@@ -6,8 +6,12 @@
 namespace Yazh::Memory {
 	enum class Tag {
 		Unknown,
+		Array,
+		Vectro,
+		Map,
 		RingQueue,
 		BST,
+		String,
 		Application,
 		Job,
 		Texture,
@@ -17,9 +21,7 @@ namespace Yazh::Memory {
 		Transform,
 		Entity,
 		EntityNode,
-		Scene,
-		
-		END,
+		Scene
 	};
 	inline std::string string(Tag);
 	
