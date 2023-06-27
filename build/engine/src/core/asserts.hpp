@@ -14,7 +14,7 @@ namespace Yazh::Logger {
 #		define debugBreak() __builtin_trap()
 #	endif
 	
-	YAPI void reportAssertionFailure(std::string expression, std::string message, std::string file, i32 line);
+	YAPI void reportAssertionFailure(std::string, std::string, std::string, i32);
 	
 #	define YASSERT(expr)                                                              	\
 		{                                                                             	\

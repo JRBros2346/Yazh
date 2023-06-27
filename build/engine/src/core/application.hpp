@@ -25,7 +25,7 @@ namespace Yazh::Application {
 	};
 	
 	
-	YAPI bool create(Yazh::VirtualGame* game);
+	YAPI bool create(Yazh::VirtualGame*);
 	
 	YAPI bool run();
 } // namespace Yazh::Application
