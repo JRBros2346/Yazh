@@ -24,8 +24,8 @@ namespace Yazh::Logger {
 	};
 	std::ostream& operator<<(std::ostream&, const LogLevel&);
 	
-	bool initializeLogging();
-	void shutdownLogging();
+	bool initialize();
+	void shutdown();
 	
 	template<class ...fragments>
 	YAPI void logOutput(LogLevel level, fragments&& ...message);

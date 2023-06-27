@@ -34,7 +34,7 @@ namespace Yazh::Application {
 		state.game = game;
 		
 		// Initialize subsystems.
-		Yazh::Logger::initializeLogging();
+		Yazh::Logger::initialize();
 		
 		/* TODO (#1#): Remove this */
 		YFATAL("A test message: ",3.14f);
