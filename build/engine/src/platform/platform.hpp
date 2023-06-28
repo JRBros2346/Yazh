@@ -11,10 +11,10 @@ namespace Yazh {
 				i32 x,
 				i32 y,
 				i32 width,
-				i32 height) { return false; };
+				i32 height) = 0;
 			
-			virtual void shutdown() {};
+			virtual void shutdown() = 0;
 			
-			virtual bool pumpMessages() { return false; };
+			virtual bool pumpMessages() = 0;
 	};
 }

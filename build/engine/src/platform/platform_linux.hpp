@@ -205,18 +205,18 @@ namespace Yazh {
 				return !quit_flagged;
 			}
 			
-			static void* allocate(u64 size, bool aligned);
-			static void free(void* block, bool aligned);
-			static void* zeroMemory(void* block, u64 size);
-			static void* copyMemory(void* dest, const void* source, u64 size);
-			static void* setMemory(void* dest, i32 value, u64 size);
+			static void* allocate(u64, bool);
+			static void free(void*, bool);
+			static void* zeroMemory(void*, u64);
+			static void* copyMemory(void*, const void*, u64);
+			static void* setMemory(void*, i32, u64);
 				
 			static f64 getAbsoluteTime();
 			
 			// Sleep on the thread for the provided ms. This blocks the main thread.
 			// Should only be used for giving time back to the OS for unused update power.
 			// Therefore it is not exported.
-			static void sleep(f64 ms);
+			static void sleep(f64);
 	};
 } // namespace Yazh
 
