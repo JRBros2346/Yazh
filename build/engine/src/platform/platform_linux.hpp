@@ -216,7 +216,7 @@ namespace Yazh {
 			// Sleep on the thread for the provided ms. This blocks the main thread.
 			// Should only be used for giving time back to the OS for unused update power.
 			// Therefore it is not exported.
-			static void sleep(u64 ms);
+			static void sleep(f64 ms);
 	};
 } // namespace Yazh
 
