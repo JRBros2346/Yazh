@@ -2,6 +2,8 @@
 
 #include"defines.hpp"
 
+#include"types/iterator.hpp"
+
 namespace Yazh::Containers {
 	template<class T>
 	class Vector {
@@ -12,23 +14,26 @@ namespace Yazh::Containers {
 		u64 CAPACITY;
 		T* DATA;
 		public:
-			Vector(T* data = nullptr);
-			Vector(Vector<T>& other);
-			Vector(u64 capacity);
-			~Vector() { delete [] DATA; }
+			explicit Vector();
+			explicit Vector(T*);
+			explicit Vector(Vector<T>&);
+			explicit Vector(u64);
+			~Vector();
 			
-			T& operator[](u64 pos);
-			T& at(u64 pos);
+			T& operator[](u64);
+			T& at(u64);
 			
 			void resize();
 			
-			void push(T value, u64 pos = SIZE);
-			T pop(T value, u64 pos = SIZE);
+			u64 push(T, u64 = SIZE);
+			T pop(u64 = SIZE - 1);
 			
 			void clear();
-			u64 size();
-			u64 capacity();
+			u64 size() const;
+			u64 capacity() const;
+			T* data() const;
 			
-			void setSize(u64 size);
+			Yazh::Types::Iterator<T> begin() const;
+			Yazh::Types::Iterator<T> end() const;
 	};
 } // namespace Yazh::Containers
