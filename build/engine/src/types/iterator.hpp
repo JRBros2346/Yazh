@@ -25,3 +25,5 @@ namespace Yazh::Types {
 			Iterator operator--(int);
 	};
 } // namespace Yazh::Types
+
+#include"iterator.tpp"
