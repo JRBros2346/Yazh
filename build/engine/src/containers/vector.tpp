@@ -57,15 +57,13 @@ namespace Yazh::Containers {
 		for (auto i = SIZE; i > pos; i--) 
 			DATA[i+1] = DATA[i];
 		DATA[pos] = val;
-		SIZE += 1;
-		return SIZE;
+		return SIZE++;
 	}
 	template<class T>
 	u64 Vector<T>::push(T val) {
 		if(SIZE == CAPACITY) this->resize();
 		DATA[SIZE] = val;
-		SIZE += 1;
-		return SIZE;
+		return SIZE++;
 	}
 
 	template<class T>
@@ -73,13 +71,11 @@ namespace Yazh::Containers {
 		T val = DATA[pos];
 		for (auto i = pos; i < SIZE-1; i++)
 			DATA[i] = DATA[i+1];
+		SIZE--;
 		return val;
 	}
 	template<class T>
-	T Vector<T>::pop() {
-		SIZE -= 1;
-		return DATA[SIZE];
-	}
+	T Vector<T>::pop() { return DATA[--SIZE]; }
 	
 	template<class T>
 	void Vector<T>::clear() { SIZE = 0; }
