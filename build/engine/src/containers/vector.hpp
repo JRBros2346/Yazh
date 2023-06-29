@@ -39,3 +39,5 @@ namespace Yazh::Containers {
 			Yazh::Types::Iterator<T> end() const;
 	};
 } // namespace Yazh::Containers
+
+#include"vector.tpp"
