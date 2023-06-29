@@ -2,10 +2,10 @@
 
 namespace Yazh::Types {
 	template<class T>
-	explicit Iterator<T>::Iterator() : ptr(nullptr) {
+	Iterator<T>::Iterator() : ptr(nullptr) {
 	}
 	template<class T>
-	explicit Iterator<T>::Iterator(T* p) : ptr(p) {
+	Iterator<T>::Iterator(T* p) : ptr(p) {
 	}
 	
 	template<class T>

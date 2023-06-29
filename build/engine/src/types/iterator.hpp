@@ -4,7 +4,7 @@
 
 namespace Yazh::Types {
 	template<class T>
-	class Iterator {
+	class YAPI Iterator {
 		T* ptr;
 		
 		public:
@@ -23,5 +23,5 @@ namespace Yazh::Types {
 			
 			Iterator& operator--();
 			Iterator operator--(int);
-	}
+	};
 } // namespace Yazh::Types

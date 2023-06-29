@@ -41,7 +41,7 @@ namespace Yazh::Event {
 	void shutdown() {
 		// free the events arrays. And objects pointed to should be destroyed on their own.
 		for (auto code : state.registered) {
-			delete code.events;
+			delete &code.events;
 		}
 	}
 	
@@ -68,7 +68,7 @@ namespace Yazh::Event {
 		if (!isInitialized)
 			return false;
 		
-		for (auto i = 0; i < state.registered[code].events.size(); i++) {
+		for (u64 i = 0; i < state.registered[code].events.size(); i++) {
 			auto e = state.registered[code].events[i];
 			if (e.listener == listener && e.callback == onEvent) {
 				// Found one, remove it
@@ -86,7 +86,7 @@ namespace Yazh::Event {
 			return false;
 			
 		for(auto e : state.registered[code].events) {
-			if(e.callback(code, sender, e.listener, context)) {
+			if(e.callback(code, sender, e.listener, data)) {
 				// Message has been handled, do not send to other listeners.
 				return true;
 			}

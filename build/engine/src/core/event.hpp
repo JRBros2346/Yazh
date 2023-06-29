@@ -28,7 +28,7 @@ namespace Yazh::Event {
 	};
 	
 	// Should return true if handled.
-	typedef bool (*onEvent_ptr)(u16, Sender*, Listener*, context);
+	using onEvent_ptr = bool (*)(u16, Sender*, Listener*, context);
 	
 	bool initialize();
 	void shutdown();

@@ -1,5 +1,7 @@
 #include"vector.hpp"
 
+#include"core/logger.hpp"
+
 namespace Yazh::Containers {
 	template<class T>
 	Vector<T>::Vector()
@@ -16,7 +18,7 @@ namespace Yazh::Containers {
 		for (auto i = 0; i < SIZE; i++) DATA[i] = data[i];
 	}
 	template<class T>
-	Vector<T>::Vector(Vector<T>& other);
+	Vector<T>::Vector(Vector<T>& other)
 			: DATA(other.data()),
 			  SIZE(other.size()),
 			  CAPACITY(other.capacity()) {
@@ -51,7 +53,7 @@ namespace Yazh::Containers {
 	}
 
 	template<class T>
-	u64 Vector<T>::push(T val, u64 pos = SIZE) {
+	u64 Vector<T>::push(T val, u64 pos) {
 		if(SIZE == CAPACITY) *this.resize();
 		for (auto i = SIZE; i > pos; i--) 
 			DATA[i+1] = DATA[i];
@@ -60,24 +62,37 @@ namespace Yazh::Containers {
 		return SIZE;
 	}
 	template<class T>
-	T Vector<T>::pop(u64 pos = SIZE - 1) {
+	u64 Vector<T>::push(T val) {
+		if(SIZE == CAPACITY) *this.resize();
+		DATA[SIZE] = val;
+		SIZE += 1;
+		return SIZE;
+	}
+
+	template<class T>
+	T Vector<T>::pop(u64 pos) {
 		T val = DATA[pos];
 		for (auto i = pos; i < SIZE-1; i++)
 			DATA[i] = DATA[i+1];
 		return val;
 	}
+	template<class T>
+	T Vector<T>::pop() {
+		SIZE -= 1;
+		return DATA[SIZE];
+	}
 	
 	template<class T>
 	void Vector<T>::clear() { SIZE = 0; }
 	template<class T>
-	u64 Vector<T>::size() { return SIZE; }
+	u64 Vector<T>::size() const { return SIZE; }
 	template<class T>
-	u64 Vector<T>::capacity() { return CAPACITY; }
+	u64 Vector<T>::capacity() const { return CAPACITY; }
 	template<class T>
-	T* Vector<T>::data() { return DATA; }
+	T* Vector<T>::data() const { return DATA; }
 	
 	template<class T>
-	Yazh::Types::Iterator<T> Vector<T>::begin() { return DATA; }
+	Yazh::Types::Iterator<T> Vector<T>::begin() const { return DATA; }
 	template<class T>
-	Yazh::Types::Iterator<T> Vector<T>::end() { return DATA + SIZE; }
+	Yazh::Types::Iterator<T> Vector<T>::end() const { return DATA + SIZE; }
 } // namespace Yazh::Containers

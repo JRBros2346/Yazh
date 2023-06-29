@@ -6,7 +6,7 @@
 
 namespace Yazh::Containers {
 	template<class T>
-	class Vector {
+	class YAPI Vector {
 		const static u64 DEFAULT_CAPACITY = 1;
 		const static u64 RESIZE_FACTOR = 2;
 		
@@ -25,8 +25,10 @@ namespace Yazh::Containers {
 			
 			void resize();
 			
-			u64 push(T, u64 = SIZE);
-			T pop(u64 = SIZE - 1);
+			u64 push(T, u64);
+			u64 push(T);
+			T pop(u64);
+			T pop();
 			
 			void clear();
 			u64 size() const;
