@@ -3,7 +3,7 @@
 #include"defines.hpp"
 
 namespace Yazh::Types {
-	template<class T>
+	template<typename T>
 	class YAPI Iterator {
 		T* ptr;
 		

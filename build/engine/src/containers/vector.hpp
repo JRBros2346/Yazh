@@ -5,7 +5,7 @@
 #include"types/iterator.hpp"
 
 namespace Yazh::Containers {
-	template<class T>
+	template<typename T>
 	class YAPI Vector {
 		const static u64 DEFAULT_CAPACITY = 1;
 		const static u64 RESIZE_FACTOR = 2;

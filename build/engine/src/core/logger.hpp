@@ -27,7 +27,7 @@ namespace Yazh::Logger {
 	bool initialize();
 	void shutdown();
 	
-	template<class ...fragments>
+	template<typename ...fragments>
 	YAPI void logOutput(LogLevel, fragments&&...);
 } // namespace Yazh::Logger
 

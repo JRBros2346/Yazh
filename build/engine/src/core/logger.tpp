@@ -3,7 +3,7 @@
 #include<map>
 
 namespace Yazh::Logger {
-	template<class ...fragments>
+	template<typename ...fragments>
 	void logOutput(LogLevel level, fragments&& ...message) {
 		auto isError = level < LogLevel::WRN;
 		
