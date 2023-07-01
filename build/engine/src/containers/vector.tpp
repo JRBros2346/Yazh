@@ -15,7 +15,7 @@ namespace Yazh::Containers {
 	Vector<T>::~Vector() { delete[] DATA; }
 
 	template<typename T>
-	T& Vector<T>::operator[](u64) { return DATA[u64]; }
+	T& Vector<T>::operator[](u64 pos) { return DATA[pos]; }
 
 	template<typename T>
 	void Vector<T>::resize() {
@@ -34,7 +34,7 @@ namespace Yazh::Containers {
 		return val;
 	}
 	template<typename T>
-	T Vector<T>::pop(u64) {
+	T Vector<T>::pop(u64 pos) {
 		T val = DATA[pos];
 		for (u64 i = pos; i < SIZE; i++) DATA[i] = DATA[i+1];
 		SIZE--;

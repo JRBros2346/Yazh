@@ -1,5 +1,7 @@
 #pragma once
 
+#include"defines.hpp"
+
 namespace Yazh::Containers {
 	template<typename T>
 	class Vector {
