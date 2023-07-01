@@ -3,8 +3,8 @@
 #	include"platform_win32.hpp"
 
 namespace Yazh {
-	f64 Platform::clock_frequency;
-	LARGE_INTEGER Platform::start_time;
+	f64 Platform::clockFrequency;
+	LARGE_INTEGER Platform::startTime;
 	
 	void* Platform::allocate(u64 size, bool aligned) {
 		return malloc(size);
@@ -26,7 +26,7 @@ namespace Yazh {
 		return memset(dest, value, size);
 	}
 		
-	LRESULT CALLBACK Platform::win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param) {
+	LRESULT CALLBACK Platform::win32ProcessMessage(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param) {
 		switch (msg) {
 			case WM_ERASEBKGND:
 			// Notify the OS that erasing will be handled by the application to prevent flicker.
