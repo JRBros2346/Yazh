@@ -28,7 +28,7 @@ namespace Yazh::Event {
 	};
 	
 	// Should return true if handled.
-	using onEvent_ptr = bool (*)(u16, Sender*, Listener*, context);
+	using onEvent = bool (*)(u16, Sender*, Listener*, context);
 	
 	bool initialize();
 	void shutdown();
@@ -41,7 +41,7 @@ namespace Yazh::Event {
 	 * @param onEvent The callback function pointer to be invoked when the event code is fired.
 	 * @returns true if the event is successfully registered; otherwise false.
 	 */
-	YAPI bool Register(u16, Listener*, onEvent_ptr);
+	YAPI bool Register(u16, Listener*, onEvent);
 	
 	/**
 	 * unregister from listening for when events are sent with provided code. If no matching
@@ -51,7 +51,7 @@ namespace Yazh::Event {
 	 * @param onEvent The callback function pointer to be unregistered.
 	 * @returns true if the event is successfully unegistered; otherwise false.
 	 */
-	YAPI bool Unegister(u16, Listener*, onEvent_ptr);
+	YAPI bool Unegister(u16, Listener*, onEvent);
 	
 	/**
 	 * fires an event to listeners of the given code. If an event handler returns

@@ -9,16 +9,10 @@ namespace Yazh::Containers {
 		  SIZE(0) {
 	}
 	template<typename T>
-	Vector<T>::Vector(Vector<T>& other)
-		: DATA(other.data()),
-		  SIZE(other.size()),
-		  CAPACITY(other.capacity()) {
-	}
-	template<typename T>
 	Vector<T>::Vector(u64 capacity)
-		: DATA(new T[capacity]),
-		  SIZE(0),
-		  CAPACITY(capacity) {
+		: CAPACITY(capacity),
+		  DATA(new T[capacity]),
+		  SIZE(0) {
 	}
 	template<typename T>
 	Vector<T>::~Vector() { delete[] DATA; }
@@ -41,9 +35,15 @@ namespace Yazh::Containers {
 		DATA[SIZE] = val;
 		return SIZE++;
 	}
-
 	template<typename T>
 	T Vector<T>::pop() { return DATA[--SIZE]; }
+	template<typename T>
+	T Vector<T>::pop(u64 pos) {
+		T val = DATA[pos];
+		for (u64 i = pos; i < SIZE; i++) DATA[i] = DATA[i+1];
+		SIZE--;
+		return val;
+	}
 	
 	template<typename T>
 	void Vector<T>::clear() { SIZE = 0; }

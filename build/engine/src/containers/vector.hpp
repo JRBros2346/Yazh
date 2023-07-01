@@ -10,12 +10,11 @@ namespace Yazh::Containers {
 		const static u64 DEFAULT_CAPACITY = 1;
 		const static u64 RESIZE_FACTOR = 2;
 		
-		u64 SIZE;
 		u64 CAPACITY;
 		T* DATA;
+		u64 SIZE;
 		public:
 			explicit Vector();
-			explicit Vector(Vector<T>&);
 			explicit Vector(u64);
 			~Vector();
 			
@@ -24,10 +23,10 @@ namespace Yazh::Containers {
 			
 			void resize();
 			
-			// u64 push(T, u64);
 			u64 push(T);
-			// T pop(u64);
+			// u64 push(T, u64);
 			T pop();
+			T pop(u64);
 			
 			void clear();
 			u64 size() const;
