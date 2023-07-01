@@ -15,19 +15,18 @@ namespace Yazh::Containers {
 		T* DATA;
 		public:
 			explicit Vector();
-			explicit Vector(T*);
 			explicit Vector(Vector<T>&);
 			explicit Vector(u64);
 			~Vector();
 			
 			T& operator[](u64);
-			T& at(u64);
+			// T& at(u64);
 			
 			void resize();
 			
-			u64 push(T, u64);
+			// u64 push(T, u64);
 			u64 push(T);
-			T pop(u64);
+			// T pop(u64);
 			T pop();
 			
 			void clear();
@@ -35,8 +34,8 @@ namespace Yazh::Containers {
 			u64 capacity() const;
 			T* data() const;
 			
-			Yazh::Types::Iterator<T> begin() const;
-			Yazh::Types::Iterator<T> end() const;
+			// Yazh::Types::Iterator<T> begin() const;
+			// Yazh::Types::Iterator<T> end() const;
 	};
 } // namespace Yazh::Containers
 
