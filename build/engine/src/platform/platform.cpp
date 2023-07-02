@@ -3,6 +3,7 @@
 #include"platform_win32.hpp"
 #include"platform_linux.hpp"
 
+#include<thread>
 #include<cmath>
 
 namespace Yazh {
