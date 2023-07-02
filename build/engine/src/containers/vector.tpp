@@ -22,17 +22,23 @@ namespace Yazh::Containers {
 		CAPACITY *= RESIZE_FACTOR;
 		T* temp = DATA;
 		DATA = new T[CAPACITY];
-		copy(temp, temp + SIZE, DATA);
+		std::copy(temp, temp + SIZE, DATA);
 		delete [] temp;
 	}
 
 	template<typename T>
-	void Vector<T>::push(T val) { DATA[SIZE++] = val; }
-	template<typename T>
-	T Vector<T>::pop() { 
-		T val = DATA[--SIZE];
-		return val;
+	void Vector<T>::push(T val) {
+		if (SIZE == CAPACITY) this->resize(); 
+		DATA[SIZE++] = val; 
 	}
+	template<typename T>
+	void Vector<T>::push(T val, u64 pos) {
+		if (SIZE == CAPACITY) this->resize();
+		for (auto i = SIZE++; i > pos; i--) DATA[i] = DATA[i-1];
+		DATA[pos] = val;
+	}
+	template<typename T>
+	T Vector<T>::pop() { return DATA[--SIZE]; }
 	template<typename T>
 	T Vector<T>::pop(u64 pos) {
 		T val = DATA[pos];

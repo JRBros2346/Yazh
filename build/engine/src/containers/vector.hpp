@@ -21,6 +21,7 @@ namespace Yazh::Containers {
 			void resize();
 
 			void push(T);
+			void push(T, u64);
 			T pop();
 			T pop(u64);
 			
