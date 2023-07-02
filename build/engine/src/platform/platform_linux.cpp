@@ -3,7 +3,6 @@
 #	include"platform_linux.hpp"
 
 namespace Yazh {
-
 	void* Platform::allocate(u64 size, bool aligned) {
 		return malloc(size);
 	}

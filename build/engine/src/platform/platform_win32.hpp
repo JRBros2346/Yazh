@@ -130,16 +130,7 @@ namespace Yazh {
 			static void* zeroMemory(void* block, u64 size);
 			static void* copyMemory(void* dest, const void* source, u64 size);
 			static void* setMemory(void* dest, i32 value, u64 size);
-			
-			static f64 getAbsoluteTime();
-			
-			// Sleep on the thread for the provided ms. This blocks the main thread.
-			// Should only be used for giving time back to the OS for unused update power.
-			// Therefore it is not exported.
-			static void sleep(f64 ms);
 	};
-	
-	
 } // namespace Yazh
 
 #endif // YPLATFORM_WINDOWS

@@ -1,17 +1,14 @@
-#include"platform.hpp"
-
-#include"platform_win32.hpp"
-#include"platform_linux.hpp"
+#include"utilities.hpp"
 
 #include<thread>
 #include<cmath>
 
 namespace Yazh {
-	f64 Platform::getAbsoluteTime() {
+	f64 getAbsoluteTime() {
 		return std::chrono::steady_clock::now().time_since_epoch() / std::chrono::seconds(1);
 	}
 	
-	void Platform::sleep(f64 ms) {
+	void sleep(f64 ms) {
 		using nano = std::chrono::nanoseconds;
 		using milli = std::chrono::milliseconds;
 		using clock = std::chrono::high_resolution_clock;
