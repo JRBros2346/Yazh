@@ -10,34 +10,34 @@
 
 namespace Yazh {
 	class YAPI Platform : public VirtualPlatform {
-		static LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param, LPARAM l_param);
+		static LRESULT CALLBACK Win32ProcessMessage(HWND, u32, WPARAM, LPARAM);
 		
-		HINSTANCE h_instance;
+		HINSTANCE hInstance;
 		HWND hwnd;
 		
 		public:
 			// Clock
-			static f64 clock_frequency;
-			static LARGE_INTEGER start_time;
+			static f64 clockFrequency;
+			static LARGE_INTEGER startTime;
 			
 			bool startup(
-					const char *application_name,
+					const char* applicationName,
 					i32 x,
 					i32 y,
 					i32 width,
 					i32 height) override {
 				
-				h_instance = GetModuleHandleA(0);
+				hInstance = GetModuleHandleA(0);
 				
 				// Setup and register window class.
-				HICON icon = LoadIcon(h_instance, IDI_APPLICATION);
+				HICON icon = LoadIcon(hInstance, IDI_APPLICATION);
 				WNDCLASSA wc;
 				memset(&wc, 0, sizeof(wc));
 				wc.style = CS_DBLCLKS; // Get double-clicks
-				wc.lpfnWndProc = win32_process_message;
+				wc.lpfnWndProc = Win32ProcessMessage;
 				wc.cbClsExtra = 0;
 				wc.cbWndExtra = 0;
-				wc.hInstance = h_instance;
+				wc.hInstance = hInstance;
 				wc.hIcon = icon;
 				wc.hCursor = LoadCursor(nullptr, IDC_ARROW);  // nullptr; // Manage the cursor manually
 				wc.hbrBackground = nullptr;                   // Transparent
@@ -49,39 +49,39 @@ namespace Yazh {
 				}
 
 				// Create window
-				u32 client_x = x;
-				u32 client_y = y;
-				u32 client_width = width;
-				u32 client_height = height;
+				u32 clientX = x;
+				u32 clientY = y;
+				u32 clientWidth = width;
+				u32 clientHeight = height;
 				
-				u32 window_x = client_x;
-				u32 window_y = client_y;
-				u32 window_width = client_width;
-				u32 window_height = client_height;
+				u32 windowX = clientX;
+				u32 windowY = clientY;
+				u32 windowWidth = clientWidth;
+				u32 windowHeight = clientHeight;
 				
-				u32 window_style = WS_OVERLAPPED | WS_SYSMENU | WS_CAPTION;
-				u32 window_ex_style = WS_EX_APPWINDOW;
+				u32 windowStyle = WS_OVERLAPPED | WS_SYSMENU | WS_CAPTION;
+				u32 windowExStyle = WS_EX_APPWINDOW;
 				
-				window_style |= WS_MAXIMIZEBOX;
-				window_style |= WS_MINIMIZEBOX;
-				window_style |= WS_THICKFRAME;
+				windowStyle |= WS_MAXIMIZEBOX;
+				windowStyle |= WS_MINIMIZEBOX;
+				windowStyle |= WS_THICKFRAME;
 				
 				// Obtain the size of the border.
-				RECT border_rect{0, 0, 0, 0};
-				AdjustWindowRectEx(&border_rect, window_style, 0, window_ex_style);
+				RECT borderRect{0, 0, 0, 0};
+				AdjustWindowRectEx(&borderRect, windowStyle, 0, windowExStyle);
 				
 				// In this case, the border rectangle is negative.
-				window_x += border_rect.left;
-				window_y += border_rect.top;
+				windowX += borderRect.left;
+				windowY += borderRect.top;
 				
 				// Grow by the size of the OS border.
-				window_width += border_rect.right - border_rect.left;
-				window_height += border_rect.bottom - border_rect.top;
+				windowWidth += borderRect.right - borderRect.left;
+				windowHeight += borderRect.bottom - borderRect.top;
 				
 				HWND handle = CreateWindowExA(
-					window_ex_style, "yazh_window_class", application_name,
-					window_style, window_x, window_y, window_width, window_height,
-					0, 0, h_instance, 0);
+					windowExStyle, "yazh_window_class", applicationName,
+					windowStyle, windowX, windowY, windowWidth, windowHeight,
+					0, 0, hInstance, 0);
 				
 				if (handle == nullptr) {
 					MessageBoxA(NULL, "Window creation failed!", "Error!", MB_ICONEXCLAMATION | MB_OK);
@@ -93,17 +93,17 @@ namespace Yazh {
 				}
 				
 				// Show the window
-				bool should_activate = true; /* TODO (#1#): if the window should not accept input, this should be false. */
-				i32 show_window_command_flags = should_activate ? SW_SHOW : SW_SHOWNOACTIVATE;
+				bool shouldActivate = true; /* TODO (#1#): if the window should not accept input, this should be false. */
+				i32 showWindowCommandFlags = shouldActivate ? SW_SHOW : SW_SHOWNOACTIVATE;
 				// If initially minimized, use SW_MINIMIZE : SW_SHOWMINNOACTIVE;
 				// If initially maximized, use SW_SHOWMAXIMIZED : SW_MAXIMIZE
-				ShowWindow(hwnd, show_window_command_flags);
+				ShowWindow(hwnd, showWindowCommandFlags);
 				
 				// Clock setup
 				LARGE_INTEGER frequency;
 				QueryPerformanceFrequency(&frequency);
-				clock_frequency = 1.0 / (f64)frequency.QuadPart;
-				QueryPerformanceCounter(&start_time);
+				clockFrequency = 1.0 / (f64)frequency.QuadPart;
+				QueryPerformanceCounter(&startTime);
 				
 				return true;
 			}
@@ -125,11 +125,11 @@ namespace Yazh {
 				return true;
 			}
 			
-			static void* allocate(u64 size, bool aligned);
-			static void free(void* block, bool aligned);
-			static void* zeroMemory(void* block, u64 size);
-			static void* copyMemory(void* dest, const void* source, u64 size);
-			static void* setMemory(void* dest, i32 value, u64 size);
+			static void* allocate(u64, bool);
+			static void free(void*, bool);
+			static void* zeroMemory(void*, u64);
+			static void* copyMemory(void*, const void*, u64);
+			static void* setMemory(void*, i32, u64);
 	};
 } // namespace Yazh
 
