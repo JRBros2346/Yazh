@@ -25,7 +25,8 @@ namespace Yazh::Types {
 		Yazh::Memory::yfree(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
 		CAPACITY *= RESIZE_FACTOR;
 		DATA = (T*)Yazh::Memory::yallocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
-		std::copy(temp, temp + SIZE, DATA);
+		// std::copy(temp, temp + SIZE, DATA);
+		DATA = (T*)Yazh::Memory::ycopy(DATA, temp, SIZE * sizeof(T));
 		delete [] temp;
 	}
 
