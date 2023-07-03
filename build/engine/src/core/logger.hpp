@@ -71,4 +71,4 @@ namespace Yazh::Logger {
 #	define YTRACE(message...)
 #endif
 
-#include"logger.tpp"
+#include"logger.tcc"

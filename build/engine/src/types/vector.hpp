@@ -32,4 +32,4 @@ namespace Yazh::Types {
 	};
 } // namespace Yazh::Containers
 
-#include"vector.tpp"
+#include"vector.tcc"
