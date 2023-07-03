@@ -6,16 +6,8 @@
 class Game : public Yazh::VirtualGame {
 	f32 deltaTime;
 	public:
-		bool initialize() override {
-			YDEBUG("Game::initialize() called!");
-			return true;
-		}
-		bool update(f32 deltaTime) {
-			return true;
-		}
-		bool render(f32 deltaTime) {
-			return true;
-		}
-		void onResize(u32 width, u32 height) {
-		}
+		bool initialize();
+		bool update(f32);
+		bool render(f32);
+		void onResize(u32, u32);
 };

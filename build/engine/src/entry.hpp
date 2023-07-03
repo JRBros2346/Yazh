@@ -17,7 +17,7 @@ namespace Yazh { Yazh::VirtualGame* createGame(); }
  */
 int main(void) {
 	
-	// Yazh::Memory::initialize();
+	Yazh::Memory::initialize();
 
 	// Yazh::Types::Vector<u64> v(3);
 	// v.push(5);
