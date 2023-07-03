@@ -21,9 +21,10 @@ namespace Yazh::Types {
 
 	template<typename T>
 	void Vector<T>::resize() {
-		CAPACITY *= RESIZE_FACTOR;
 		T* temp = DATA;
-		DATA = new T[CAPACITY];
+		Yazh::Memory::yfree(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		CAPACITY *= RESIZE_FACTOR;
+		DATA = (T*)Yazh::Memory::yallocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
 		std::copy(temp, temp + SIZE, DATA);
 		delete [] temp;
 	}

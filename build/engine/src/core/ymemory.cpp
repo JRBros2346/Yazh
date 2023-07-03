@@ -69,15 +69,15 @@ namespace Yazh::Memory {
 		Platform::free(block, false);
 	}
 	
-	void* yzeroMemory(void* block, u64 size) {
+	void* yzero(void* block, u64 size) {
 		return Platform::zeroMemory(block, size);
 	}
 	
-	void* ycopyMemory(void* dest, const void* source, u64 size) {
+	void* ycopy(void* dest, const void* source, u64 size) {
 		return Platform::copyMemory(dest, source, size);
 	}
 	
-	void* ysetMemory(void* dest, i32 value, u64 size) {
+	void* yset(void* dest, i32 value, u64 size) {
 		return Platform::setMemory(dest, value, size);
 	}
 	
