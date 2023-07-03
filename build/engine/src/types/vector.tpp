@@ -1,18 +1,20 @@
+#include"core/ymemory.hpp"
+
 namespace Yazh::Types {
 	template<typename T>
 	Vector<T>::Vector()
 		: SIZE(0),
 		  CAPACITY(DEFAULT_CAPACITY),
-		  DATA(new T[DEFAULT_CAPACITY]) {
+		  DATA((T*)Yazh::Memory::yallocate(DEFAULT_CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector)) {
 	}
 	template<typename T>
 	Vector<T>::Vector(u64 capacity)
 		: SIZE(0),
 		  CAPACITY(capacity),
-		  DATA(new T[capacity]) {
+		  DATA((T*)Yazh::Memory::yallocate(capacity * sizeof(T), Yazh::Memory::Tag::Vector)) {
 	}
 	template<typename T>
-	Vector<T>::~Vector() { delete[] DATA; }
+	Vector<T>::~Vector() { Yazh::Memory::yfree(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector); }
 
 	template<typename T>
 	T& Vector<T>::operator[](u64 pos) { return DATA[pos]; }
