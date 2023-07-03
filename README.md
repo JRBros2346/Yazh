@@ -7,12 +7,12 @@ Following [Kohi](https://github.com/travisvroman/kohi)'s name following four let
 - Make it as good as Kohi
 - C++ is the main programming language
 - Python as Build System
-- G++ compiler
+- G++ compiler, *(will add other compilers later on...)*
 - Physics Engine should be based on Geometric Algebra
 
 # Specs
-- C++17 compliant compiler: (I recommend using g++, I use [this](https://sourceforge.net/projects/mingw-w64/) because all the scripts are written for g++. But you may use other compilers by editting the build scripts)
-- VulkanSDK version 3.x: https://vulkan.lunarg.com/
+- C++17 compliant compiler: *(I recommend using g++, I use [this](https://sourceforge.net/projects/mingw-w64/) because all the scripts are written for g++. But you may use other compilers by editting the build scripts. Will add support for other compilers later)*
+- VulkanSDK version 3.x: https://vulkan.lunarg.com/, *(will add other graphics engines later...)*
 - Python3: https://www.python.org
 
 # Compiling
