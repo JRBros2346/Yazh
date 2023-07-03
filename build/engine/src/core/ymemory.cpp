@@ -45,7 +45,7 @@ namespace Yazh::Memory {
 	void shutdown() {
 	}
 	
-	void* yallocate(u64 size, Tag tag) {
+	void* allocate(u64 size, Tag tag) {
 		if (tag == Tag::Unknown)
 			YWARN("Yazh::Memory::yallocate called using Yazh::Memory::Tag::Unknown. Re-class this allocation.");
 		
@@ -58,7 +58,7 @@ namespace Yazh::Memory {
 		return block;
 	}
 	
-	void yfree(void* block, u64 size, Tag tag) {
+	void free(void* block, u64 size, Tag tag) {
 		if (tag == Tag::Unknown)
 			YWARN("Yazh::Memory::yallocate called using Yazh::Memory::Tag::Unknown. Re-class this allocation.");
 		
@@ -69,15 +69,15 @@ namespace Yazh::Memory {
 		Platform::free(block, false);
 	}
 	
-	void* yzero(void* block, u64 size) {
+	void* zero(void* block, u64 size) {
 		return Platform::zeroMemory(block, size);
 	}
 	
-	void* ycopy(void* dest, const void* source, u64 size) {
+	void* copy(void* dest, const void* source, u64 size) {
 		return Platform::copyMemory(dest, source, size);
 	}
 	
-	void* yset(void* dest, i32 value, u64 size) {
+	void* set(void* dest, i32 value, u64 size) {
 		return Platform::setMemory(dest, value, size);
 	}
 	

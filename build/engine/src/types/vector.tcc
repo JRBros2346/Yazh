@@ -5,16 +5,16 @@ namespace Yazh::Types {
 	Vector<T>::Vector()
 		: SIZE(0),
 		  CAPACITY(DEFAULT_CAPACITY),
-		  DATA((T*)Yazh::Memory::yallocate(DEFAULT_CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector)) {
+		  DATA((T*)Yazh::Memory::allocate(DEFAULT_CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector)) {
 	}
 	template<typename T>
 	Vector<T>::Vector(u64 capacity)
 		: SIZE(0),
 		  CAPACITY(capacity),
-		  DATA((T*)Yazh::Memory::yallocate(capacity * sizeof(T), Yazh::Memory::Tag::Vector)) {
+		  DATA((T*)Yazh::Memory::allocate(capacity * sizeof(T), Yazh::Memory::Tag::Vector)) {
 	}
 	template<typename T>
-	Vector<T>::~Vector() { Yazh::Memory::yfree(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector); }
+	Vector<T>::~Vector() { Yazh::Memory::free(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector); }
 
 	template<typename T>
 	T& Vector<T>::operator[](u64 pos) { return DATA[pos]; }
@@ -22,11 +22,11 @@ namespace Yazh::Types {
 	template<typename T>
 	void Vector<T>::resize() {
 		T* temp = DATA;
-		Yazh::Memory::yfree(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		Yazh::Memory::free(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
 		CAPACITY *= RESIZE_FACTOR;
-		DATA = (T*)Yazh::Memory::yallocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		DATA = (T*)Yazh::Memory::allocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
 		// std::copy(temp, temp + SIZE, DATA);
-		DATA = (T*)Yazh::Memory::ycopy(DATA, temp, SIZE * sizeof(T));
+		DATA = (T*)Yazh::Memory::copy(DATA, temp, SIZE * sizeof(T));
 		delete [] temp;
 	}
 
