@@ -1,4 +1,4 @@
-namespace Yazh::Containers {
+namespace Yazh::Types {
 	template<typename T>
 	Vector<T>::Vector()
 		: SIZE(0),

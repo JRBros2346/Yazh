@@ -2,7 +2,7 @@
 
 #include"defines.hpp"
 
-namespace Yazh::Containers {
+namespace Yazh::Types {
 	template<typename T>
 	class Vector {
 		const static u64 DEFAULT_CAPACITY = 1;
