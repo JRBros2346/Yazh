@@ -23,7 +23,7 @@ namespace Yazh::Application {
 		f64 lastTime;
 	} state;
 	
-	static bool initialized = false;
+	static auto initialized = false;
 	
 	bool create(Yazh::VirtualGame* game) {
 		if(initialized) {
