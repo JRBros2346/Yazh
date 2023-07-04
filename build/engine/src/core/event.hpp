@@ -2,7 +2,7 @@
 
 #include"defines.hpp"
 
-namespace Yazh::Events {
+namespace Yazh::Event {
     // Forward declarations.
     class Sender;
     class Listener;

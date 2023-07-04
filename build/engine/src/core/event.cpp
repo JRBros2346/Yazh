@@ -1,9 +1,9 @@
-#include"events.hpp"
+#include"event.hpp"
 
 #include"types/vector.hpp"
 #include"ymemory.hpp"
 
-namespace Yazh::Events {
+namespace Yazh::Event {
 	using RegisteredEvent = struct RegisteredEvent {
 		Listener* listener;
 		OnEvent callback;
