@@ -54,6 +54,17 @@ namespace Yazh::Types {
 	template<typename T>
 	void Vector<T>::clear() { SIZE = 0; }
 	template<typename T>
+	void Vector<T>::shrink() {
+		T* temp = DATA;
+		Yazh::Memory::free(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		CAPACITY = 1 ? SIZE == 0 : SIZE;
+		DATA = (T*)Yazh::Memory::allocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		// std::copy(temp, temp + SIZE, DATA);
+		DATA = (T*)Yazh::Memory::copy(DATA, temp, SIZE * sizeof(T));
+		delete [] temp;
+	}
+
+	template<typename T>
 	u64 Vector<T>::size() { return SIZE; }
 	template<typename T>
 	u64 Vector<T>::capacity() { return CAPACITY; }

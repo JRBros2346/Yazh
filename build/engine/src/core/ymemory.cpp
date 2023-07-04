@@ -52,20 +52,17 @@ namespace Yazh::Memory {
 		Statistics.TotalAllocation += size;
 		Statistics.TaggedAllocation[tag] += size;
 		
-		/* TODO (#1#): Memory allignement */
+		// TODO: Memory allignement
 		void* block = Platform::allocate(size, false);
 		Platform::zeroMemory(block, size);
 		return block;
 	}
 	
 	void free(void* block, u64 size, Tag tag) {
-		if (tag == Tag::Unknown)
-			YWARN("Yazh::Memory::yallocate called using Yazh::Memory::Tag::Unknown. Re-class this allocation.");
-		
 		Statistics.TotalAllocation -= size;
 		Statistics.TaggedAllocation[tag] -= size;
 		
-		/* TODO (#1#): Memory allignement */
+		// TODO: Memory allignement
 		Platform::free(block, false);
 	}
 	

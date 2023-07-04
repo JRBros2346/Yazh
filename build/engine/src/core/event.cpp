@@ -3,6 +3,8 @@
 #include"types/vector.hpp"
 #include"ymemory.hpp"
 
+#include<iostream>
+
 namespace Yazh::Event {
 	using RegisteredEvent = struct RegisteredEvent {
 		Listener* listener;
@@ -23,15 +25,15 @@ namespace Yazh::Event {
 		if (isInitialized)
 			return false;
 		isInitialized = false;
-		for (auto codeEntry : state)
-			for (u64 i = 0; i < codeEntry.size(); i++)
-				Yazh::Memory::zero(&codeEntry[i], sizeof(RegisteredEvent));
-
+		for (auto codeEntry : state) {
+			codeEntry.clear();
+			codeEntry.shrink();
+		}
 		isInitialized = true;
 		return true;
 	}
 
-	void event_shutdown() {
+	void shutdown() {
 		// Free the events arrays. And objects pointed to should be destroyed on their own.
 		for(auto codeEntry : state)
 			if(codeEntry.size() != 0)

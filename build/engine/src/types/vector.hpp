@@ -26,6 +26,8 @@ namespace Yazh::Types {
 			T pop(u64);
 			
 			void clear();
+			void shrink();
+			
 			u64 size();
 			u64 capacity();
 			T* data();

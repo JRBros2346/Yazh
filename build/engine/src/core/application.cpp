@@ -37,7 +37,7 @@ namespace Yazh::Application {
 		// Initialize subsystems.
 		Yazh::Logger::initialize();
 		
-		/* TODO (#1#): Remove this */
+		// TODO: Remove this
 		YFATAL("A test message: ",3.14f);
 		YERROR("A test message: ",3.14f);
 		YWARN("A test message: ",3.14f);

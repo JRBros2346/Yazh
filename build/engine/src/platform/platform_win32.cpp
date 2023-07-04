@@ -78,7 +78,7 @@ namespace Yazh {
 		}
 		
 		// Show the window
-		auto shouldActivate = true; /* TODO (#1#): if the window should not accept input, this should be false. */
+		auto shouldActivate = true; // TODO: if the window should not accept input, this should be false.
 		i32 showWindowCommandFlags = shouldActivate ? SW_SHOW : SW_SHOWNOACTIVATE;
 		// If initially minimized, use SW_MINIMIZE : SW_SHOWMINNOACTIVE;
 		// If initially maximized, use SW_SHOWMAXIMIZED : SW_MAXIMIZE
@@ -136,7 +136,7 @@ namespace Yazh {
 				// Notify the OS that erasing will be handled by the application to prevent flicker.
 				return 1;
 			case WM_CLOSE:
-				/* TODO (#1#): Fire an event for the application to quit. */
+				// TODO: Fire an event for the application to quit.
 				return 0;
 			case WM_DESTROY:
 				PostQuitMessage(0);
@@ -148,7 +148,7 @@ namespace Yazh {
 				// u32 width = r.right - r.left;
 				// u32 height = r.bottom - r.top;
 
-				/* TODO (#1#): Fire an event for window resize. */
+				// TODO: Fire an event for window resize.
 				break;
 			case WM_KEYDOWN:
 			case WM_SYSKEYDOWN:
@@ -156,21 +156,21 @@ namespace Yazh {
 			case WM_SYSKEYUP:
 				// Key pressed/released
 				//b8 pressed = (msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN);
-				/* TODO (#1#): input processing. */
+				// TODO: input processing.
 
 				break;
 			case WM_MOUSEMOVE:
 				// Mouse move
 				//i32 xPosition = GET_X_LPARAM(lParam);
 				//i32 yPosition = GET_Y_LPARAM(lParam);
-				/* TODO (#1#): input processing. */
+				// TODO: input processing.
 				break;
 			case WM_MOUSEWHEEL:
 				// i32 deltaZ = GET_WHEEL_DELTA_WPARAM(wParam);
 				// if (deltaZ != 0) {
 				//	// Flatten the input to an OS-independent (-1, 1)
 				//	deltaZ = (deltaZ < 0) ? -1 : 1;
-				//	/* TODO (#1#): input processing. */
+				//	// TODO: input processing.
 				// }
 				break;
 			case WM_LBUTTONDOWN:
@@ -180,7 +180,7 @@ namespace Yazh {
 			case WM_MBUTTONUP:
 			case WM_RBUTTONUP:
 				//bool pressed = msg == WM_LBUTTONDOWN || msg == WM_RBUTTONDOWN || msg == WM_MBUTTONDOWN;
-				/* TODO (#1#): input processing. */
+				// TODO: input processing.
 				break;
 		}
 
