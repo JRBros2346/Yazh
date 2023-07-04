@@ -6,7 +6,7 @@
 namespace Yazh::Events {
 	using RegisteredEvent = struct RegisteredEvent {
 		Listener* listener;
-		onEvent callback;
+		OnEvent callback;
 	};
 
 // This should be more than enough codes...
@@ -38,7 +38,7 @@ namespace Yazh::Events {
 				delete &codeEntry;
 	}
 
-	bool Register(u16 code, Listener* listener, onEvent on_event) {
+	bool Register(u16 code, Listener* listener, OnEvent on_event) {
 		if(!isInitialized)
 			return false;
 
@@ -58,7 +58,7 @@ namespace Yazh::Events {
 		return true;
 	}
 
-	bool Unregister(u16 code, Listener* listener, onEvent on_event) {
+	bool Unregister(u16 code, Listener* listener, OnEvent on_event) {
 		if(!isInitialized) {
 			return false;
 		}
