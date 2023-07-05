@@ -27,7 +27,7 @@ namespace Yazh::Memory {
 			case Tag::EntityNode       : return "      Entity Node";
 			case Tag::Scene            : return "            Scene";
 			
-			default: return "";
+			default                    : return "            Total";
 		}
 	}
 	
@@ -99,7 +99,16 @@ namespace Yazh::Memory {
 			}
 			output += "    " + Stringify(tag) + " : " + std::to_string(value) + " " + unit + "\n";
 		}
-		
+		output += "    " + Stringify(Tag::END) + " : ";
+		if (Statistics.TotalAllocation >= GiB) {
+			output += std::to_string((f64)(Statistics.TotalAllocation / GiB)) + " GiB\n";
+		} else if (Statistics.TotalAllocation >= MiB) {
+			output += std::to_string((f64)(Statistics.TotalAllocation / MiB)) + " MiB\n";
+		} else if (Statistics.TotalAllocation >= KiB) {
+			output += std::to_string((f64)(Statistics.TotalAllocation / KiB)) + " KiB\n";
+		} else {
+			output += std::to_string(Statistics.TotalAllocation) + " B\n";
+		}
 		return output;
 	}
 }

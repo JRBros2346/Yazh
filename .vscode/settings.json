@@ -64,6 +64,13 @@
         "xtree": "cpp",
         "xutility": "cpp",
         "*.tpp": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "cstdarg": "cpp",
+        "cwctype": "cpp",
+        "deque": "cpp",
+        "unordered_map": "cpp",
+        "memory_resource": "cpp",
+        "string_view": "cpp",
+        "fstream": "cpp"
     }
 }
