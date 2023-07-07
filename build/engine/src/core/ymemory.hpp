@@ -26,8 +26,8 @@ namespace Yazh::Memory {
 	};
 	inline std::string Stringify(Tag);
 	
-	void initialize();
-	void shutdown();
+	YAPI void initialize();
+	YAPI void shutdown();
 	
 	YAPI void* allocate(ysize, Tag);
 	

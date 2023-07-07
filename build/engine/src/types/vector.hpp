@@ -29,10 +29,12 @@ namespace Yazh::Types {
 			void push_at(ysize, const T&);
 			void push_back(T&&);
 			void push_at(ysize, T&&);
+
 			template<typename... Args>
 			T& emplace_back(Args&&...);
 			template<typename... Args>
 			T& emplace_at(ysize, Args&&...);
+
 			T pop_back();
 			T pop_at(ysize);
 			
@@ -42,9 +44,9 @@ namespace Yazh::Types {
 			T& operator=(const Vector<T>&);
 			T& operator=(Vector<T>&&);
 			
-			ysize size();
-			ysize capacity();
-			T* data();
+			ysize size() const;
+			ysize capacity() const;
+			T* data() const;
 	};
 } // namespace Yazh::Containers
 

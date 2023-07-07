@@ -22,12 +22,12 @@ namespace Yazh::Logger {
 		DBG,
 		TRC
 	};
-	std::ostream& operator<<(std::ostream&, const LogLevel&);
+	YAPI std::ostream& operator<<(std::ostream&, const LogLevel&);
 
 	bool initialize();
 	void shutdown();
 
-	template<typename ...fragments>
+	template<typename... fragments>
 	YAPI void logOutput(LogLevel, fragments&&...);
 } // namespace Yazh::Logger
 

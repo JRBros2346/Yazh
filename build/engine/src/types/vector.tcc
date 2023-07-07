@@ -46,12 +46,10 @@ namespace Yazh::Types {
 
 	template<typename T>
 	T& Vector<T>::operator[](ysize pos) {
-		YASSERT_DEBUG(pos >= SIZE);
 		return DATA[pos];
 	}
 	template<typename T>
 	const T& Vector<T>::operator[](ysize pos) const {
-		YASSERT_DEBUG(pos >= SIZE);
 		return DATA[pos];
 	}
 
@@ -61,8 +59,7 @@ namespace Yazh::Types {
 		T* block = (T*)Yazh::Memory::allocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
 		for (ysize i = 0; i < SIZE; i++)
 			block[i] = std::move(DATA[i]);
-
-		clear();
+		// clear();
 		Yazh::Memory::free(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
 		DATA = block;
 		block = nullptr;
@@ -96,6 +93,7 @@ namespace Yazh::Types {
 			DATA[i] = std::move(DATA[i-1]);
 		DATA[pos] = std::move(val);
 	}
+
 	template<typename T>
 	template<typename... Args>
 	T& Vector<T>::emplace_back(Args&&... args) {
@@ -114,6 +112,7 @@ namespace Yazh::Types {
 		new(&DATA[pos]) T(std::forward<Args>(args)...);
 		return DATA[pos];
 	}
+
 	template<typename T>
 	T Vector<T>::pop_back() {
 		T val = std::move(DATA[--SIZE]);
@@ -171,9 +170,9 @@ namespace Yazh::Types {
 	}
 
 	template<typename T>
-	ysize Vector<T>::size() { return SIZE; }
+	ysize Vector<T>::size() const { return SIZE; }
 	template<typename T>
-	ysize Vector<T>::capacity() { return CAPACITY; }
+	ysize Vector<T>::capacity() const { return CAPACITY; }
 	template<typename T>
-	T* Vector<T>::data() { return DATA; }
+	T* Vector<T>::data() const { return DATA; }
 } // namespace Yazh::Containers
