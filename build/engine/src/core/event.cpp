@@ -44,7 +44,7 @@ namespace Yazh::Event {
 		if(!isInitialized)
 			return false;
 
-		for(u64 i = 0; i < state[code].size(); i++) {
+		for(ysize i = 0; i < state[code].size(); i++) {
 			if(state[code][i].listener == listener) {
 				// TODO: warn
 				return false;
@@ -71,7 +71,7 @@ namespace Yazh::Event {
 			return false;
 		}
 
-		for(u64 i = 0; i < state[code].size(); i++) {
+		for(ysize i = 0; i < state[code].size(); i++) {
 			RegisteredEvent e = state[code][i];
 			if(e.listener == listener && e.callback == on_event) {
 				// Found one, remove it

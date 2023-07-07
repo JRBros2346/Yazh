@@ -20,6 +20,9 @@ using i64 = int64_t;
 using f32 = float;
 using f64 = double;
 
+// Size type
+using ysize = u64;
+
 // Properly define static assertions.
 #if defined(__clang__) || defined(__gcc__)
 #	define STATIC_ASSERT _Static_assert

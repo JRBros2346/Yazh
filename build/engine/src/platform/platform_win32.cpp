@@ -110,7 +110,7 @@ namespace Yazh {
 		return true;
 	}
 	
-	void* Platform::allocate(u64 size, bool aligned) {
+	void* Platform::allocate(ysize size, bool aligned) {
 		return malloc(size);
 	}
 
@@ -118,15 +118,15 @@ namespace Yazh {
 		::free(block);
 	}
 
-	void* Platform::zeroMemory(void *block, u64 size) {
+	void* Platform::zeroMemory(void *block, ysize size) {
 		return memset(block, 0, size);
 	}
 
-	void* Platform::copyMemory(void *dest, const void *source, u64 size) {
+	void* Platform::copyMemory(void *dest, const void *source, ysize size) {
 		return memcpy(dest, source, size);
 	}
 
-	void* Platform::setMemory(void *dest, i32 value, u64 size) {
+	void* Platform::setMemory(void *dest, i32 value, ysize size) {
 		return memset(dest, value, size);
 	}
 		

@@ -29,11 +29,11 @@ namespace Yazh {
 			void shutdown();
 			bool pumpMessages();
 			
-			static void* allocate(u64, bool);
+			static void* allocate(ysize, bool);
 			static void free(void*, bool);
-			static void* zeroMemory(void*, u64);
-			static void* copyMemory(void*, const void*, u64);
-			static void* setMemory(void*, i32, u64);
+			static void* zeroMemory(void*, ysize);
+			static void* copyMemory(void*, const void*, ysize);
+			static void* setMemory(void*, i32, ysize);
 	};
 } // namespace Yazh
 

@@ -40,7 +40,7 @@ int main(void) {
 	// v.push(108);
 	// v.push(109);
 	// v.push(110);
-	// std::cout << "[ "; for (u64 i = 0; i < v.size(); i++) std::cout << v[i] << ' '; std::cout << "]" << std::endl;
+	// std::cout << "[ "; for (ysize i = 0; i < v.size(); i++) std::cout << v[i] << ' '; std::cout << "]" << std::endl;
 	// std::cout << "Size: " << v.size() << std::endl;
 	// std::cout << "Capacity: " << v.capacity() << std::endl;
 	

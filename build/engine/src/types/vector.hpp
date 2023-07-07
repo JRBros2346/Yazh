@@ -5,15 +5,15 @@
 namespace Yazh::Types {
 	template<typename T>
 	class Vector {
-		const static u64 DEFAULT_CAPACITY = 1;
-		const static u64 RESIZE_FACTOR = 2;
+		const static ysize DEFAULT_CAPACITY = 1;
+		const static ysize RESIZE_FACTOR = 2;
 		
-		u64 SIZE;
-		u64 CAPACITY;
+		ysize SIZE;
+		ysize CAPACITY;
 		T* DATA;
 		public:
 			explicit Vector();
-			explicit Vector(u64);
+			explicit Vector(ysize);
 			~Vector();
 
 			T& operator[](u64);
@@ -28,8 +28,8 @@ namespace Yazh::Types {
 			void clear();
 			void shrink();
 			
-			u64 size();
-			u64 capacity();
+			ysize size();
+			ysize capacity();
 			T* data();
 	};
 } // namespace Yazh::Containers
