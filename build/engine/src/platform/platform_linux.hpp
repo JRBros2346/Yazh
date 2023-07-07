@@ -30,7 +30,7 @@ namespace Yazh {
 			bool pumpMessages();
 			
 			static void* allocate(ysize, bool);
-			static void free(void*, bool);
+			static void free(void*, ysize, bool);
 			static void* zeroMemory(void*, ysize);
 			static void* copyMemory(void*, const void*, ysize);
 			static void* setMemory(void*, i32, ysize);

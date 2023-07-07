@@ -22,7 +22,7 @@ namespace Yazh::Memory {
 		EntityNode,
 		Scene,
 		
-		END
+		Total
 	};
 	inline std::string Stringify(Tag);
 	

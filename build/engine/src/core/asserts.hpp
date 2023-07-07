@@ -48,8 +48,8 @@ namespace Yazh::Logger {
 #	endif
 	
 #else
-#	define YASSERT(plat, expr)             	// Does nothing at all
-#	define YASSERT_MSG(plat, expr, message)	// Does nothing at all
-#	define YASSERT_DEBUG(plat, expr)       	// Does nothing at all
+#	define YASSERT(expr)             	// Does nothing at all
+#	define YASSERT_MSG(expr, message)	// Does nothing at all
+#	define YASSERT_DEBUG(expr)       	// Does nothing at all
 #endif
 } // namespace Yazh::Logger

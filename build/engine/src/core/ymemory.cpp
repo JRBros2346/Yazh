@@ -38,7 +38,7 @@ namespace Yazh::Memory {
 	
 	void initialize() {
 		Statistics.TotalAllocation = 0;
-		for (auto i = 0; i < (int)Tag::END; i++)
+		for (auto i = 0; i < (int)Tag::Total; i++)
 			Statistics.TaggedAllocation[(Tag)i] = 0;
 	}
 	
@@ -63,7 +63,7 @@ namespace Yazh::Memory {
 		Statistics.TaggedAllocation[tag] -= size;
 		
 		// TODO: Memory allignement
-		Platform::free(block, false);
+		Platform::free(block, size, false);
 	}
 	
 	void* zero(void* block, ysize size) {
@@ -95,7 +95,8 @@ namespace Yazh::Memory {
 			else
 				output += std::to_string((u64)memory) + " B\n";
 		}
-		output += "    " + Stringify(Tag::END) + " : ";
+		output += "   ----------------------------------\n";
+		output += "    " + Stringify(Tag::Total) + " : ";
 		if (Statistics.TotalAllocation >= GiB) {
 			output += std::to_string((f64)Statistics.TotalAllocation / GiB) + " GiB\n";
 		} else if (Statistics.TotalAllocation >= MiB) {

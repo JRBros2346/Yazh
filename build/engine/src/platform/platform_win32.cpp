@@ -111,11 +111,11 @@ namespace Yazh {
 	}
 	
 	void* Platform::allocate(ysize size, bool aligned) {
-		return malloc(size);
+		return ::operator new(size);
 	}
 
-	void Platform::free(void *block, bool alligned) {
-		::free(block);
+	void Platform::free(void *block, ysize size, bool alligned) {
+		::operator delete(block, size);
 	}
 
 	void* Platform::zeroMemory(void *block, ysize size) {

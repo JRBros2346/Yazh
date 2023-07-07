@@ -9,6 +9,11 @@ namespace Yazh::Event {
 	using RegisteredEvent = struct RegisteredEvent {
 		Listener* listener;
 		OnEvent callback;
+
+		RegisteredEvent(Listener* listener_inst, OnEvent on_event) {
+			listener = listener_inst;
+			callback = on_event;
+		}
 	};
 
 // This should be more than enough codes...
@@ -52,10 +57,7 @@ namespace Yazh::Event {
 		}
 
 		// If at this point, no duplicate was found. Proceed with registration.
-		RegisteredEvent event;
-		event.listener = listener;
-		event.callback = on_event;
-		state[code].push(event);
+		state[code].emplace_back(listener, on_event);
 
 		return true;
 	}
@@ -75,7 +77,7 @@ namespace Yazh::Event {
 			RegisteredEvent e = state[code][i];
 			if(e.listener == listener && e.callback == on_event) {
 				// Found one, remove it
-				state[code].pop(i);
+				state[code].pop_at(i);
 				return true;
 			}
 		}
@@ -93,7 +95,7 @@ namespace Yazh::Event {
 			return false;
 		}
 
-		for(u64 i = 0; i < state[code].size(); i++) {
+		for(ysize i = 0; i < state[code].size(); i++) {
 			RegisteredEvent e = state[code][i];
 			if(e.callback(code, sender, e.listener, data)) {
 				// Message has been handled, do not send to other listeners.

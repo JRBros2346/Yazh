@@ -8,25 +8,39 @@ namespace Yazh::Types {
 		const static ysize DEFAULT_CAPACITY = 1;
 		const static ysize RESIZE_FACTOR = 2;
 		
-		ysize SIZE;
-		ysize CAPACITY;
-		T* DATA;
+		ysize SIZE = 0;
+		ysize CAPACITY = 0;
+		T* DATA = nullptr;
 		public:
 			explicit Vector();
 			explicit Vector(ysize);
+			Vector(const Vector<T>&);
+			Vector(Vector<T>&&);
+			// template<T... Values>
+			// Vector(Values&&...);
 			~Vector();
 
-			T& operator[](u64);
+			T& operator[](ysize);
+			const T& operator[] (ysize) const;
 
 			void resize();
 
-			void push(T);
-			void push(T, u64);
-			T pop();
-			T pop(u64);
+			void push_back(const T&);
+			void push_at(ysize, const T&);
+			void push_back(T&&);
+			void push_at(ysize, T&&);
+			template<typename... Args>
+			T& emplace_back(Args&&...);
+			template<typename... Args>
+			T& emplace_at(ysize, Args&&...);
+			T pop_back();
+			T pop_at(ysize);
 			
 			void clear();
 			void shrink();
+
+			T& operator=(const Vector<T>&);
+			T& operator=(Vector<T>&&);
 			
 			ysize size();
 			ysize capacity();
