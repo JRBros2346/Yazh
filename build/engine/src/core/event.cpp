@@ -42,7 +42,7 @@ namespace Yazh::Event {
 		// Free the events arrays. And objects pointed to should be destroyed on their own.
 		for(auto codeEntry : state)
 			if(codeEntry.size() != 0)
-				delete &codeEntry;
+				codeEntry.~Vector();
 	}
 
 	bool Register(u16 code, Listener* listener, OnEvent on_event) {
