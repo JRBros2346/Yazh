@@ -1,11 +1,12 @@
 #include"application.hpp"
 #include"game_types.hpp"
 
+#include"logger.hpp"
+
 #include"platform/platform_win32.cpp"
 #include"platform/platform_linux.cpp"
 #include"ymemory.hpp"
-
-#include"logger.hpp"
+#include"event.hpp"
 
 /* Application Layer is NOT Object Oriented.
  * Because, it is hardcoded to exist only one at a time
@@ -23,7 +24,7 @@ namespace Yazh::Application {
 		f64 lastTime;
 	} state;
 	
-	static bool initialized = false;
+	static auto initialized = false;
 	
 	bool create(Yazh::VirtualGame* game) {
 		if(initialized) {
@@ -36,7 +37,7 @@ namespace Yazh::Application {
 		// Initialize subsystems.
 		Yazh::Logger::initialize();
 		
-		/* TODO (#1#): Remove this */
+		// TODO: Remove this
 		YFATAL("A test message: ",3.14f);
 		YERROR("A test message: ",3.14f);
 		YWARN("A test message: ",3.14f);
@@ -46,6 +47,11 @@ namespace Yazh::Application {
 		
 		state.isRunning = true;
 		state.isSuspended = false;
+
+		if (!Yazh::Event::initialize()) {
+			YFATAL("Event system failed initialization. Application cannot continue.");
+			return false;
+		}
 		
 		if(!state.platform.startup(
 				game->appConfig.name,
@@ -91,6 +97,8 @@ namespace Yazh::Application {
 		}
 		
 		state.isRunning = false;
+
+		Yazh::Event::shutdown();
 		
 		state.platform.shutdown();
 		

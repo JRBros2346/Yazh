@@ -3,6 +3,7 @@
 #include"logger.hpp"
 #include"platform/platform_win32.hpp"
 #include"platform/platform_linux.hpp"
+#include<map>
 
 namespace Yazh::Memory {
 	
@@ -26,82 +27,85 @@ namespace Yazh::Memory {
 			case Tag::EntityNode       : return "      Entity Node";
 			case Tag::Scene            : return "            Scene";
 			
-			default: return "";
+			default                    : return "            Total";
 		}
 	}
 	
 	static struct Statistics {
-		u64 TotalAllocation;
-		std::map<Tag, u64> TaggedAllocation;
+		ysize TotalAllocation;
+		std::map<Tag, ysize> TaggedAllocation;
 	} Statistics;
 	
 	void initialize() {
 		Statistics.TotalAllocation = 0;
-		for (auto i = 0; i < (int)Tag::END; i++)
+		for (auto i = 0; i < (int)Tag::Total; i++)
 			Statistics.TaggedAllocation[(Tag)i] = 0;
 	}
 	
 	void shutdown() {
 	}
 	
-	void* yallocate(u64 size, Tag tag) {
+	void* allocate(ysize size, Tag tag) {
 		if (tag == Tag::Unknown)
 			YWARN("Yazh::Memory::yallocate called using Yazh::Memory::Tag::Unknown. Re-class this allocation.");
 		
 		Statistics.TotalAllocation += size;
 		Statistics.TaggedAllocation[tag] += size;
 		
-		/* TODO (#1#): Memory allignement */
+		// TODO: Memory allignement
 		void* block = Platform::allocate(size, false);
 		Platform::zeroMemory(block, size);
 		return block;
 	}
 	
-	void yfree(void* block, u64 size, Tag tag) {
-		if (tag == Tag::Unknown)
-			YWARN("Yazh::Memory::yallocate called using Yazh::Memory::Tag::Unknown. Re-class this allocation.");
-		
+	void free(void* block, ysize size, Tag tag) {
 		Statistics.TotalAllocation -= size;
 		Statistics.TaggedAllocation[tag] -= size;
 		
-		/* TODO (#1#): Memory allignement */
-		Platform::free(block, false);
+		// TODO: Memory allignement
+		Platform::free(block, size, false);
 	}
 	
-	void* yzeroMemory(void* block, u64 size) {
+	void* zero(void* block, ysize size) {
 		return Platform::zeroMemory(block, size);
 	}
 	
-	void* ycopyMemory(void* dest, const void* source, u64 size) {
+	void* copy(void* dest, const void* source, ysize size) {
 		return Platform::copyMemory(dest, source, size);
 	}
 	
-	void* ysetMemory(void* dest, i32 value, u64 size) {
+	void* set(void* dest, i32 value, ysize size) {
 		return Platform::setMemory(dest, value, size);
 	}
 	
 	std::string getMemoryUsageString() {
-		const u64 GiB = 1024 * 1024 * 1024;
-		const u64 MiB = 1024 * 1024;
-		const u64 KiB = 1024;
+		const ysize GiB = 1024 * 1024 * 1024;
+		const ysize MiB = 1024 * 1024;
+		const ysize KiB = 1024;
 		
 		std::string output = "System memory use (tagged):\n";
 		for (const auto& [tag, memory] : Statistics.TaggedAllocation) {
-			std::string unit = "B";
-			f64 value = memory;
-			if (value >= GiB) {
-				unit = "GiB";
-				value /= GiB;
-			} else if (value >= MiB) {
-				unit = "MiB";
-				value /= MiB;
-			} else if (value >= KiB) {
-				unit = "KiB";
-				value /= KiB;
-			}
-			output += "    " + Stringify(tag) + " : " + std::to_string(value) + " " + unit + "\n";
+			output += "    " + Stringify(tag) + " : ";
+			if (memory >= GiB)
+				output += std::to_string((f64)memory / GiB) + " GiB\n";
+			else if (memory >= MiB)
+				output += std::to_string((f64)memory / MiB) + " MiB\n";
+			else if (memory >= KiB)
+				output += std::to_string((f64)memory / KiB) + " KiB\n";
+			else
+				output += std::to_string((u64)memory) + " B\n";
 		}
-		
+		output += "   ----------------------------------\n";
+		output += "    " + Stringify(Tag::Total) + " : ";
+		if (Statistics.TotalAllocation >= GiB) {
+			output += std::to_string((f64)Statistics.TotalAllocation / GiB) + " GiB\n";
+		} else if (Statistics.TotalAllocation >= MiB) {
+			output += std::to_string((f64)Statistics.TotalAllocation / MiB) + " MiB\n";
+		} else if (Statistics.TotalAllocation >= KiB) {
+			output += std::to_string((f64)Statistics.TotalAllocation / KiB) + " KiB\n";
+		} else {
+			output += std::to_string(Statistics.TotalAllocation) + " B\n";
+		}
 		return output;
 	}
 }

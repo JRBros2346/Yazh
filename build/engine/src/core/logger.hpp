@@ -8,27 +8,27 @@ namespace Yazh::Logger {
 #define LOG_INFO_ENABLED true
 #define LOG_DEBUG_ENABLED true
 #define LOG_TRACE_ENABLED true
-	
+
 #if YRELEASE == 1
 #	define LOG_DEBUG_ENABLED false
 #	define LOG_TRACE_ENABLED false
 #endif
-	
+
 	enum class LogLevel {
-		FTL, 
-		ERR, 
-		WRN, 
-		INF, 
-		DBG, 
+		FTL,
+		ERR,
+		WRN,
+		INF,
+		DBG,
 		TRC
 	};
 	std::ostream& operator<<(std::ostream&, const LogLevel&);
-	
+
 	bool initialize();
 	void shutdown();
-	
+
 	template<typename ...fragments>
-	YAPI void logOutput(LogLevel level, fragments&& ...message);
+	YAPI void logOutput(LogLevel, fragments&&...);
 } // namespace Yazh::Logger
 
 // Logs a fatal-level message.
@@ -71,4 +71,4 @@ namespace Yazh::Logger {
 #	define YTRACE(message...)
 #endif
 
-#include"logger.tpp"
+#include"logger.tcc"

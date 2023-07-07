@@ -1,8 +1,6 @@
 #include"logger.hpp"
 #include"asserts.hpp"
 
-/* TODO (#1#): temporary */
-
 namespace Yazh::Logger {
 	std::ostream& operator<<(std::ostream& os, const LogLevel& level) {
 		// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
@@ -34,11 +32,11 @@ namespace Yazh::Logger {
 	}
 	
 	bool initialize() {
-		/* TODO (#1#): create log file. */
+		// TODO: create log file.
 		return true;
 	}
 	
 	void shutdown() {
-		/* TODO (#1#): cleanup logging/write queued entries. */
+		// TODO: cleanup logging/write queued entries.
 	}
 } // namespace Yazh::Logger

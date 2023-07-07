@@ -1,7 +1,6 @@
 #pragma once
 
 #include"defines.hpp"
-#include<map>
 
 namespace Yazh::Memory {
 	enum class Tag {
@@ -23,22 +22,22 @@ namespace Yazh::Memory {
 		EntityNode,
 		Scene,
 		
-		END
+		Total
 	};
 	inline std::string Stringify(Tag);
 	
 	void initialize();
 	void shutdown();
 	
-	YAPI void* yallocate(u64, Tag);
+	YAPI void* allocate(ysize, Tag);
 	
-	YAPI void yfree(void*, u64, Tag);
+	YAPI void free(void*, ysize, Tag);
 	
-	YAPI void* yzero(void*, u64);
+	YAPI void* zero(void*, ysize);
 	
-	YAPI void* ycopy(void*, const void*, u64);
+	YAPI void* copy(void*, const void*, ysize);
 	
-	YAPI void* yset(void*, i32, u64);
+	YAPI void* set(void*, i32, ysize);
 	
 	YAPI std::string getMemoryUsageString();
 }
