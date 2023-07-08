@@ -7,6 +7,7 @@
 #include"platform/platform_linux.cpp"
 #include"ymemory.hpp"
 #include"event.hpp"
+#include"input.hpp"
 
 /* Application Layer is NOT Object Oriented.
  * Because, it is hardcoded to exist only one at a time
@@ -36,6 +37,7 @@ namespace Yazh::Application {
 		
 		// Initialize subsystems.
 		Yazh::Logger::initialize();
+		Yazh::Input::initialize();
 		
 		// TODO: Remove this
 		YFATAL("A test message: ",3.14f);
@@ -82,7 +84,6 @@ namespace Yazh::Application {
 			}
 			
 			if (!state.isSuspended) {
-				// Call the game's update routine.
 				if (!state.game->update((f32)0)) {
 					state.isRunning = false;
 					break;
@@ -93,11 +94,18 @@ namespace Yazh::Application {
 					state.isRunning = false;
 					break;
 				}
+
+				// NOTE: Input update/state copying should always be handled
+				// after any input should be recorded; I.E. before this line.
+				// As a safety, input is the last thing to be updated before
+				// this frame ends;
+				Yazh::Input::update(0);
 			}
 		}
 		
 		state.isRunning = false;
 
+		Yazh::Event::shutdown();
 		Yazh::Event::shutdown();
 		
 		state.platform.shutdown();

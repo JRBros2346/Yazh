@@ -38,7 +38,7 @@ namespace Yazh::Memory {
 	
 	void initialize() {
 		Statistics.TotalAllocation = 0;
-		for (auto i = 0; i < (int)Tag::Total; i++)
+		for (auto i = 0; i < (u8)Tag::Total; i++)
 			Statistics.TaggedAllocation[(Tag)i] = 0;
 	}
 	

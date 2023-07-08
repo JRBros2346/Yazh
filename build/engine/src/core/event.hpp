@@ -49,7 +49,7 @@ namespace Yazh::Event {
 	 * @param on_event The callback function pointer to be unregistered.
 	 * @returns TRUE if the event is successfully unregistered; otherwise false.
 	 */
-	YAPI bool Unregister(u16 code, void* listener, OnEvent on_event);
+	YAPI bool Unregister(u16 code, Listener* listener, OnEvent on_event);
 
 	/**
 	 * Fires an event to listeners of the given code. If an event handler returns
@@ -59,7 +59,7 @@ namespace Yazh::Event {
 	 * @param data The event data.
 	 * @returns TRUE if handled, otherwise FALSE.
 	 */
-	YAPI bool Fire(u16 code, void* sender, Context data);
+	YAPI bool Fire(u16 code, Sender* sender, Context data);
 
 	// System internal event codes. Application should use codes beyond 255.
 	using SystemCode = enum class SystemCode {

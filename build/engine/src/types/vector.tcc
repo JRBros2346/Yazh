@@ -18,9 +18,9 @@ namespace Yazh::Types {
 	Vector<T>::Vector(const Vector<T>& other)
 			: SIZE(other.SIZE),
 			  CAPACITY(other.CAPACITY) {
-		DATA = (T*)Yazh::Memory::allocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		DATA = (T*)Yazh::Memory::allocate(other.CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
 
-		for (ysize i = 0; i < SIZE; i++)
+		for (ysize i = 0; i < other.SIZE; i++)
 			DATA[i] = other.DATA[i];
 	}
 	template<typename T>
