@@ -2,7 +2,6 @@
 
 #include"platform.hpp"
 #include"defines.hpp"
-#include"core/logger.hpp"
 
 #if YPLATFORM_WINDOWS
 #	include<windows.h>

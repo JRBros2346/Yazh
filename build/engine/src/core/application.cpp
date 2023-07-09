@@ -15,6 +15,7 @@
  */
 
 namespace Yazh::Application {
+	static auto initialized = false;
 	static struct state {
 		Yazh::VirtualGame* game;
 		bool isRunning;
@@ -24,8 +25,10 @@ namespace Yazh::Application {
 		i16 height;
 		f64 lastTime;
 	} state;
-	
-	static auto initialized = false;
+
+	// Event handlers
+	bool onEvent(u16, Yazh::Event::Sender*, Yazh::Event::Listener*, Yazh::Event::Context);
+	bool onKey(u16, Yazh::Event::Sender*, Yazh::Event::Listener*, Yazh::Event::Context);
 	
 	bool create(Yazh::VirtualGame* game) {
 		if(initialized) {
@@ -54,13 +57,17 @@ namespace Yazh::Application {
 			YFATAL("Event system failed initialization. Application cannot continue.");
 			return false;
 		}
+
+		Yazh::Event::Register((u16)Yazh::Event::SystemCode::ApplicationQuit, 0, onEvent);
+		Yazh::Event::Register((u16)Yazh::Event::SystemCode::KeyPressed, 0, onEvent);
+		Yazh::Event::Register((u16)Yazh::Event::SystemCode::KeyReleased, 0, onEvent);
 		
 		if(!state.platform.startup(
 				game->appConfig.name,
-				game->appConfig.startPosX,
-				game->appConfig.startPosY,
-				game->appConfig.startWidth,
-				game->appConfig.startHeight)) {
+				game->appConfig.start_pos_x,
+				game->appConfig.start_pos_y,
+				game->appConfig.start_width,
+				game->appConfig.start_height)) {
 			return false;
 		}
 		
@@ -105,11 +112,54 @@ namespace Yazh::Application {
 		
 		state.isRunning = false;
 
+		// Shutdown event system.
+		Yazh::Event::Unregister((u16)Yazh::Event::SystemCode::ApplicationQuit, 0, onEvent);
+		Yazh::Event::Unregister((u16)Yazh::Event::SystemCode::KeyPressed, 0, onEvent);
+		Yazh::Event::Unregister((u16)Yazh::Event::SystemCode::KeyReleased, 0, onEvent);
 		Yazh::Event::shutdown();
-		Yazh::Event::shutdown();
+		Yazh::Input::shutdown();
 		
 		state.platform.shutdown();
 		
 		return true;
+	}
+
+	bool onEvent(u16 code, Yazh::Event::Sender* sender, Yazh::Event::Listener* listenerInst, Yazh::Event::Context context) {
+		switch ((Yazh::Event::SystemCode)code) {
+			case Yazh::Event::SystemCode::ApplicationQuit: {
+				YINFO("Yazh::Event::SystemCode::ApplicationQuit received, shutting down.\n");
+				state.isRunning = false;
+				return true;
+			}
+			default:
+				return false;
+		}
+	}
+
+	bool onKey(u16 code, Yazh::Event::Sender* sender, Yazh::Event::Listener* listenerInst, Yazh::Event::Context context) {
+		if (code == (u16)Yazh::Event::SystemCode::KeyPressed) {
+			auto key = (Yazh::Input::Key)context.data.U16[0];
+			if (key == Yazh::Input::Key::Esc) {
+				// NOTE: Technically firing an event to itself, but there may be other listeners.
+				Yazh::Event::Fire((u16)Yazh::Event::SystemCode::ApplicationQuit, nullptr, {});
+
+				// Block anything else from processing this.
+				return true;
+			} else if (key == Yazh::Input::Key::A) {
+				// Example on checking for a key
+				YDEBUG("Explicit - A key pressed!");
+			} else {
+				YDEBUG('\'', (char)key, "' key pressed in window.")
+			}
+		} else if (code == (u16)Yazh::Event::SystemCode::KeyReleased) {
+			auto key = (Yazh::Input::Key)context.data.U16[0];
+			if (key == Yazh::Input::Key::B) {
+				// Example on checking for a key
+				YDEBUG("Explicit - B key released!");
+			} else {
+				YDEBUG('\'', (char)key, "' key released in window.")
+			}
+		}
+		return false;
 	}
 } // namespace Yazh::Application

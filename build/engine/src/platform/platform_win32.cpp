@@ -2,6 +2,9 @@
 #if YPLATFORM_WINDOWS
 #	include"platform_win32.hpp"
 
+#	include"core/logger.hpp"
+#	include"core/input.hpp"
+
 namespace Yazh {
 	f64 Platform::clockFrequency;
 	LARGE_INTEGER Platform::startTime;
@@ -153,35 +156,58 @@ namespace Yazh {
 			case WM_KEYDOWN:
 			case WM_SYSKEYDOWN:
 			case WM_KEYUP:
-			case WM_SYSKEYUP:
+			case WM_SYSKEYUP: {
 				// Key pressed/released
-				//b8 pressed = (msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN);
-				// TODO: input processing.
-
-				break;
-			case WM_MOUSEMOVE:
+				auto pressed = (msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN);
+				auto key = (Yazh::Input::Key)wParam;
+				
+				// Pass to the input subsystem for processing.
+				Yazh::Input::process(key, pressed);
+			} break;
+			case WM_MOUSEMOVE: {
 				// Mouse move
-				//i32 xPosition = GET_X_LPARAM(lParam);
-				//i32 yPosition = GET_Y_LPARAM(lParam);
-				// TODO: input processing.
-				break;
-			case WM_MOUSEWHEEL:
-				// i32 deltaZ = GET_WHEEL_DELTA_WPARAM(wParam);
-				// if (deltaZ != 0) {
-				//	// Flatten the input to an OS-independent (-1, 1)
-				//	deltaZ = (deltaZ < 0) ? -1 : 1;
-				//	// TODO: input processing.
-				// }
-				break;
+				i32 xPos = GET_X_LPARAM(lParam);
+				i32 yPos = GET_Y_LPARAM(lParam);
+
+				// Pass over to the input subsystem.
+				Yazh::Input::process(xPos, yPos);
+			} break;
+			case WM_MOUSEWHEEL: {
+				i32 zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+				if (zDelta != 0) {
+					// Flatten the input to an OS-independent (-1, 1)
+					zDelta = (zDelta < 0) ? -1 : 1;
+					
+					Yazh::Input::process(zDelta);
+				}
+			} break;
 			case WM_LBUTTONDOWN:
 			case WM_MBUTTONDOWN:
 			case WM_RBUTTONDOWN:
 			case WM_LBUTTONUP:
 			case WM_MBUTTONUP:
-			case WM_RBUTTONUP:
-				//bool pressed = msg == WM_LBUTTONDOWN || msg == WM_RBUTTONDOWN || msg == WM_MBUTTONDOWN;
-				// TODO: input processing.
-				break;
+			case WM_RBUTTONUP: {
+				auto pressed = msg == WM_LBUTTONDOWN || msg == WM_RBUTTONDOWN || msg == WM_MBUTTONDOWN;
+				auto button = Yazh::Input::Button::MAX;
+				switch(msg) {
+					case WM_LBUTTONDOWN:
+					case WM_LBUTTONUP:
+						button = Yazh::Input::Button::Left;
+						break;
+					case WM_MBUTTONDOWN:
+					case WM_MBUTTONUP:
+						button = Yazh::Input::Button::Middle;
+						break;
+					case WM_RBUTTONDOWN:
+					case WM_RBUTTONUP:
+						button = Yazh::Input::Button::Right;
+						break;
+				}
+
+				// Pass over to the input subsystem.
+				if (button != Yazh::Input::Button::MAX)
+					Yazh::Input::process(button, pressed);
+			} break;
 		}
 
 		return DefWindowProcA(hwnd, msg, wParam, lParam);

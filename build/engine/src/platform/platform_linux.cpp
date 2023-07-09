@@ -2,6 +2,11 @@
 #if YPLATFORM_LINUX
 #	include"platform_linux.hpp"
 
+#	include"core/logger.hpp"
+
+#	include<cstdlib>
+#	include<cstring>
+
 namespace Yazh {
 	bool Platform::startup(
 			const char* applicationName,
