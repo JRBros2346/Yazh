@@ -10,7 +10,7 @@
 // #include<iostream>
 
 // Externally defined function to create game.
-namespace Yazh { Yazh::VirtualGame* createGame(); }
+namespace Yazh { VirtualGame* createGame(); }
 
 /**
  * The main entry point of the app.

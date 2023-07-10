@@ -6,27 +6,27 @@
 #	include"core/input.hpp"
 
 namespace Yazh {
-	f64 Platform::clockFrequency;
-	LARGE_INTEGER Platform::startTime;
+	f64 Platform::clock_frequency;
+	LARGE_INTEGER Platform::start_time;
 
 	bool Platform::startup(
-			const char* applicationName,
+			const char* application_name,
 			i32 x,
 			i32 y,
 			i32 width,
 			i32 height) {
 
-		hInstance = GetModuleHandleA(0);
+		h_instance = GetModuleHandleA(0);
 
 		// Setup and register window class.
-		HICON icon = LoadIcon(hInstance, IDI_APPLICATION);
+		HICON icon = LoadIcon(h_instance, IDI_APPLICATION);
 		WNDCLASSA wc;
 		memset(&wc, 0, sizeof(wc));
 		wc.style = CS_DBLCLKS; // Get double-clicks
 		wc.lpfnWndProc = Win32ProcessMessage;
 		wc.cbClsExtra = 0;
 		wc.cbWndExtra = 0;
-		wc.hInstance = hInstance;
+		wc.hInstance = h_instance;
 		wc.hIcon = icon;
 		wc.hCursor = LoadCursor(nullptr, IDC_ARROW);  // nullptr; // Manage the cursor manually
 		wc.hbrBackground = nullptr;                   // Transparent
@@ -37,39 +37,39 @@ namespace Yazh {
 			return false;
 		}
 			// Create window
-		u32 clientX = x;
-		u32 clientY = y;
-		u32 clientWidth = width;
-		u32 clientHeight = height;
+		u32 client_x = x;
+		u32 client_y = y;
+		u32 client_width = width;
+		u32 client_height = height;
 
-		u32 windowX = clientX;
-		u32 windowY = clientY;
-		u32 windowWidth = clientWidth;
-		u32 windowHeight = clientHeight;
+		u32 window_x = client_x;
+		u32 window_y = client_y;
+		u32 window_width = client_width;
+		u32 window_height = client_height;
 
-		u32 windowStyle = WS_OVERLAPPED | WS_SYSMENU | WS_CAPTION;
-		u32 windowExStyle = WS_EX_APPWINDOW;
+		u32 window_style = WS_OVERLAPPED | WS_SYSMENU | WS_CAPTION;
+		u32 window_ex_style = WS_EX_APPWINDOW;
 
-		windowStyle |= WS_MAXIMIZEBOX;
-		windowStyle |= WS_MINIMIZEBOX;
-		windowStyle |= WS_THICKFRAME;
+		window_style |= WS_MAXIMIZEBOX;
+		window_style |= WS_MINIMIZEBOX;
+		window_style |= WS_THICKFRAME;
 
 		// Obtain the size of the border.
-		RECT borderRect{0, 0, 0, 0};
-		AdjustWindowRectEx(&borderRect, windowStyle, 0, windowExStyle);
+		RECT border_rect{0, 0, 0, 0};
+		AdjustWindowRectEx(&border_rect, window_style, 0, window_ex_style);
 
 		// In this case, the border rectangle is negative.
-		windowX += borderRect.left;
-		windowY += borderRect.top;
+		window_x += border_rect.left;
+		window_y += border_rect.top;
 
 		// Grow by the size of the OS border.
-		windowWidth += borderRect.right - borderRect.left;
-		windowHeight += borderRect.bottom - borderRect.top;
+		window_width += border_rect.right - border_rect.left;
+		window_height += border_rect.bottom - border_rect.top;
 
 		HWND handle = CreateWindowExA(
-			windowExStyle, "yazh_window_class", applicationName,
-			windowStyle, windowX, windowY, windowWidth, windowHeight,
-			0, 0, hInstance, 0);
+			window_ex_style, "yazh_window_class", application_name,
+			window_style, window_x, window_y, window_width, window_height,
+			0, 0, h_instance, 0);
 
 		if (handle == nullptr) {
 			MessageBoxA(NULL, "Window creation failed!", "Error!", MB_ICONEXCLAMATION | MB_OK);
@@ -81,17 +81,17 @@ namespace Yazh {
 		}
 
 		// Show the window
-		auto shouldActivate = true; // TODO: if the window should not accept input, this should be false.
-		i32 showWindowCommandFlags = shouldActivate ? SW_SHOW : SW_SHOWNOACTIVATE;
+		auto should_activate = true; // TODO: if the window should not accept input, this should be false.
+		i32 show_window_command_flags = should_activate ? SW_SHOW : SW_SHOWNOACTIVATE;
 		// If initially minimized, use SW_MINIMIZE : SW_SHOWMINNOACTIVE;
 		// If initially maximized, use SW_SHOWMAXIMIZED : SW_MAXIMIZE
-		ShowWindow(hwnd, showWindowCommandFlags);
+		ShowWindow(hwnd, show_window_command_flags);
 
 		// Clock setup
 		LARGE_INTEGER frequency;
 		QueryPerformanceFrequency(&frequency);
-		clockFrequency = 1.0 / (f64)frequency.QuadPart;
-		QueryPerformanceCounter(&startTime);
+		clock_frequency = 1.0 / (f64)frequency.QuadPart;
+		QueryPerformanceCounter(&start_time);
 
 		return true;
 	}
@@ -133,7 +133,7 @@ namespace Yazh {
 		return memset(dest, value, size);
 	}
 
-	LRESULT CALLBACK Platform::Win32ProcessMessage(HWND hwnd, u32 msg, WPARAM wParam, LPARAM lParam) {
+	LRESULT CALLBACK Platform::Win32ProcessMessage(HWND hwnd, u32 msg, WPARAM wp, LPARAM lp) {
 		switch (msg) {
 			case WM_ERASEBKGND:
 				// Notify the OS that erasing will be handled by the application to prevent flicker.
@@ -159,26 +159,26 @@ namespace Yazh {
 			case WM_SYSKEYUP: {
 				// Key pressed/released
 				auto pressed = (msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN);
-				auto key = (Yazh::Input::Key)wParam;
+				auto key = (Input::Key)wp;
 				
 				// Pass to the input subsystem for processing.
-				Yazh::Input::process(key, pressed);
+				Input::process(key, pressed);
 			} break;
 			case WM_MOUSEMOVE: {
 				// Mouse move
-				i32 xPos = GET_X_LPARAM(lParam);
-				i32 yPos = GET_Y_LPARAM(lParam);
+				i32 x = GET_X_LPARAM(lp);
+				i32 y = GET_Y_LPARAM(lp);
 
 				// Pass over to the input subsystem.
-				Yazh::Input::process(xPos, yPos);
+				Input::process(x, y);
 			} break;
 			case WM_MOUSEWHEEL: {
-				i32 zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
-				if (zDelta != 0) {
+				i32 z_delta = GET_WHEEL_DELTA_WPARAM(wp);
+				if (z_delta != 0) {
 					// Flatten the input to an OS-independent (-1, 1)
-					zDelta = (zDelta < 0) ? -1 : 1;
+					z_delta = (z_delta < 0) ? -1 : 1;
 					
-					Yazh::Input::process(zDelta);
+					Input::process(z_delta);
 				}
 			} break;
 			case WM_LBUTTONDOWN:
@@ -188,29 +188,29 @@ namespace Yazh {
 			case WM_MBUTTONUP:
 			case WM_RBUTTONUP: {
 				auto pressed = msg == WM_LBUTTONDOWN || msg == WM_RBUTTONDOWN || msg == WM_MBUTTONDOWN;
-				auto button = Yazh::Input::Button::MAX;
+				auto button = Input::Button::MAX;
 				switch(msg) {
 					case WM_LBUTTONDOWN:
 					case WM_LBUTTONUP:
-						button = Yazh::Input::Button::Left;
+						button = Input::Button::Left;
 						break;
 					case WM_MBUTTONDOWN:
 					case WM_MBUTTONUP:
-						button = Yazh::Input::Button::Middle;
+						button = Input::Button::Middle;
 						break;
 					case WM_RBUTTONDOWN:
 					case WM_RBUTTONUP:
-						button = Yazh::Input::Button::Right;
+						button = Input::Button::Right;
 						break;
 				}
 
 				// Pass over to the input subsystem.
-				if (button != Yazh::Input::Button::MAX)
-					Yazh::Input::process(button, pressed);
+				if (button != Input::Button::MAX)
+					Input::process(button, pressed);
 			} break;
 		}
 
-		return DefWindowProcA(hwnd, msg, wParam, lParam);
+		return DefWindowProcA(hwnd, msg, wp, lp);
 	}
 }
 

@@ -33,13 +33,11 @@ namespace Yazh::Memory {
 	
 	static struct Statistics {
 		ysize TotalAllocation;
-		std::map<Tag, ysize> TaggedAllocation;
-	} Statistics;
+		ysize TaggedAllocation[(u8)Tag::MAX];
+	} stats;
 	
 	void initialize() {
-		Statistics.TotalAllocation = 0;
-		for (auto i = 0; i < (u8)Tag::Total; i++)
-			Statistics.TaggedAllocation[(Tag)i] = 0;
+		Platform::zeroMemory(&stats, sizeof(Statistics));
 	}
 	
 	void shutdown() {
@@ -49,8 +47,8 @@ namespace Yazh::Memory {
 		if (tag == Tag::Unknown)
 			YWARN("Yazh::Memory::yallocate called using Yazh::Memory::Tag::Unknown. Re-class this allocation.");
 		
-		Statistics.TotalAllocation += size;
-		Statistics.TaggedAllocation[tag] += size;
+		stats.TotalAllocation += size;
+		stats.TaggedAllocation[(u8)tag] += size;
 		
 		// TODO: Memory allignement
 		void* block = Platform::allocate(size, false);
@@ -59,8 +57,8 @@ namespace Yazh::Memory {
 	}
 	
 	void free(void* block, ysize size, Tag tag) {
-		Statistics.TotalAllocation -= size;
-		Statistics.TaggedAllocation[tag] -= size;
+		stats.TotalAllocation -= size;
+		stats.TaggedAllocation[(u8)tag] -= size;
 		
 		// TODO: Memory allignement
 		Platform::free(block, size, false);
@@ -84,7 +82,9 @@ namespace Yazh::Memory {
 		const ysize KiB = 1024;
 		
 		std::string output = "System memory use (tagged):\n";
-		for (const auto& [tag, memory] : Statistics.TaggedAllocation) {
+		for (ysize t = 0; t < (u8)Tag::MAX; t++) {
+			auto tag = (Tag)t;
+			auto memory = stats.TaggedAllocation[t];
 			output += "    " + Stringify(tag) + " : ";
 			if (memory >= GiB)
 				output += std::to_string((f64)memory / GiB) + " GiB\n";
@@ -93,19 +93,20 @@ namespace Yazh::Memory {
 			else if (memory >= KiB)
 				output += std::to_string((f64)memory / KiB) + " KiB\n";
 			else
-				output += std::to_string((u64)memory) + " B\n";
+				output += std::to_string(memory) + " B\n";
 		}
+
 		output += "   ----------------------------------\n";
-		output += "    " + Stringify(Tag::Total) + " : ";
-		if (Statistics.TotalAllocation >= GiB) {
-			output += std::to_string((f64)Statistics.TotalAllocation / GiB) + " GiB\n";
-		} else if (Statistics.TotalAllocation >= MiB) {
-			output += std::to_string((f64)Statistics.TotalAllocation / MiB) + " MiB\n";
-		} else if (Statistics.TotalAllocation >= KiB) {
-			output += std::to_string((f64)Statistics.TotalAllocation / KiB) + " KiB\n";
-		} else {
-			output += std::to_string(Statistics.TotalAllocation) + " B\n";
-		}
+		
+		output += "    " + Stringify(Tag::MAX) + " : ";
+		if (stats.TotalAllocation >= GiB)
+			output += std::to_string((f64)stats.TotalAllocation / GiB) + " GiB\n";
+		else if (stats.TotalAllocation >= MiB)
+			output += std::to_string((f64)stats.TotalAllocation / MiB) + " MiB\n";
+		else if (stats.TotalAllocation >= KiB)
+			output += std::to_string((f64)stats.TotalAllocation / KiB) + " KiB\n";
+		else
+			output += std::to_string(stats.TotalAllocation) + " B\n";
 		return output;
 	}
 }

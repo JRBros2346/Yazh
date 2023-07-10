@@ -22,39 +22,38 @@ namespace Yazh::Event {
 	/**
 	 * Event system internal state.
 	 */
-	static auto isInitialized = false;
+	static auto is_initialized = false;
 	// lookup table for event code.
-	static Yazh::Types::Vector<RegisteredEvent> state[MAX_MESSAGE_CODES];
+	static Types::Vector<RegisteredEvent> state[MAX_MESSAGE_CODES];
 
 	bool initialize() {
-		if (isInitialized)
+		if (is_initialized)
 			return false;
-		isInitialized = false;
-		for (auto codeEntry : state) {
-			codeEntry.clear();
-			codeEntry.shrink();
+		is_initialized = false;
+		for (auto code_entry : state) {
+			code_entry.clear();
+			code_entry.shrink();
 		}
-		isInitialized = true;
+		is_initialized = true;
 		return true;
 	}
 
 	void shutdown() {
 		// Free the events arrays. And objects pointed to should be destroyed on their own.
-		for(auto codeEntry : state)
-			if(codeEntry.size() != 0)
-				codeEntry.~Vector();
+		for(auto code_entry : state)
+			if(code_entry.size() != 0)
+				code_entry.~Vector();
 	}
 
 	bool Register(u16 code, Listener* listener, OnEvent on_event) {
-		if(!isInitialized)
+		if(!is_initialized)
 			return false;
 
-		for(ysize i = 0; i < state[code].size(); i++) {
+		for(ysize i = 0; i < state[code].size(); i++)
 			if(state[code][i].listener == listener) {
 				// TODO: warn
 				return false;
 			}
-		}
 
 		// If at this point, no duplicate was found. Proceed with registration.
 		state[code].emplace_back(listener, on_event);
@@ -63,9 +62,8 @@ namespace Yazh::Event {
 	}
 
 	bool Unregister(u16 code, Listener* listener, OnEvent on_event) {
-		if(!isInitialized) {
+		if(!is_initialized)
 			return false;
-		}
 
 		// On nothing is registered for the code, boot out.
 		if(state[code].size() == 0) {
@@ -87,13 +85,12 @@ namespace Yazh::Event {
 	}
 
 	bool Fire(u16 code, Sender* sender, Context data) {
-		if(!isInitialized)
+		if(!is_initialized)
 			return false;
 
 		// If nothing is registered for the code, boot out.
-		if(state[code].size() == 0) {
+		if(state[code].size() == 0)
 			return false;
-		}
 
 		for(ysize i = 0; i < state[code].size(); i++) {
 			RegisteredEvent e = state[code][i];

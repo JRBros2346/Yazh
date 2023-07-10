@@ -9,7 +9,7 @@
 
 namespace Yazh {
 	bool Platform::startup(
-			const char* applicationName,
+			const char* application_name,
 			i32 x,
 			i32 y,
 			i32 width,
@@ -33,11 +33,10 @@ namespace Yazh {
 		const struct xcb_setup_t* setup = xcb_get_setup(connection);
 		
 		// Loop through screens using iterator
-		auto pScreen = 0;
+		auto p_screen = 0;
 		xcb_screen_iterator_t it = xcb_setup_roots_iterator(setup);
-		for (i32 s = pScreen; s>0; s++) {
+		for (i32 s = p_screen; s>0; s++)
 			xcb_screen_next(&it);
-		}
 		
 		// After screens have been looped through, assign it.
 		screen = it.data;
@@ -48,16 +47,16 @@ namespace Yazh {
 		// Register event types.
 		// XCB_CW_BACK_PIXEL = filling then window bg with a single colour
 		// XCB_CW_EVENT_MASK is required.
-		u32 eventMask = XCB_CW_BACK_PIXEL | XCB_CW_EVENT_MASK;
+		u32 event_mask = XCB_CW_BACK_PIXEL | XCB_CW_EVENT_MASK;
 		
 		// Listen for keyboard and mouse buttons
-		u32 eventValues = XCB_EVENT_MASK_BUTTON_PRESS | XCB_EVENT_MASK_BUTTON_RELEASE |
-		                  XCB_EVENT_MASK_KEY_PRESS | XCB_EVENT_MASK_KEY_RELEASE |
-		                  XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_POINTER_MOTION |
-		                  XCB_EVENT_MASK_STRUCTURE_NOTIFY;
+		u32 event_values = XCB_EVENT_MASK_BUTTON_PRESS | XCB_EVENT_MASK_BUTTON_RELEASE |
+		                   XCB_EVENT_MASK_KEY_PRESS | XCB_EVENT_MASK_KEY_RELEASE |
+		                   XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_POINTER_MOTION |
+		                   XCB_EVENT_MASK_STRUCTURE_NOTIFY;
 		
 		// Values to be sent over XCB (bg colour, events)
-		u32 valueList[] = {screen->black_pixel, eventValues};
+		u32 value_list[] = {screen->black_pixel, event_values};
 		
 		// Create the window
 		xcb_void_cookie_t cookie = xcb_create_window(
@@ -72,8 +71,8 @@ namespace Yazh {
 			0,                            	// No Border
 			XCB_WINDOW_CLASS_INPUT_OUTPUT,	// class
 			screen->root_visual,
-			eventMask,
-			valueList);
+			event_mask,
+			value_list);
 		
 		// Change the title
 		xcb_change_property(
@@ -83,49 +82,49 @@ namespace Yazh {
 			XCB_ATOM_WM_NAME,
 			XCB_ATOM_STRING,
 			8,	// data should be viewed 8 bits at a time
-			strlen(applicationName),
-			applicationName);
+			strlen(application_name),
+			application_name);
 		
 		/* Tell the server to notify when the window manager
 		   attempts to destroy the window. */
-		xcb_intern_atom_cookie_t wmDeleteCookie = xcb_intern_atom(
+		xcb_intern_atom_cookie_t wm_delete_cookie = xcb_intern_atom(
 			connection,
 			0,
-			strlen("wmDeleteWinDOW"),
-			"wmDeleteWinDOW");
-		xcb_intern_atom_cookie_t wmProtocolsCookie = xcb_intern_atom(
+			strlen("WM_DELETE_WINDOW"),
+			"WM_DELETE_WINDOW");
+		xcb_intern_atom_cookie_t wm_protocols_cookie = xcb_intern_atom(
 			connection,
 			0,
-			strlen("wmProtocols"),
-			"wmProtocols");
-		xcb_intern_atom_reply_t* wmDeleteReply = xcb_intern_atom_reply(
+			strlen("WM_PROTOCOLS"),
+			"WM_PROTOCOLS");
+		xcb_intern_atom_reply_t* wm_delete_reply = xcb_intern_atom_reply(
 			connection,
-			wmDeleteCookie,
+			wm_delete_cookie,
 			NULL);
-		xcb_intern_atom_reply_t* wmProtocolsReply = xcb_intern_atom_reply(
+		xcb_intern_atom_reply_t* wm_protocols_reply = xcb_intern_atom_reply(
 			connection,
-			wmProtocolsCookie,
+			wm_protocols_cookie,
 			NULL);
-		wmDeleteWin = wmDeleteReply->atom;
-		wmProtocols = wmProtocolsReply->atom;
+		wm_delete_win = wm_delete_reply->atom;
+		wm_protocols = wm_protocols_reply->atom;
 		
 		xcb_change_property(
 			connection,
 			XCB_PROP_MODE_REPLACE,
 			window,
-			wmProtocolsReply->atom,
+			wm_protocols_reply->atom,
 			4,
 			32,
 			1,
-			&wmDeleteReply->atom);
+			&wm_delete_reply->atom);
 		
 		// Map the window to the screen
 		xcb_map_window(connection, window);
 		
 		// Flush the stream
-		i32 streamResult = xcb_flush(connection);
-		if (streamResult <= 0) {
-			YFATAL("An error occurred when flushing the screen: ", streamResult);
+		i32 stream_result = xcb_flush(connection);
+		if (stream_result <= 0) {
+			YFATAL("An error occurred when flushing the screen: ", stream_result);
 			return false;
 		}
 		
@@ -143,7 +142,7 @@ namespace Yazh {
 		xcb_generic_event_t* event;
 		xcb_client_message_event_t* cm;
 		
-		auto quitFlagged = false;
+		auto quit_flagged = false;
 		
 		// Poll for events until null is returned.
 		while (event != 0) {
@@ -174,8 +173,8 @@ namespace Yazh {
 					cm = (xcb_client_message_event_t*)event;
 					
 					// Window close
-					if (cm->data.data32[0] == wmDeleteWin) {
-						quitFlagged = true;
+					if (cm->data.data32[0] == wm_delete_win) {
+						quit_flagged = true;
 					}
 					break;
 				default:
@@ -185,7 +184,7 @@ namespace Yazh {
 			
 			::free(event);
 		}
-		return !quitFlagged;
+		return !quit_flagged;
 	}
 	void* Platform::allocate(ysize size, bool aligned) {
 		return ::operator new(size);

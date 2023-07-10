@@ -6,8 +6,9 @@ namespace Yazh::Event {
 	// Forward declarations.
 	class Sender;
 	class Listener;
+	
+	// 256 bytes
 	using Context = struct Context {
-		// 256 bytes
 		union {
 			i64 I64[4];
 			u64 U64[4];
@@ -23,11 +24,11 @@ namespace Yazh::Event {
 			i8 I8[32];
 			u8 U8[32];
 			char C[32];
-		} data;
+		};
 	};
 
 	// Should return true if handled.
-	using OnEvent = bool (*)(u16, Sender* sender, Listener* listenerInst, Context);
+	using OnEvent = bool (*)(u16, Sender* sender, Listener* listener_inst, Context);
 
 	bool initialize();
 	void shutdown();

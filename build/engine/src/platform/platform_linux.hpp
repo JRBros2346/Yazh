@@ -17,8 +17,8 @@ namespace Yazh {
 		xcb_connection_t* connection;
 		xcb_window_t window;
 		xcb_screen_t* screen;
-		xcb_atom_t wmProtocols;
-		xcb_atom_t wmDeleteWin;
+		xcb_atom_t wm_protocols;
+		xcb_atom_t wm_delete_win;
 
 		public:
 			bool startup(const char*, i32, i32, i32, i32);

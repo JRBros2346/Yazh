@@ -2,17 +2,16 @@
 #include"event.hpp"
 #include"ymemory.hpp"
 #include"logger.hpp"
-#include<map>
 
 namespace Yazh::Input {
 	using KeyboardState = struct KeyboardState {
-		bool Keys[MAX_KEYS];
+		bool keys[MAX_KEYS];
 	};
 
 	using MouseState = struct MouseState {
 		i16 x;
 		i16 y;
-		std::map<Button, bool> Buttons;
+		bool buttons[(u16)Button::MAX];
 	};
 
 	using State = struct State {
@@ -27,14 +26,7 @@ namespace Yazh::Input {
 	static State state = {};
 
 	void initialize() {
-		Yazh::Memory::zero(&state.keyboard_now, sizeof(KeyboardState));
-		Yazh::Memory::zero(&state.keyboard_now, sizeof(KeyboardState));
-		state.mouse_now.x = 0;
-		state.mouse_now.y = 0;
-		for (auto i = 0; i < (u16)Button::MAX; i++) {
-			state.mouse_now.Buttons[(Button)i] = false;
-			state.mouse_then.Buttons[(Button)i] = false;
-		}
+		Memory::zero(&state, sizeof(State));
 		initialized = true;
 		YINFO("Input subsystem initialized.");
 	}
@@ -44,36 +36,36 @@ namespace Yazh::Input {
 		initialized = false;
 	}
 
-	void update(f64 deltaTime) {
+	void update(f64 delta_time) {
 		if (!initialized)
 			return;
 
 		// Copy current states to previous states.
-		Yazh::Memory::copy(&state.keyboard_then, &state.keyboard_now, sizeof(KeyboardState));
-		Yazh::Memory::copy(&state.mouse_then, &state.mouse_now, sizeof(MouseState));
+		Memory::copy(&state.keyboard_then, &state.keyboard_now, sizeof(KeyboardState));
+		Memory::copy(&state.mouse_then, &state.mouse_now, sizeof(MouseState));
 	}
 
 	void process(Key key, bool pressed) {
 		// Only handle this if the state actually changed.
-		if (state.keyboard_now.Keys[(u16)key] != pressed) {
+		if (state.keyboard_now.keys[(u16)key] != pressed) {
 			// Update internal state.
-			state.keyboard_now.Keys[(u16)key] = pressed;
+			state.keyboard_now.keys[(u16)key] = pressed;
 
 			// Fire off an event for immediate processing.
-			Yazh::Event::Context context;
-			context.data.U16[0] = (u16)key;
-			Yazh::Event::Fire(pressed ? (u16)Yazh::Event::SystemCode::KeyPressed : (u16)Yazh::Event::SystemCode::KeyReleased, nullptr, context);
+			Event::Context context;
+			context.U16[0] = (u16)key;
+			Event::Fire(pressed ? (u16)Event::SystemCode::KeyPressed : (u16)Event::SystemCode::KeyReleased, nullptr, context);
 		}
 	}
 	void process(Button button, bool pressed) {
 		// Only handle this if the state actually changed.
-		if (state.mouse_now.Buttons[button] != pressed) {
-			state.mouse_now.Buttons[button] = pressed;
+		if (state.mouse_now.buttons[(u16)button] != pressed) {
+			state.mouse_now.buttons[(u16)button] = pressed;
 
 			// Fire the event.
-			Yazh::Event::Context context;
-			context.data.U16[0] = (u16)button;
-			Yazh::Event::Fire(pressed ? (u16)Yazh::Event::SystemCode::ButtonPressed : (u16)Yazh::Event::SystemCode::ButtonReleased, nullptr, context);
+			Event::Context context;
+			context.U16[0] = (u16)button;
+			Event::Fire(pressed ? (u16)Event::SystemCode::ButtonPressed : (u16)Event::SystemCode::ButtonReleased, nullptr, context);
 		}
 	}
 	void process(i16 x, i16 y) {
@@ -87,61 +79,61 @@ namespace Yazh::Input {
 			state.mouse_now.y = y;
 
 			// Fire the event.
-			Yazh::Event::Context context;
-			context.data.U16[0] = x;
-			context.data.U16[1] = y;
-			Yazh::Event::Fire((u16)Yazh::Event::SystemCode::MouseMoved, nullptr, context);
+			Event::Context context;
+			context.U16[0] = x;
+			context.U16[1] = y;
+			Event::Fire((u16)Event::SystemCode::MouseMoved, nullptr, context);
 		}
 	}
 	void process(i8 zDelta) {
 		// NOTE: no internal state to update.
 
 		// Fire the event.
-		Yazh::Event::Context context;
-		context.data.U8[0] = zDelta;
-		Yazh::Event::Fire((u16)Yazh::Event::SystemCode::MouseWheel, nullptr, context);
+		Event::Context context;
+		context.U8[0] = zDelta;
+		Event::Fire((u16)Event::SystemCode::MouseWheel, nullptr, context);
 	}
 
 	bool isDown(Key key) {
 		if (!initialized)
 			return false;
-		return state.keyboard_now.Keys[(u16)key] == true;
+		return state.keyboard_now.keys[(u16)key] == true;
 	}
 	bool isUp(Key key) {
 		if (!initialized)
 			return true;
-		return state.keyboard_now.Keys[(u16)key] == false;
+		return state.keyboard_now.keys[(u16)key] == false;
 	}
 	bool wasDown(Key key) {
 		if (!initialized)
 			return false;
-		return state.keyboard_then.Keys[(u16)key] == true;
+		return state.keyboard_then.keys[(u16)key] == true;
 	}
 	bool wasUp(Key key) {
 		if (!initialized)
 			return true;
-		return state.keyboard_then.Keys[(u16)key] == false;
+		return state.keyboard_then.keys[(u16)key] == false;
 	}
 
 	bool isDown(Button button) {
 		if (!initialized)
 			return false;
-		return state.mouse_now.Buttons[button] == true;
+		return state.mouse_now.buttons[(u16)button] == true;
 	}
 	bool isUp(Button button) {
 		if (!initialized)
 			return true;
-		return state.mouse_now.Buttons[button] == false;
+		return state.mouse_now.buttons[(u16)button] == false;
 	}
 	bool wasDown(Button button) {
 		if (!initialized)
 			return false;
-		return state.mouse_then.Buttons[button] == true;
+		return state.mouse_then.buttons[(u16)button] == true;
 	}
 	bool wasUp(Button button) {
 		if (!initialized)
 			return true;
-		return state.mouse_then.Buttons[button] == false;
+		return state.mouse_then.buttons[(u16)button] == false;
 	}
 
 	void getMousePosition(i32* x, i32* y) {

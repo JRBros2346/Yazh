@@ -17,20 +17,20 @@
 namespace Yazh::Application {
 	static auto initialized = false;
 	static struct state {
-		Yazh::VirtualGame* game;
-		bool isRunning;
-		bool isSuspended;
-		Yazh::Platform platform;
+		VirtualGame* game;
+		bool is_running;
+		bool is_suspended;
+		Platform platform;
 		i16 width;
 		i16 height;
-		f64 lastTime;
+		f64 last_time;
 	} state;
 
 	// Event handlers
-	bool onEvent(u16, Yazh::Event::Sender*, Yazh::Event::Listener*, Yazh::Event::Context);
-	bool onKey(u16, Yazh::Event::Sender*, Yazh::Event::Listener*, Yazh::Event::Context);
+	bool onEvent(u16, Event::Sender*, Event::Listener*, Event::Context);
+	bool onKey(u16, Event::Sender*, Event::Listener*, Event::Context);
 	
-	bool create(Yazh::VirtualGame* game) {
+	bool create(VirtualGame* game) {
 		if(initialized) {
 			YERROR("Yazh::Application::create called more than once.");
 			return false;
@@ -39,8 +39,8 @@ namespace Yazh::Application {
 		state.game = game;
 		
 		// Initialize subsystems.
-		Yazh::Logger::initialize();
-		Yazh::Input::initialize();
+		Logger::initialize();
+		Input::initialize();
 		
 		// TODO: Remove this
 		YFATAL("A test message: ",3.14f);
@@ -50,26 +50,25 @@ namespace Yazh::Application {
 		YDEBUG("A test message: ",3.14f);
 		YTRACE("A test message: ",3.14f);
 		
-		state.isRunning = true;
-		state.isSuspended = false;
+		state.is_running = true;
+		state.is_suspended = false;
 
-		if (!Yazh::Event::initialize()) {
+		if (!Event::initialize()) {
 			YFATAL("Event system failed initialization. Application cannot continue.");
 			return false;
 		}
 
-		Yazh::Event::Register((u16)Yazh::Event::SystemCode::ApplicationQuit, 0, onEvent);
-		Yazh::Event::Register((u16)Yazh::Event::SystemCode::KeyPressed, 0, onEvent);
-		Yazh::Event::Register((u16)Yazh::Event::SystemCode::KeyReleased, 0, onEvent);
+		Event::Register((u16)Event::SystemCode::ApplicationQuit, nullptr, onEvent);
+		Event::Register((u16)Event::SystemCode::KeyPressed, nullptr, onEvent);
+		Event::Register((u16)Event::SystemCode::KeyReleased, nullptr, onEvent);
 		
 		if(!state.platform.startup(
-				game->appConfig.name,
-				game->appConfig.start_pos_x,
-				game->appConfig.start_pos_y,
-				game->appConfig.start_width,
-				game->appConfig.start_height)) {
+				game->app_config.name,
+				game->app_config.start_pos_x,
+				game->app_config.start_pos_y,
+				game->app_config.start_width,
+				game->app_config.start_height))
 			return false;
-		}
 		
 		if(!state.game->initialize()) {
 			YFATAL("Game failed to initialize.");
@@ -84,21 +83,20 @@ namespace Yazh::Application {
 	}
 	
 	bool run() {
-		YINFO(Yazh::Memory::getMemoryUsageString());
-		while (state.isRunning) {
-			if (!state.platform.pumpMessages()) {
-				state.isRunning = false;
-			}
+		YINFO(Memory::getMemoryUsageString());
+		while (state.is_running) {
+			if (!state.platform.pumpMessages())
+				state.is_running = false;
 			
-			if (!state.isSuspended) {
+			if (!state.is_suspended) {
 				if (!state.game->update((f32)0)) {
-					state.isRunning = false;
+					state.is_running = false;
 					break;
 				}
 				
 				// Calls the game's render routine.
 				if (!state.game->render((f32)0)) {
-					state.isRunning = false;
+					state.is_running = false;
 					break;
 				}
 
@@ -106,29 +104,29 @@ namespace Yazh::Application {
 				// after any input should be recorded; I.E. before this line.
 				// As a safety, input is the last thing to be updated before
 				// this frame ends;
-				Yazh::Input::update(0);
+				Input::update(0);
 			}
 		}
 		
-		state.isRunning = false;
+		state.is_running = false;
 
 		// Shutdown event system.
-		Yazh::Event::Unregister((u16)Yazh::Event::SystemCode::ApplicationQuit, 0, onEvent);
-		Yazh::Event::Unregister((u16)Yazh::Event::SystemCode::KeyPressed, 0, onEvent);
-		Yazh::Event::Unregister((u16)Yazh::Event::SystemCode::KeyReleased, 0, onEvent);
-		Yazh::Event::shutdown();
-		Yazh::Input::shutdown();
+		Event::Unregister((u16)Event::SystemCode::ApplicationQuit, nullptr, onEvent);
+		Event::Unregister((u16)Event::SystemCode::KeyPressed, nullptr, onEvent);
+		Event::Unregister((u16)Event::SystemCode::KeyReleased, nullptr, onEvent);
+		Event::shutdown();
+		Input::shutdown();
 		
 		state.platform.shutdown();
 		
 		return true;
 	}
 
-	bool onEvent(u16 code, Yazh::Event::Sender* sender, Yazh::Event::Listener* listenerInst, Yazh::Event::Context context) {
-		switch ((Yazh::Event::SystemCode)code) {
-			case Yazh::Event::SystemCode::ApplicationQuit: {
+	bool onEvent(u16 code, Event::Sender* sender, Event::Listener* listenerInst, Event::Context context) {
+		switch (code) {
+			case (u16)Event::SystemCode::ApplicationQuit: {
 				YINFO("Yazh::Event::SystemCode::ApplicationQuit received, shutting down.\n");
-				state.isRunning = false;
+				state.is_running = false;
 				return true;
 			}
 			default:
@@ -136,28 +134,28 @@ namespace Yazh::Application {
 		}
 	}
 
-	bool onKey(u16 code, Yazh::Event::Sender* sender, Yazh::Event::Listener* listenerInst, Yazh::Event::Context context) {
-		if (code == (u16)Yazh::Event::SystemCode::KeyPressed) {
-			auto key = (Yazh::Input::Key)context.data.U16[0];
-			if (key == Yazh::Input::Key::Esc) {
+	bool onKey(u16 code, Event::Sender* sender, Event::Listener* listenerInst, Event::Context context) {
+		if (code == (u16)Event::SystemCode::KeyPressed) {
+			auto key = (Input::Key)context.U16[0];
+			if (key == Input::Key::Esc) {
 				// NOTE: Technically firing an event to itself, but there may be other listeners.
-				Yazh::Event::Fire((u16)Yazh::Event::SystemCode::ApplicationQuit, nullptr, {});
+				Event::Fire((u16)Event::SystemCode::ApplicationQuit, nullptr, {});
 
 				// Block anything else from processing this.
 				return true;
-			} else if (key == Yazh::Input::Key::A) {
+			} else if (key == Input::Key::A) {
 				// Example on checking for a key
 				YDEBUG("Explicit - A key pressed!");
 			} else {
-				YDEBUG('\'', (char)key, "' key pressed in window.")
+				YDEBUG('\'', (char)key, "' key pressed in window.");
 			}
-		} else if (code == (u16)Yazh::Event::SystemCode::KeyReleased) {
-			auto key = (Yazh::Input::Key)context.data.U16[0];
-			if (key == Yazh::Input::Key::B) {
+		} else if (code == (u16)Event::SystemCode::KeyReleased) {
+			auto key = (Input::Key)context.U16[0];
+			if (key == Input::Key::B) {
 				// Example on checking for a key
 				YDEBUG("Explicit - B key released!");
 			} else {
-				YDEBUG('\'', (char)key, "' key released in window.")
+				YDEBUG('\'', (char)key, "' key released in window.");
 			}
 		}
 		return false;

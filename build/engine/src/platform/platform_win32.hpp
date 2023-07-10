@@ -11,13 +11,13 @@ namespace Yazh {
 	class YAPI Platform : public VirtualPlatform {
 		static LRESULT CALLBACK Win32ProcessMessage(HWND, u32, WPARAM, LPARAM);
 		
-		HINSTANCE hInstance;
+		HINSTANCE h_instance;
 		HWND hwnd;
 
 		public:
 			// Clock
-			static f64 clockFrequency;
-			static LARGE_INTEGER startTime;
+			static f64 clock_frequency;
+			static LARGE_INTEGER start_time;
 
 			bool startup(const char*, i32, i32, i32, i32);
 			void shutdown();

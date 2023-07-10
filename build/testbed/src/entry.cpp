@@ -6,11 +6,11 @@ Game game;
 // Define the function to create a game.
 Yazh::VirtualGame* Yazh::createGame() {
 	// Application configuration.
-	game.appConfig.startPosX = 100;
-	game.appConfig.startPosY = 100;
-	game.appConfig.startWidth = 1280;
-	game.appConfig.startHeight = 720;
-	game.appConfig.name = (char*)"Yazh Engine Testbed";
+	game.app_config.start_pos_x = 100;
+	game.app_config.start_pos_y = 100;
+	game.app_config.start_width = 1280;
+	game.app_config.start_height = 720;
+	game.app_config.name = (char*)"Yazh Engine Testbed";
 	
 	return &game;
 }
