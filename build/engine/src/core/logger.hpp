@@ -28,7 +28,7 @@ namespace Yazh::Logger {
 	void shutdown();
 
 	template<typename... Fragments>
-	YAPI void logOutput(LogLevel, Fragments&&...);
+	void logOutput(LogLevel, Fragments&&...);
 } // namespace Yazh::Logger
 
 // Logs a fatal-level message.

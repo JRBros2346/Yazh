@@ -49,19 +49,19 @@ int main(void) {
 	// Request the game instance from the app.
 	Yazh::VirtualGame* game = Yazh::createGame();
 	if (!game) {
-		// YFATAL("Could not create game!");
+		YFATAL("Could not create game!");
 		return -1;
 	}
 	
 	// Initialization
 	if (!Yazh::Application::create(game)) {
-		// YINFO("Application failed to create!");
+		YINFO("Application failed to create!");
 		return 1;
 	}
 	
 	// Begin the game loop.
 	if (!Yazh::Application::run()) {
-		// YINFO("Application did not shutdown gracefully");
+		YINFO("Application did not shutdown gracefully");
 		return 2;
 	}
 	
