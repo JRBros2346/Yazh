@@ -85,12 +85,12 @@ namespace Yazh::Input {
 			Event::Fire((u16)Event::SystemCode::MouseMoved, nullptr, context);
 		}
 	}
-	void process(i8 zDelta) {
+	void process(i8 z_delta) {
 		// NOTE: no internal state to update.
 
 		// Fire the event.
 		Event::Context context;
-		context.U8[0] = zDelta;
+		context.U8[0] = z_delta;
 		Event::Fire((u16)Event::SystemCode::MouseWheel, nullptr, context);
 	}
 
