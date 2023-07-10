@@ -6,14 +6,16 @@
     "configurations": [
         {
             "name": "(Windows) Launch",
-            "type": "cppvsdbg",
+            "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\bin\\testbed.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}\\bin\\",
             "environment": [],
-            "console":"newExternalWindow",
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:\\mingw64\\bin\\gdb.exe",
+            "externalConsole": true,
         },
         {
             "name": "(Linux) Launch",
@@ -24,6 +26,9 @@
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/bin/",
             "environment": [],
+            "MIMode": "gdb",
+            // "miDebuggerPath": "C:\\",
+            "externalConsole": true,
         }
     ]
 }

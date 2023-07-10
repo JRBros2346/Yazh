@@ -72,7 +72,7 @@ namespace Yazh::Event {
 		}
 
 		for(ysize i = 0; i < state[code].size(); i++) {
-			RegisteredEvent e = state[code][i];
+			auto e = state[code][i];
 			if(e.listener == listener && e.callback == on_event) {
 				// Found one, remove it
 				state[code].pop_at(i);
