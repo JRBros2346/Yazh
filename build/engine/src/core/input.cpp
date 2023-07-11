@@ -3,7 +3,7 @@
 #include"ymemory.hpp"
 #include"logger.hpp"
 
-namespace Yazh::Input {
+namespace Yazh::Core::Input {
 	using KeyboardState = struct KeyboardState {
 		bool keys[MAX_KEYS];
 	};
@@ -154,4 +154,4 @@ namespace Yazh::Input {
 		*x = state.mouse_then.x;
 		*y = state.mouse_then.y;
 	}
-} // namespace Yazh::input
+} // namespace Yazh::Core::Input

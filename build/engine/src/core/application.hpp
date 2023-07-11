@@ -5,7 +5,7 @@
 // Forward declaration
 namespace Yazh::Game { class VirtualGame; }
 
-namespace Yazh::Application {
+namespace Yazh::Core::Application {
 	// Application configuration.
 	using config = struct config {
 		// Window starting position x axis. If applicable.
@@ -28,4 +28,4 @@ namespace Yazh::Application {
 	YAPI bool create(Game::VirtualGame*);
 	
 	YAPI bool run();
-} // namespace Yazh::Application
+} // namespace Yazh::Core::Application

@@ -2,7 +2,7 @@
 
 #include"defines.hpp"
 
-namespace Yazh::Logger {
+namespace Yazh::Core::Logger {
 	// Disable assertions by commenting out the below line.
 #define YASSERTIONS_ENABLED
 	
@@ -52,4 +52,4 @@ namespace Yazh::Logger {
 #	define YASSERT_MSG(expr, message)	// Does nothing at all
 #	define YASSERT_DEBUG(expr)       	// Does nothing at all
 #endif
-} // namespace Yazh::Logger
+} // namespace Yazh::Core::Logger

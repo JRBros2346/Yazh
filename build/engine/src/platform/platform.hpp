@@ -16,4 +16,4 @@ namespace Yazh {
 
 			virtual bool pumpMessages() = 0;
 	};
-}
+} // namespace Yazh

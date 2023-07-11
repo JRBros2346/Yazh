@@ -1,7 +1,7 @@
 #include"logger.hpp"
 #include"asserts.hpp"
 
-namespace Yazh::Logger {
+namespace Yazh::Core::Logger {
 	std::ostream& operator<<(std::ostream& os, const LogLevel& level) {
 		os << colors[(ysize)level] << "\033[1m"; // Bold
 		switch(level) {
@@ -29,4 +29,4 @@ namespace Yazh::Logger {
 	void shutdown() {
 		// TODO: cleanup logging/write queued entries.
 	}
-} // namespace Yazh::Logger
+} // namespace Yazh::Core::Logger

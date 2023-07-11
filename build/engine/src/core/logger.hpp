@@ -3,7 +3,7 @@
 #include"defines.hpp"
 #include<iostream>
 
-namespace Yazh::Logger {
+namespace Yazh::Core::Logger {
 #define LOG_WARN_ENABLED true
 #define LOG_INFO_ENABLED true
 #define LOG_DEBUG_ENABLED true
@@ -51,5 +51,6 @@ namespace Yazh::Logger {
 	inline void Debug(Fragment&&...);
 	template<typename... Fragment>
 	inline void Trace(Fragment&&...);
-} // namespace Yazh::Logger
+} // namespace Yazh::Core::Logger
+
 #include"logger.tcc"

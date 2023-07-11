@@ -5,7 +5,7 @@
 
 #include<iostream>
 
-namespace Yazh::Event {
+namespace Yazh::Core::Event {
 	using RegisteredEvent = struct RegisteredEvent {
 		Listener* listener;
 		OnEvent callback;
@@ -103,4 +103,4 @@ namespace Yazh::Event {
 		// Not found.
 		return false;
 	}
-}
+} // namespace Yazh::Core::Event

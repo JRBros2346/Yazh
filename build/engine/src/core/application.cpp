@@ -14,7 +14,7 @@
  * So, it is optimized for speed by sacrificing OOPS
  */
 
-namespace Yazh::Application {
+namespace Yazh::Core::Application {
 	static auto initialized = false;
 	static struct state {
 		Game::VirtualGame* game;
@@ -160,4 +160,4 @@ namespace Yazh::Application {
 		}
 		return false;
 	}
-} // namespace Yazh::Application
+} // namespace Yazh::Core::Application

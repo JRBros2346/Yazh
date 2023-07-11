@@ -175,4 +175,4 @@ namespace Yazh::Types {
 	ysize Vector<T>::capacity() const { return CAPACITY; }
 	template<typename T>
 	T* Vector<T>::data() const { return DATA; }
-} // namespace Yazh::Containers
+} // namespace Yazh::Types

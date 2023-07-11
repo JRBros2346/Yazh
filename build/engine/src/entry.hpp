@@ -10,14 +10,14 @@
 // #include<iostream>
 
 // Externally defined function to create game.
-namespace Yazh::Game { VirtualGame* createGame(); }
+namespace Yazh::Game { extern VirtualGame* createGame(); }
 
 /**
  * The main entry point of the app.
  */
 int main(void) {
 	
-	Yazh::Memory::initialize();
+	Yazh::Core::Memory::initialize();
 
 	// Yazh::Types::Vector<u64> v(4);
 	// v.push_back(5);
@@ -49,23 +49,23 @@ int main(void) {
 	// Request the game instance from the app.
 	Yazh::Game::VirtualGame* game = Yazh::Game::createGame();
 	if (!game) {
-		Yazh::Logger::Fatal("Could not create game!");
+		Yazh::Core::Logger::Fatal("Could not create game!");
 		return -1;
 	}
 	
 	// Initialization
-	if (!Yazh::Application::create(game)) {
-		Yazh::Logger::Info("Application failed to create!");
+	if (!Yazh::Core::Application::create(game)) {
+		Yazh::Core::Logger::Info("Application failed to create!");
 		return 1;
 	}
 	
 	// Begin the game loop.
-	if (!Yazh::Application::run()) {
-		Yazh::Logger::Info("Application did not shutdown gracefully");
+	if (!Yazh::Core::Application::run()) {
+		Yazh::Core::Logger::Info("Application did not shutdown gracefully");
 		return 2;
 	}
 	
-	Yazh::Memory::shutdown();
+	Yazh::Core::Memory::shutdown();
 	
 	return 0;
 }

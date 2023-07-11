@@ -2,7 +2,7 @@
 
 #include"defines.hpp"
 
-namespace Yazh::Memory {
+namespace Yazh::Core::Memory {
 	enum class Tag {
 		Unknown,
 		Array,
@@ -40,4 +40,4 @@ namespace Yazh::Memory {
 	YAPI void* set(void*, i32, ysize);
 	
 	YAPI std::string getMemoryUsageString();
-}
+} // namespace Yazh::Core::Memory

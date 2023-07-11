@@ -2,7 +2,7 @@
 
 #include"defines.hpp"
 
-namespace Yazh::Event {
+namespace Yazh::Core::Event {
 	// Forward declarations.
 	class Sender;
 	class Listener;
@@ -113,4 +113,4 @@ namespace Yazh::Event {
 
 		MAX = 0xFF
 	};
-}
+} // namespace Yazh::Core::Event

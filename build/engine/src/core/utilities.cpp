@@ -3,7 +3,7 @@
 #include<thread>
 #include<cmath>
 
-namespace Yazh {
+namespace Yazh::Core {
 	f64 getAbsoluteTime() {
 		return std::chrono::steady_clock::now().time_since_epoch() / std::chrono::seconds(1);
 	}
@@ -38,4 +38,4 @@ namespace Yazh {
 		auto start = clock::now();
 		while ((clock::now() - start).count() / 1e6 < ms);
 	}
-}
+} // namespace Yazh::Core

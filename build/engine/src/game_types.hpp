@@ -6,7 +6,7 @@
 namespace Yazh::Game {
 	class VirtualGame {
 		public:
-			Application::config app_config;
+			Core::Application::config app_config;
 			
 			virtual bool initialize() = 0;
 			virtual bool update(f32) = 0;

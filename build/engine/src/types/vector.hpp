@@ -48,6 +48,6 @@ namespace Yazh::Types {
 			ysize capacity() const;
 			T* data() const;
 	};
-} // namespace Yazh::Containers
+} // namespace Yazh::Types
 
 #include"vector.tcc"

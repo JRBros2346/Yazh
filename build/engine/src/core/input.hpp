@@ -2,7 +2,7 @@
 
 #include"defines.hpp"
 
-namespace Yazh::Input {
+namespace Yazh::Core::Input {
 	using Button = enum class Button {
 		Left,
 		Middle,
@@ -163,4 +163,4 @@ namespace Yazh::Input {
 	void process(Button, bool); // button
 	void process(i16, i16); // mouse move
 	void process(i8); // mouse wheel
-}; // namespace Yazh::Input
+}; // namespace Yazh::Core::Input

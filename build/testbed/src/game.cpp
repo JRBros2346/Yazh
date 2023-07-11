@@ -1,7 +1,7 @@
 #include"game.hpp"
 
 bool Game::initialize() {
-	Yazh::Logger::Debug("Game::initialize() called!");
+	Yazh::Core::Logger::Debug("Game::initialize() called!");
 	return true;
 }
 bool Game::update(f32 deltaTime) {

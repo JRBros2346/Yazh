@@ -4,7 +4,7 @@
 #include"platform/platform_win32.hpp"
 #include"platform/platform_linux.hpp"
 
-namespace Yazh::Memory {
+namespace Yazh::Core::Memory {
 	
 	inline std::string Stringify(Tag tag) {
 		switch(tag) {
@@ -108,4 +108,4 @@ namespace Yazh::Memory {
 			output += std::to_string(stats.TotalAllocation) + " B\n";
 		return output;
 	}
-}
+} // namespace Yazh::Core::Memory

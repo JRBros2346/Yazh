@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Yazh::Logger {
+namespace Yazh::Core::Logger {
 	template<typename... Fragment>
 	void logOutput(LogLevel level, Fragment&&... message) {
 		auto is_error = level < LogLevel::WRN;
@@ -73,4 +73,4 @@ namespace Yazh::Logger {
 	template<typename... Fragment>
 	void Trace(Fragment&&... message) {}
 #endif
-} // namespace Yazh::Logger
+} // namespace Yazh::Core::Logger

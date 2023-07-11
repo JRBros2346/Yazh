@@ -212,6 +212,6 @@ namespace Yazh {
 
 		return DefWindowProcA(hwnd, msg, wp, lp);
 	}
-}
+} // namespace Yazh
 
 #endif // YPLATFORM_WINDOWS
