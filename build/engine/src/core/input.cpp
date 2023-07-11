@@ -50,7 +50,6 @@ namespace Yazh::Input {
 		if (state.keyboard_now.keys[(u16)key] != pressed) {
 			// Update internal state.
 			state.keyboard_now.keys[(u16)key] = pressed;
-			YDEBUG((char)key, pressed ? " press" : " release");
 
 			// Fire off an event for immediate processing.
 			Event::Context context;

@@ -59,8 +59,8 @@ namespace Yazh::Application {
 		}
 
 		Event::Register((u16)Event::SystemCode::ApplicationQuit, nullptr, onEvent);
-		Event::Register((u16)Event::SystemCode::KeyPressed, nullptr, onEvent);
-		Event::Register((u16)Event::SystemCode::KeyReleased, nullptr, onEvent);
+		Event::Register((u16)Event::SystemCode::KeyPressed, nullptr, onKey);
+		Event::Register((u16)Event::SystemCode::KeyReleased, nullptr, onKey);
 		
 		if(!state.platform.startup(
 				game->app_config.name,
@@ -112,8 +112,8 @@ namespace Yazh::Application {
 
 		// Shutdown event system.
 		Event::Unregister((u16)Event::SystemCode::ApplicationQuit, nullptr, onEvent);
-		Event::Unregister((u16)Event::SystemCode::KeyPressed, nullptr, onEvent);
-		Event::Unregister((u16)Event::SystemCode::KeyReleased, nullptr, onEvent);
+		Event::Unregister((u16)Event::SystemCode::KeyPressed, nullptr, onKey);
+		Event::Unregister((u16)Event::SystemCode::KeyReleased, nullptr, onKey);
 		Event::shutdown();
 		Input::shutdown();
 		
