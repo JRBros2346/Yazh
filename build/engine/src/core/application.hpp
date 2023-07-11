@@ -3,7 +3,7 @@
 #include"defines.hpp"
 
 // Forward declaration
-namespace Yazh { class VirtualGame; }
+namespace Yazh::Game { class VirtualGame; }
 
 namespace Yazh::Application {
 	// Application configuration.
@@ -25,7 +25,7 @@ namespace Yazh::Application {
 	};
 	
 	
-	YAPI bool create(Yazh::VirtualGame*);
+	YAPI bool create(Game::VirtualGame*);
 	
 	YAPI bool run();
 } // namespace Yazh::Application

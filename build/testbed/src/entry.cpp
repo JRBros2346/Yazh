@@ -4,7 +4,7 @@
 
 Game game;
 // Define the function to create a game.
-Yazh::VirtualGame* Yazh::createGame() {
+Yazh::Game::VirtualGame* Yazh::Game::createGame() {
 	// Application configuration.
 	game.app_config.start_pos_x = 100;
 	game.app_config.start_pos_y = 100;

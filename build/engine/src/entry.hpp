@@ -10,7 +10,7 @@
 // #include<iostream>
 
 // Externally defined function to create game.
-namespace Yazh { VirtualGame* createGame(); }
+namespace Yazh::Game { VirtualGame* createGame(); }
 
 /**
  * The main entry point of the app.
@@ -47,7 +47,7 @@ int main(void) {
 	// std::cout << "Capacity: " << v.capacity() << std::endl;
 	
 	// Request the game instance from the app.
-	Yazh::VirtualGame* game = Yazh::createGame();
+	Yazh::Game::VirtualGame* game = Yazh::Game::createGame();
 	if (!game) {
 		Yazh::Logger::Fatal("Could not create game!");
 		return -1;

@@ -3,7 +3,7 @@
 #include"defines.hpp"
 #include"core/application.hpp"
 
-namespace Yazh {
+namespace Yazh::Game {
 	class VirtualGame {
 		public:
 			Application::config app_config;
@@ -13,4 +13,4 @@ namespace Yazh {
 			virtual bool render(f32) = 0;
 			virtual void onResize(u32, u32) = 0;
 	};
-}
+} // namespace Yazh::Game

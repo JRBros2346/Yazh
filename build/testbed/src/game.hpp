@@ -3,7 +3,7 @@
 
 #include<core/logger.hpp>
 
-class Game : public Yazh::VirtualGame {
+class Game : public Yazh::Game::VirtualGame {
 	f32 deltaTime;
 	public:
 		bool initialize();
