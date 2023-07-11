@@ -35,7 +35,7 @@ namespace Yazh {
 		// Loop through screens using iterator
 		auto p_screen = 0;
 		xcb_screen_iterator_t it = xcb_setup_roots_iterator(setup);
-		for (i32 s = p_screen; s>0; s++)
+		for (i32 s = p_screen; s>0; ++s)
 			xcb_screen_next(&it);
 		
 		// After screens have been looped through, assign it.

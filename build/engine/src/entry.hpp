@@ -42,7 +42,7 @@ int main(void) {
 	// v.push_back(110);
 	// v.emplace_back(1024);
 	// v.emplace_at(10, 999);
-	// std::cout << "[ "; for (ysize i = 0; i < v.size(); i++) std::cout << v[i] << ' '; std::cout << "]" << std::endl;
+	// std::cout << "[ "; for (ysize i = 0; i < v.size(); ++i) std::cout << v[i] << ' '; std::cout << "]" << std::endl;
 	// std::cout << "Size: " << v.size() << std::endl;
 	// std::cout << "Capacity: " << v.capacity() << std::endl;
 	

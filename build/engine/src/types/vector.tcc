@@ -20,7 +20,7 @@ namespace Yazh::Types {
 			  CAPACITY(other.CAPACITY) {
 		DATA = (T*)Yazh::Memory::allocate(other.CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
 
-		for (ysize i = 0; i < other.SIZE; i++)
+		for (ysize i = 0; i < other.SIZE; ++i)
 			DATA[i] = other.DATA[i];
 	}
 	template<typename T>
@@ -57,7 +57,7 @@ namespace Yazh::Types {
 	void Vector<T>::resize() {
 		CAPACITY *= RESIZE_FACTOR;
 		T* block = (T*)Yazh::Memory::allocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
-		for (ysize i = 0; i < SIZE; i++)
+		for (ysize i = 0; i < SIZE; ++i)
 			block[i] = std::move(DATA[i]);
 		// clear();
 		Yazh::Memory::free(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
@@ -75,7 +75,7 @@ namespace Yazh::Types {
 	void Vector<T>::push_at(ysize pos, const T& val) {
 		if (SIZE == CAPACITY)
 			resize();
-		for (auto i = SIZE++; i > pos; i--)
+		for (auto i = SIZE++; i > pos; --i)
 			DATA[i] = std::move(DATA[i-1]);
 		DATA[pos] = val;
 	}
@@ -89,7 +89,7 @@ namespace Yazh::Types {
 	void Vector<T>::push_at(ysize pos, T&& val) {
 		if (SIZE == CAPACITY)
 			resize();
-		for (auto i = SIZE++; i > pos; i--)
+		for (auto i = SIZE++; i > pos; --i)
 			DATA[i] = std::move(DATA[i-1]);
 		DATA[pos] = std::move(val);
 	}
@@ -107,7 +107,7 @@ namespace Yazh::Types {
 	T& Vector<T>::emplace_at(ysize pos, Args&&... args) {
 		if (SIZE == CAPACITY)
 			resize();
-		for (auto i = SIZE++; i > pos; i--)
+		for (auto i = SIZE++; i > pos; --i)
 			DATA[i] = std::move(DATA[i-1]);
 		new(&DATA[pos]) T(std::forward<Args>(args)...);
 		return DATA[pos];
@@ -123,15 +123,15 @@ namespace Yazh::Types {
 	T Vector<T>::pop_at(ysize pos) {
 		T val = std::move(DATA[pos]);
 		DATA[pos].~T();
-		for (auto i = pos; i < SIZE; i++)
+		for (auto i = pos; i < SIZE; ++i)
 			DATA[i] = std::move(DATA[i+1]);
-		SIZE--;
+		--SIZE;
 		return val;
 	}
 
 	template<typename T>
 	void Vector<T>::clear() {
-		for (ysize i = 0; i < SIZE; i++)
+		for (ysize i = 0; i < SIZE; ++i)
 			DATA[i].~T();
 		SIZE = 0;
 	}
@@ -139,7 +139,7 @@ namespace Yazh::Types {
 	void Vector<T>::shrink() {
 		CAPACITY = (SIZE == 0) ? 1 : SIZE;
 		T* block = (T*)Yazh::Memory::allocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
-		for (ysize i = 0; i < SIZE; i++)
+		for (ysize i = 0; i < SIZE; ++i)
 			block[i] = std::move(DATA[i]);
 		Yazh::Memory::free(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
 		DATA = block;

@@ -82,7 +82,7 @@ namespace Yazh::Memory {
 		const ysize KiB = 1024;
 		
 		std::string output = "System memory use (tagged):\n";
-		for (ysize t = 0; t < (u8)Tag::MAX; t++) {
+		for (ysize t = 0; t < (u8)Tag::MAX; ++t) {
 			auto tag = (Tag)t;
 			auto memory = stats.TaggedAllocation[t];
 			output += "    " + Stringify(tag) + " : ";
