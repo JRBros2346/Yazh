@@ -25,7 +25,7 @@ namespace Yazh {
 		connection = XGetXCBConnection(display);
 		
 		if (xcb_connection_has_error(connection)) {
-			YFATAL("Failed to connect to X server via XCB.");
+			Logger::Fatal("Failed to connect to X server via XCB.");
 			return false;
 		}
 
@@ -124,7 +124,7 @@ namespace Yazh {
 		// Flush the stream
 		i32 stream_result = xcb_flush(connection);
 		if (stream_result <= 0) {
-			YFATAL("An error occurred when flushing the screen: ", stream_result);
+			Logger::Fatal("An error occurred when flushing the screen: ", stream_result);
 			return false;
 		}
 		

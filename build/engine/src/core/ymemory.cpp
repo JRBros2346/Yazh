@@ -44,7 +44,7 @@ namespace Yazh::Memory {
 	
 	void* allocate(ysize size, Tag tag) {
 		if (tag == Tag::Unknown)
-			YWARN("Yazh::Memory::yallocate called using Yazh::Memory::Tag::Unknown. Re-class this allocation.");
+			Logger::Warn("Yazh::Memory::allocate called using Yazh::Memory::Tag::Unknown. Re-class this allocation.");
 		
 		stats.TotalAllocation += size;
 		stats.TaggedAllocation[(u8)tag] += size;

@@ -32,7 +32,7 @@ namespace Yazh::Application {
 	
 	bool create(VirtualGame* game) {
 		if(initialized) {
-			YERROR("Yazh::Application::create called more than once.");
+			Logger::Error("Yazh::Application::create called more than once.");
 			return false;
 		}
 		
@@ -43,18 +43,18 @@ namespace Yazh::Application {
 		Input::initialize();
 		
 		// TODO: Remove this
-		YFATAL("A test message: ",3.14f);
-		YERROR("A test message: ",3.14f);
-		YWARN("A test message: ",3.14f);
-		YINFO("A test message: ",3.14f);
-		YDEBUG("A test message: ",3.14f);
-		YTRACE("A test message: ",3.14f);
+		Logger::Fatal("A test message: ",3.14f);
+		Logger::Error("A test message: ",3.14f);
+		Logger::Warn("A test message: ",3.14f);
+		Logger::Info("A test message: ",3.14f);
+		Logger::Debug("A test message: ",3.14f);
+		Logger::Trace("A test message: ",3.14f);
 		
 		state.is_running = true;
 		state.is_suspended = false;
 
 		if (!Event::initialize()) {
-			YFATAL("Event system failed initialization. Application cannot continue.");
+			Logger::Fatal("Event system failed initialization. Application cannot continue.");
 			return false;
 		}
 
@@ -71,7 +71,7 @@ namespace Yazh::Application {
 			return false;
 		
 		if(!state.game->initialize()) {
-			YFATAL("Game failed to initialize.");
+			Logger::Fatal("Game failed to initialize.");
 			return false;
 		}
 		
@@ -83,7 +83,7 @@ namespace Yazh::Application {
 	}
 	
 	bool run() {
-		YINFO(Memory::getMemoryUsageString());
+		Logger::Info(Memory::getMemoryUsageString());
 		while (state.is_running) {
 			if (!state.platform.pumpMessages())
 				state.is_running = false;
@@ -125,7 +125,7 @@ namespace Yazh::Application {
 	bool onEvent(u16 code, Event::Sender* sender, Event::Listener* listenerInst, Event::Context context) {
 		switch (code) {
 			case (u16)Event::SystemCode::ApplicationQuit: {
-				YINFO("Yazh::Event::SystemCode::ApplicationQuit received, shutting down.\n");
+				Logger::Info("Yazh::Event::SystemCode::ApplicationQuit received, shutting down.\n");
 				state.is_running = false;
 				return true;
 			}
@@ -145,17 +145,17 @@ namespace Yazh::Application {
 				return true;
 			} else if (key == Input::Key::A) {
 				// Example on checking for a key
-				YDEBUG("Explicit - A key pressed!");
+				Logger::Debug("Explicit - A key pressed!");
 			} else {
-				YDEBUG('\'', (char)key, "' key pressed in window.");
+				Logger::Debug('\'', (char)key, "' key pressed in window.");
 			}
 		} else if (code == (u16)Event::SystemCode::KeyReleased) {
 			auto key = (Input::Key)context.U16[0];
 			if (key == Input::Key::B) {
 				// Example on checking for a key
-				YDEBUG("Explicit - B key released!");
+				Logger::Debug("Explicit - B key released!");
 			} else {
-				YDEBUG('\'', (char)key, "' key released in window.");
+				Logger::Debug('\'', (char)key, "' key released in window.");
 			}
 		}
 		return false;

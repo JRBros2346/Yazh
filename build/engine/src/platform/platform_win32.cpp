@@ -74,7 +74,7 @@ namespace Yazh {
 		if (handle == nullptr) {
 			MessageBoxA(NULL, "Window creation failed!", "Error!", MB_ICONEXCLAMATION | MB_OK);
 
-			YFATAL("Window creation failed!");
+			Logger::Fatal("Window creation failed!");
 			return false;
 		} else {
 			hwnd = handle;

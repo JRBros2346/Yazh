@@ -20,7 +20,7 @@ namespace Yazh::Logger {
 		{                                                                             	\
 			if (expr) {                                                               	\
 			} else {                                                                  	\
-				Yazh::Logger::reportAssertionFailure(#expr, "", __FILE__, __LINE__);	\
+				reportAssertionFailure(#expr, "", __FILE__, __LINE__);	\
 				debugBreak();                                                         	\
 			}                                                                         	\
 		}
@@ -29,7 +29,7 @@ namespace Yazh::Logger {
 		{                                                                                  	\
 			if (expr) {                                                                    	\
 			} else {                                                                       	\
-				Yazh::Logger::reportAssertionFailure(#expr, message, __FILE__, __LINE__);	\
+				reportAssertionFailure(#expr, message, __FILE__, __LINE__);	\
 				debugBreak();                                                              	\
 			}                                                                              	\
 		}
@@ -39,7 +39,7 @@ namespace Yazh::Logger {
 			{                                                                             	\
 				if (expr) {                                                               	\
 				} else {                                                                  	\
-					Yazh::Logger::reportAssertionFailure(#expr, "", __FILE__, __LINE__);	\
+					reportAssertionFailure(#expr, "", __FILE__, __LINE__);	\
 					debugBreak();                                                         	\
 				}                                                                         	\
 			}
