@@ -6,19 +6,19 @@ namespace Yazh::Types {
 	Vector<T>::Vector()
 			: SIZE(0),
 			  CAPACITY(DEFAULT_CAPACITY) {
-		DATA = (T*)Yazh::Memory::allocate(DEFAULT_CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		DATA = (T*)Core::Memory::allocate(DEFAULT_CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
 	}
 	template<typename T>
 	Vector<T>::Vector(ysize capacity)
 			: SIZE(0),
 			  CAPACITY(capacity) {
-		DATA = (T*)Yazh::Memory::allocate(capacity * sizeof(T), Yazh::Memory::Tag::Vector);
+		DATA = (T*)Core::Memory::allocate(capacity * sizeof(T), Core::Memory::Tag::Vector);
 	}
 	template<typename T>
 	Vector<T>::Vector(const Vector<T>& other)
 			: SIZE(other.SIZE),
 			  CAPACITY(other.CAPACITY) {
-		DATA = (T*)Yazh::Memory::allocate(other.CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		DATA = (T*)Core::Memory::allocate(other.CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
 
 		for (ysize i = 0; i < other.SIZE; ++i)
 			DATA[i] = other.DATA[i];
@@ -41,7 +41,7 @@ namespace Yazh::Types {
 	template<typename T>
 	Vector<T>::~Vector() {
 		clear();
-		Yazh::Memory::free(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		Core::Memory::free(DATA, CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
 	}
 
 	template<typename T>
@@ -51,18 +51,6 @@ namespace Yazh::Types {
 	template<typename T>
 	const T& Vector<T>::operator[](ysize pos) const {
 		return DATA[pos];
-	}
-
-	template<typename T>
-	void Vector<T>::resize() {
-		CAPACITY *= RESIZE_FACTOR;
-		T* block = (T*)Yazh::Memory::allocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
-		for (ysize i = 0; i < SIZE; ++i)
-			block[i] = std::move(DATA[i]);
-		// clear();
-		Yazh::Memory::free(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
-		DATA = block;
-		block = nullptr;
 	}
 
 	template<typename T>
@@ -138,27 +126,38 @@ namespace Yazh::Types {
 	template<typename T>
 	void Vector<T>::shrink() {
 		CAPACITY = (SIZE == 0) ? 1 : SIZE;
-		T* block = (T*)Yazh::Memory::allocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		T* block = (T*)Core::Memory::allocate(CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
 		for (ysize i = 0; i < SIZE; ++i)
 			block[i] = std::move(DATA[i]);
-		Yazh::Memory::free(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		Core::Memory::free(DATA, CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
+		DATA = block;
+		block = nullptr;
+	}
+	template<typename T>
+	void Vector<T>::resize() {
+		CAPACITY *= RESIZE_FACTOR;
+		T* block = (T*)Core::Memory::allocate(CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
+		for (ysize i = 0; i < SIZE; ++i)
+			block[i] = std::move(DATA[i]);
+		// clear();
+		Core::Memory::free(DATA, CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
 		DATA = block;
 		block = nullptr;
 	}
 
 	template<typename T>
 	T& Vector<T>::operator=(const Vector<T>& other) {
-		Yazh::Memory::free(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		Core::Memory::free(DATA, CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
 		SIZE = other.SIZE;
 		CAPACITY = other.CAPACITY;
-		DATA = (T*)Yazh::Memory::allocate(CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		DATA = (T*)Core::Memory::allocate(CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
 		for (ysize i = 0; i < SIZE; i++)
 			DATA[i] = other.DATA[i];
 		return *this;
 	}
 	template<typename T>
 	T& Vector<T>::operator=(Vector<T>&& other) {
-		Yazh::Memory::free(DATA, CAPACITY * sizeof(T), Yazh::Memory::Tag::Vector);
+		Core::Memory::free(DATA, CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
 		SIZE = other.SIZE;
 		CAPACITY = other.CAPACITY;
 		DATA = other.DATA;

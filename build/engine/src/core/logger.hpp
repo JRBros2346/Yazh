@@ -37,20 +37,20 @@ namespace Yazh::Core::Logger {
 	void shutdown();
 
 	template<typename... Fragment>
-	inline void logOutput(LogLevel, Fragment&&...);
+	constexpr void logOutput(LogLevel, Fragment&&...);
 
 	template<typename... Fragment>
-	inline void Fatal(Fragment&&...);
+	constexpr void Fatal(Fragment&&...);
 	template<typename... Fragment>
-	inline void Error(Fragment&&...);
+	constexpr void Error(Fragment&&...);
 	template<typename... Fragment>
-	inline void Warn(Fragment&&...);
+	constexpr void Warn(Fragment&&...);
 	template<typename... Fragment>
-	inline void Info(Fragment&&...);
+	constexpr void Info(Fragment&&...);
 	template<typename... Fragment>
-	inline void Debug(Fragment&&...);
+	constexpr void Debug(Fragment&&...);
 	template<typename... Fragment>
-	inline void Trace(Fragment&&...);
+	constexpr void Trace(Fragment&&...);
 } // namespace Yazh::Core::Logger
 
 #include"logger.tcc"

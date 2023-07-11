@@ -23,8 +23,6 @@ namespace Yazh::Types {
 			T& operator[](ysize);
 			const T& operator[] (ysize) const;
 
-			void resize();
-
 			void push_back(const T&);
 			void push_at(ysize, const T&);
 			void push_back(T&&);
@@ -40,6 +38,7 @@ namespace Yazh::Types {
 			
 			void clear();
 			void shrink();
+			void resize();
 
 			T& operator=(const Vector<T>&);
 			T& operator=(Vector<T>&&);

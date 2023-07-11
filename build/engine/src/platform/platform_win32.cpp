@@ -74,7 +74,7 @@ namespace Yazh {
 		if (handle == nullptr) {
 			MessageBoxA(NULL, "Window creation failed!", "Error!", MB_ICONEXCLAMATION | MB_OK);
 
-			Logger::Fatal("Window creation failed!");
+			Core::Logger::Fatal("Window creation failed!");
 			return false;
 		} else {
 			hwnd = handle;
@@ -159,10 +159,10 @@ namespace Yazh {
 			case WM_SYSKEYUP: {
 				// Key pressed/released
 				auto pressed = (msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN);
-				auto key = (Input::Key)wp;
+				auto key = (Core::Input::Key)wp;
 				
 				// Pass to the input subsystem for processing.
-				Input::process(key, pressed);
+				Core::Input::process(key, pressed);
 			} break;
 			case WM_MOUSEMOVE: {
 				// Mouse move
@@ -170,7 +170,7 @@ namespace Yazh {
 				i32 y = GET_Y_LPARAM(lp);
 
 				// Pass over to the input subsystem.
-				Input::process(x, y);
+				Core::Input::process(x, y);
 			} break;
 			case WM_MOUSEWHEEL: {
 				i32 z_delta = GET_WHEEL_DELTA_WPARAM(wp);
@@ -178,7 +178,7 @@ namespace Yazh {
 					// Flatten the input to an OS-independent (-1, 1)
 					z_delta = (z_delta < 0) ? -1 : 1;
 					
-					Input::process(z_delta);
+					Core::Input::process(z_delta);
 				}
 			} break;
 			case WM_LBUTTONDOWN:
@@ -188,25 +188,25 @@ namespace Yazh {
 			case WM_MBUTTONUP:
 			case WM_RBUTTONUP: {
 				auto pressed = msg == WM_LBUTTONDOWN || msg == WM_RBUTTONDOWN || msg == WM_MBUTTONDOWN;
-				auto button = Input::Button::MAX;
+				auto button = Core::Input::Button::MAX;
 				switch(msg) {
 					case WM_LBUTTONDOWN:
 					case WM_LBUTTONUP:
-						button = Input::Button::Left;
+						button = Core::Input::Button::Left;
 						break;
 					case WM_MBUTTONDOWN:
 					case WM_MBUTTONUP:
-						button = Input::Button::Middle;
+						button = Core::Input::Button::Middle;
 						break;
 					case WM_RBUTTONDOWN:
 					case WM_RBUTTONUP:
-						button = Input::Button::Right;
+						button = Core::Input::Button::Right;
 						break;
 				}
 
 				// Pass over to the input subsystem.
-				if (button != Input::Button::MAX)
-					Input::process(button, pressed);
+				if (button != Core::Input::Button::MAX)
+					Core::Input::process(button, pressed);
 			} break;
 		}
 
