@@ -3,8 +3,8 @@
 #include<map>
 
 namespace Yazh::Logger {
-	template<typename... Fragments>
-	void logOutput(LogLevel level, Fragments&&... message) {
+	template<typename... Fragment>
+	void logOutput(LogLevel level, Fragment&&... message) {
 		auto isError = level < LogLevel::WRN;
 		
 		// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
@@ -18,8 +18,8 @@ namespace Yazh::Logger {
 		};
 		
 		if (isError)
-			(std::cerr << level << ": " << colors[level] << "\033[4m" << ... << message) << "\033[m\n"; // Underlined
+			(std::cerr << level << ": " << colors[level] << "\033[4m" << ... << std::forward<Fragment>(message)) << "\033[m\n"; // Underlined
 		else
-			(std::clog << level << ": " << colors[level] << ... << message) << "\033[m\n";
+			(std::clog << level << ": " << colors[level] << ... << std::forward<Fragment>(message)) << "\033[m\n";
 	}
 } // namespace Yazh::Logger
