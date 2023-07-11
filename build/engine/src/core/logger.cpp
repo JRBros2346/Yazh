@@ -3,17 +3,7 @@
 
 namespace Yazh::Logger {
 	std::ostream& operator<<(std::ostream& os, const LogLevel& level) {
-		// FATAL,ERROR,WARN,INFO,DEBUG,TRACE
-		static std::map<LogLevel, std::string> colors{
-			{LogLevel::FTL, "\033[41m"}, // Red Background 
-			{LogLevel::ERR, "\033[31m"}, // Red
-			{LogLevel::WRN, "\033[33m"}, // Yellow
-			{LogLevel::INF, "\033[32m"}, // Green
-			{LogLevel::DBG, "\033[34m"}, // Blue
-			{LogLevel::TRC, "\033[37m"}  // White
-		};
-		
-		os << colors[level] << "\033[1m"; // Bold and Underline
+		os << colors[(ysize)level] << "\033[1m"; // Bold
 		switch(level) {
 			case LogLevel::FTL:	os << "[ FATAL ]"; break;
 			case LogLevel::ERR:	os << "[ ERROR ]"; break;

@@ -137,8 +137,6 @@ namespace Yazh::Input {
 		Period = 0XBE,
 		Slash = 0XBF,
 		Grave = 0XC0,
-
-		MAX = 0x100
 	};
 #define MAX_KEYS 0x100
 

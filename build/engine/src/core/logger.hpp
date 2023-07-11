@@ -14,6 +14,7 @@ namespace Yazh::Logger {
 #	define LOG_TRACE_ENABLED false
 #endif
 
+	// FATAL, ERROR, WARN, INFO, DEBUG, TRACE
 	enum class LogLevel {
 		FTL,
 		ERR,
@@ -21,6 +22,14 @@ namespace Yazh::Logger {
 		INF,
 		DBG,
 		TRC
+	};
+	static const char colors[6][6] = {
+		"\033[41m", // Red Background 
+		"\033[31m", // Red
+		"\033[33m", // Yellow
+		"\033[32m", // Green
+		"\033[34m", // Blue
+		"\033[37m"  // White
 	};
 	YAPI std::ostream& operator<<(std::ostream&, const LogLevel&);
 
