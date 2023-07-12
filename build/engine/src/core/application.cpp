@@ -43,12 +43,12 @@ namespace Yazh::Core::Application {
 		Input::initialize();
 		
 		// TODO: Remove this
-		Logger::Fatal("A test message: ",3.14f);
-		Logger::Error("A test message: ",3.14f);
-		Logger::Warn("A test message: ",3.14f);
-		Logger::Info("A test message: ",3.14f);
-		Logger::Debug("A test message: ",3.14f);
-		Logger::Trace("A test message: ",3.14f);
+		Logger::Fatal("A test message: {}",3.14f);
+		Logger::Error("A test message: {}",3.14f);
+		Logger::Warn("A test message: {}",3.14f);
+		Logger::Info("A test message: {}",3.14f);
+		Logger::Debug("A test message: {}",3.14f);
+		Logger::Trace("A test message: {}",3.14f);
 		
 		state.is_running = true;
 		state.is_suspended = false;
@@ -147,7 +147,7 @@ namespace Yazh::Core::Application {
 				// Example on checking for a key
 				Logger::Debug("Explicit - A key pressed!");
 			} else {
-				Logger::Debug('\'', (char)key, "' key pressed in window.");
+				Logger::Debug("'{}' key pressed in window.", (char)key);
 			}
 		} else if (code == (u16)Event::SystemCode::KeyReleased) {
 			auto key = (Input::Key)context.U16[0];
@@ -155,7 +155,7 @@ namespace Yazh::Core::Application {
 				// Example on checking for a key
 				Logger::Debug("Explicit - B key released!");
 			} else {
-				Logger::Debug('\'', (char)key, "' key released in window.");
+				Logger::Debug("'{}' key released in window.", (char)key);
 			}
 		}
 		return false;

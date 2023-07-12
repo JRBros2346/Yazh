@@ -36,21 +36,21 @@ namespace Yazh::Core::Logger {
 	bool initialize();
 	void shutdown();
 
-	template<typename... Fragment>
-	constexpr void logOutput(LogLevel, Fragment&&...);
+	template<typename... Args>
+	constexpr void logOutput(LogLevel, std::string, Args&&...);
 
-	template<typename... Fragment>
-	constexpr void Fatal(Fragment&&...);
-	template<typename... Fragment>
-	constexpr void Error(Fragment&&...);
-	template<typename... Fragment>
-	constexpr void Warn(Fragment&&...);
-	template<typename... Fragment>
-	constexpr void Info(Fragment&&...);
-	template<typename... Fragment>
-	constexpr void Debug(Fragment&&...);
-	template<typename... Fragment>
-	constexpr void Trace(Fragment&&...);
+	template<typename... Args>
+	constexpr void Fatal(std::string, Args&&...);
+	template<typename... Args>
+	constexpr void Error(std::string, Args&&...);
+	template<typename... Args>
+	constexpr void Warn(std::string, Args&&...);
+	template<typename... Args>
+	constexpr void Info(std::string, Args&&...);
+	template<typename... Args>
+	constexpr void Debug(std::string, Args&&...);
+	template<typename... Args>
+	constexpr void Trace(std::string, Args&&...);
 } // namespace Yazh::Core::Logger
 
 #include"logger.tcc"
