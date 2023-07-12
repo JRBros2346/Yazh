@@ -6,9 +6,9 @@ namespace Yazh::Core::Logger {
 		auto is_error = level < LogLevel::WRN;
 		
 		if (is_error)
-			(std::cerr << level << ": " << colors[(ysize)level] << "\033[4m" << ... << std::forward<Fragment>(message)) << "\033[m\n"; // Underlined
+			(std::cerr << level << ": " << colors[(ysize)level] << "\033[4m" << ... << std::forward<Fragment>(message)) << "\033[m" << std::endl; // Underlined
 		else
-			(std::clog << level << ": " << colors[(ysize)level] << ... << std::forward<Fragment>(message)) << "\033[m\n";
+			(std::clog << level << ": " << colors[(ysize)level] << ... << std::forward<Fragment>(message)) << "\033[m" << std::endl;
 	}
 
 	// Logs a fatal-level message.

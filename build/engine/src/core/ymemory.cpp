@@ -6,7 +6,7 @@
 
 namespace Yazh::Core::Memory {
 	
-	inline std::string Stringify(Tag tag) {
+	std::string Stringify(Tag tag) {
 		switch(tag) {
 			case Tag::Unknown          : return "          Unknown";
 			case Tag::Array            : return "            Array";
@@ -76,9 +76,9 @@ namespace Yazh::Core::Memory {
 	}
 	
 	std::string getMemoryUsageString() {
-		const ysize GiB = 1024 * 1024 * 1024;
-		const ysize MiB = 1024 * 1024;
-		const ysize KiB = 1024;
+		constexpr const ysize GiB = 1024 * 1024 * 1024;
+		constexpr const ysize MiB = 1024 * 1024;
+		constexpr const ysize KiB = 1024;
 		
 		std::string output = "System memory use (tagged):\n";
 		for (ysize t = 0; t < (u8)Tag::MAX; ++t) {
@@ -99,13 +99,13 @@ namespace Yazh::Core::Memory {
 		
 		output += "    " + Stringify(Tag::MAX) + " : ";
 		if (stats.TotalAllocation >= GiB)
-			output += std::to_string((f64)stats.TotalAllocation / GiB) + " GiB\n";
+			output += std::to_string((f64)stats.TotalAllocation / GiB) + " GiB";
 		else if (stats.TotalAllocation >= MiB)
-			output += std::to_string((f64)stats.TotalAllocation / MiB) + " MiB\n";
+			output += std::to_string((f64)stats.TotalAllocation / MiB) + " MiB";
 		else if (stats.TotalAllocation >= KiB)
-			output += std::to_string((f64)stats.TotalAllocation / KiB) + " KiB\n";
+			output += std::to_string((f64)stats.TotalAllocation / KiB) + " KiB";
 		else
-			output += std::to_string(stats.TotalAllocation) + " B\n";
+			output += std::to_string(stats.TotalAllocation) + " B";
 		return output;
 	}
 } // namespace Yazh::Core::Memory

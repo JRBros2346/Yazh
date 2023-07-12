@@ -24,7 +24,7 @@ namespace Yazh::Core::Memory {
 		
 		MAX
 	};
-	inline std::string Stringify(Tag);
+	std::string Stringify(Tag);
 	
 	YAPI void initialize();
 	YAPI void shutdown();
