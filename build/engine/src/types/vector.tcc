@@ -59,13 +59,13 @@ namespace Yazh::Types {
 	template<typename T>
 	constexpr T& Vector<T>::at(ysize pos) {
 		if (pos >= SIZE)
-			Core::Logger::Error("Index outside the bounds of this array! Length: {}, index: {}", SIZE, pos);
+			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", SIZE, pos);
 		return DATA[pos];
 	}
 	template<typename T>
 	constexpr const T& Vector<T>::at(ysize pos) const {
 		if (pos >= SIZE)
-			Core::Logger::Error("Index outside the bounds of this array! Length: {}, index: {}", SIZE, pos);
+			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", SIZE, pos);
 		return DATA[pos];
 	}
 
@@ -77,11 +77,17 @@ namespace Yazh::Types {
 	}
 	template<typename T>
 	void Vector<T>::push_at(ysize pos, const T& val) {
-		if (SIZE == CAPACITY)
-			resize();
-		for (auto i = SIZE++; i > pos; --i)
-			DATA[i] = std::move(DATA[i-1]);
-		DATA[pos] = val;
+		if (pos >= SIZE)
+			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", SIZE, pos);
+		else {
+			if (pos >= SIZE)
+				Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", SIZE, pos);
+			if (SIZE == CAPACITY)
+				resize();
+			for (auto i = SIZE++; i > pos; --i)
+				DATA[i] = std::move(DATA[i-1]);
+			DATA[pos] = val;
+		}
 	}
 	template<typename T>
 	void Vector<T>::push_back(T&& val) {
@@ -91,11 +97,15 @@ namespace Yazh::Types {
 	}
 	template<typename T>
 	void Vector<T>::push_at(ysize pos, T&& val) {
-		if (SIZE == CAPACITY)
-			resize();
-		for (auto i = SIZE++; i > pos; --i)
-			DATA[i] = std::move(DATA[i-1]);
-		DATA[pos] = std::move(val);
+		if (pos >= SIZE)
+			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", SIZE, pos);
+		else {
+			if (SIZE == CAPACITY)
+				resize();
+			for (auto i = SIZE++; i > pos; --i)
+				DATA[i] = std::move(DATA[i-1]);
+			DATA[pos] = std::move(val);
+		}
 	}
 
 	template<typename T>
@@ -109,6 +119,8 @@ namespace Yazh::Types {
 	template<typename T>
 	template<typename... Args>
 	T& Vector<T>::emplace_at(ysize pos, Args&&... args) {
+		if (pos >= SIZE)
+			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", SIZE, pos);
 		if (SIZE == CAPACITY)
 			resize();
 		for (auto i = SIZE++; i > pos; --i)
@@ -125,6 +137,8 @@ namespace Yazh::Types {
 	}
 	template<typename T>
 	T Vector<T>::pop_at(ysize pos) {
+		if (pos >= SIZE)
+			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", SIZE, pos);
 		T val = std::move(DATA[pos]);
 		DATA[pos].~T();
 		for (auto i = pos; i < SIZE; ++i)
