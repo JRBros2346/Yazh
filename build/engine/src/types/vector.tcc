@@ -33,11 +33,15 @@ namespace Yazh::Types {
 		other.CAPACITY = 0;
 		other.DATA = nullptr;
 	}
-	// template<typename T>
-	// template<T... Values>
-	// Vector<T>::Vector(Values... elements) {
-
-	// }
+	template<typename T>
+	constexpr Vector<T>::Vector(std::initializer_list<T> elements)
+			: SIZE(elements.size()),
+			  CAPACITY(RESIZE_FACTOR * elements.size()) {
+		DATA = (T*)Core::Memory::allocate(RESIZE_FACTOR * elements.size() * sizeof(T), Core::Memory::Tag::Vector);
+		ysize i = 0;
+		for (const auto &e : elements)
+			DATA[i++] = e;
+	}
 	template<typename T>
 	Vector<T>::~Vector() {
 		clear();

@@ -5,8 +5,8 @@
 namespace Yazh::Types {
 	template<typename T>
 	class Vector {
-		const static ysize DEFAULT_CAPACITY = 1;
-		const static ysize RESIZE_FACTOR = 2;
+		constexpr const static ysize DEFAULT_CAPACITY = 1;
+		constexpr const const static ysize RESIZE_FACTOR = 2;
 		
 		ysize SIZE = 0;
 		ysize CAPACITY = 0;
@@ -16,8 +16,7 @@ namespace Yazh::Types {
 			explicit Vector(ysize);
 			Vector(const Vector<T>&);
 			Vector(Vector<T>&&);
-			// template<T... Values>
-			// Vector(Values...);
+			constexpr Vector(std::initializer_list<T>);
 			~Vector();
 
 			T& operator[](ysize);

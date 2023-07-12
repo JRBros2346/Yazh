@@ -13,8 +13,8 @@ cppFilenames=' '.join([str(file) for file in Path().rglob(r'*.cpp')])
 #print("Files:",cppFilenames)
 
 assembly='testbed'
-compilerFlags = { 'Windows': '-g -std=c++17',                            #-Wall -Werror
-                  'Linux'  : '-g -fPIC -std=c++17' }[operatingSystem]    # -fms-extensions    # -Wall -Werror
+compilerFlags = { 'Windows': '-g -std=c++20',                            #-Wall -Werror
+                  'Linux'  : '-g -fPIC -std=c++20' }[operatingSystem]    # -fms-extensions    # -Wall -Werror
 includeFlags='-Isrc -I../engine/src/'
 linkerFlags={
     'Windows': '-L../../bin/ -lengine',

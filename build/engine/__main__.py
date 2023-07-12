@@ -14,8 +14,8 @@ cppFilenames=' '.join([str(file) for file in Path().rglob(r'*.cpp')])
 
 assembly='engine'
 compilerFlags={
-    'Windows':    "-g -shared -Wvarargs -Wall -Werror -std=c++17",    #-Wall -Werror
-    'Linux'  :    "-g -shared -fPIC -std=c++17" }[operatingSystem]    # -fms-extensions    # -Wall -Werror
+    'Windows':    "-g -shared -Wvarargs -Wall -Werror -std=c++20",    #-Wall -Werror
+    'Linux'  :    "-g -shared -fPIC -std=c++20" }[operatingSystem]    # -fms-extensions    # -Wall -Werror
 includeFlags={
     'Windows':    f"-Isrc -I{os.getenv('VULKAN_SDK')}/Include",
     'Linux'  :    f"-Isrc -I{os.getenv('VULKAN_SDK')}/include" }[operatingSystem]
