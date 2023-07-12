@@ -17,7 +17,7 @@ namespace Yazh::Types {
 			Vector(const Vector<T>&);
 			Vector(Vector<T>&&);
 			// template<T... Values>
-			// Vector(Values&&...);
+			// Vector(Values...);
 			~Vector();
 
 			T& operator[](ysize);

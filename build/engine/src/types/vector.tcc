@@ -34,8 +34,8 @@ namespace Yazh::Types {
 		other.DATA = nullptr;
 	}
 	// template<typename T>
-	// template<typename... Values>
-	// Vector<T>::Vector(Values&&... elements) {
+	// template<T... Values>
+	// Vector<T>::Vector(Values... elements) {
 
 	// }
 	template<typename T>
