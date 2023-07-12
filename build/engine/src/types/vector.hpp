@@ -12,10 +12,10 @@ namespace Yazh::Types {
 		ysize CAPACITY = 0;
 		T* DATA = nullptr;
 		public:
-			explicit Vector();
-			explicit Vector(ysize);
-			Vector(const Vector<T>&);
-			Vector(Vector<T>&&);
+			constexpr explicit Vector();
+			constexpr explicit Vector(ysize);
+			constexpr Vector(const Vector<T>&);
+			constexpr Vector(Vector<T>&&);
 			constexpr Vector(std::initializer_list<T>);
 			~Vector();
 

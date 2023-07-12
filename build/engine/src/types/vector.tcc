@@ -3,19 +3,19 @@
 
 namespace Yazh::Types {
 	template<typename T>
-	Vector<T>::Vector()
+	constexpr Vector<T>::Vector()
 			: SIZE(0),
 			  CAPACITY(DEFAULT_CAPACITY) {
 		DATA = (T*)Core::Memory::allocate(DEFAULT_CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
 	}
 	template<typename T>
-	Vector<T>::Vector(ysize capacity)
+	constexpr Vector<T>::Vector(ysize capacity)
 			: SIZE(0),
 			  CAPACITY(capacity) {
 		DATA = (T*)Core::Memory::allocate(capacity * sizeof(T), Core::Memory::Tag::Vector);
 	}
 	template<typename T>
-	Vector<T>::Vector(const Vector<T>& other)
+	constexpr Vector<T>::Vector(const Vector<T>& other)
 			: SIZE(other.SIZE),
 			  CAPACITY(other.CAPACITY) {
 		DATA = (T*)Core::Memory::allocate(other.CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
@@ -24,7 +24,7 @@ namespace Yazh::Types {
 			DATA[i] = other.DATA[i];
 	}
 	template<typename T>
-	Vector<T>::Vector(Vector<T>&& other)
+	constexpr Vector<T>::Vector(Vector<T>&& other)
 			: SIZE(other.SIZE),
 			  CAPACITY(other.CAPACITY) {
 		DATA = other.DATA;
