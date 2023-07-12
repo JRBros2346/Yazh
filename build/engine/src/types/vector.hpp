@@ -19,8 +19,10 @@ namespace Yazh::Types {
 			constexpr Vector(std::initializer_list<T>);
 			~Vector();
 
-			T& operator[](ysize);
-			const T& operator[] (ysize) const;
+			constexpr T& operator[](ysize);
+			constexpr const T& operator[](ysize) const;
+			constexpr T& at(ysize);
+			constexpr const T& at(ysize) const;
 
 			void push_back(const T&);
 			void push_at(ysize, const T&);

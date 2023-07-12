@@ -125,7 +125,7 @@ namespace Yazh::Core::Application {
 	bool onEvent(u16 code, Event::Sender* sender, Event::Listener* listenerInst, Event::Context context) {
 		switch (code) {
 			case (u16)Event::SystemCode::ApplicationQuit: {
-				Logger::Info("Yazh::Event::SystemCode::ApplicationQuit received, shutting down.\n");
+				Logger::Info("Yazh::Event::SystemCode::ApplicationQuit received, shutting down.");
 				state.is_running = false;
 				return true;
 			}

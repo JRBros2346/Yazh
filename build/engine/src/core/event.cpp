@@ -50,7 +50,7 @@ namespace Yazh::Core::Event {
 			return false;
 
 		for(ysize i = 0; i < state[code].size(); ++i)
-			if(state[code][i].listener == listener) {
+			if(state[code].at(i).listener == listener) {
 				// TODO: warn
 				return false;
 			}
@@ -72,7 +72,7 @@ namespace Yazh::Core::Event {
 		}
 
 		for(ysize i = 0; i < state[code].size(); ++i) {
-			auto e = state[code][i];
+			auto e = state[code].at(i);
 			if(e.listener == listener && e.callback == on_event) {
 				// Found one, remove it
 				state[code].pop_at(i);
@@ -93,7 +93,7 @@ namespace Yazh::Core::Event {
 			return false;
 
 		for(ysize i = 0; i < state[code].size(); ++i) {
-			RegisteredEvent e = state[code][i];
+			auto e = state[code].at(i);
 			if(e.callback(code, sender, e.listener, data)) {
 				// Message has been handled, do not send to other listeners.
 				return true;

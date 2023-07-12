@@ -1,5 +1,5 @@
 #include"core/ymemory.hpp"
-#include"core/asserts.hpp"
+#include"core/logger.hpp"
 
 namespace Yazh::Types {
 	template<typename T>
@@ -49,11 +49,23 @@ namespace Yazh::Types {
 	}
 
 	template<typename T>
-	T& Vector<T>::operator[](ysize pos) {
+	constexpr T& Vector<T>::operator[](ysize pos) {
 		return DATA[pos];
 	}
 	template<typename T>
-	const T& Vector<T>::operator[](ysize pos) const {
+	constexpr const T& Vector<T>::operator[](ysize pos) const {
+		return DATA[pos];
+	}
+	template<typename T>
+	constexpr T& Vector<T>::at(ysize pos) {
+		if (pos >= SIZE)
+			Core::Logger::Error("Index outside the bounds of this array! Length: {}, index: {}", SIZE, pos);
+		return DATA[pos];
+	}
+	template<typename T>
+	constexpr const T& Vector<T>::at(ysize pos) const {
+		if (pos >= SIZE)
+			Core::Logger::Error("Index outside the bounds of this array! Length: {}, index: {}", SIZE, pos);
 		return DATA[pos];
 	}
 
