@@ -169,9 +169,9 @@ namespace Yazh::Types {
 	}
 
 	template<typename T>
-	ysize Vector<T>::size() const { return SIZE; }
+	constexpr ysize Vector<T>::size() const { return SIZE; }
 	template<typename T>
-	ysize Vector<T>::capacity() const { return CAPACITY; }
+	constexpr ysize Vector<T>::capacity() const { return CAPACITY; }
 	template<typename T>
-	T* Vector<T>::data() const { return DATA; }
+	constexpr T* Vector<T>::data() const { return DATA; }
 } // namespace Yazh::Types

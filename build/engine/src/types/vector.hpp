@@ -43,9 +43,9 @@ namespace Yazh::Types {
 			T& operator=(const Vector<T>&);
 			T& operator=(Vector<T>&&);
 			
-			ysize size() const;
-			ysize capacity() const;
-			T* data() const;
+			constexpr ysize size() const;
+			constexpr ysize capacity() const;
+			constexpr T* data() const;
 	};
 } // namespace Yazh::Types
 
