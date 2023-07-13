@@ -9,11 +9,6 @@ namespace Yazh::Core::Event {
 	using RegisteredEvent = struct RegisteredEvent {
 		Listener* listener;
 		OnEvent callback;
-
-		RegisteredEvent(Listener* listener_inst, OnEvent on_event) {
-			listener = listener_inst;
-			callback = on_event;
-		}
 	};
 
 // This should be more than enough codes...
@@ -31,8 +26,8 @@ namespace Yazh::Core::Event {
 			return false;
 		is_initialized = false;
 		for (auto code_entry : state) {
-			code_entry.clear();
-			code_entry.shrink();
+			code_entry.~Vector();
+			new(&code_entry) Types::Vector<RegisteredEvent>();
 		}
 		is_initialized = true;
 		return true;
