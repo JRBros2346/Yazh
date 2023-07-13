@@ -8,9 +8,9 @@ namespace Yazh::Types {
 		constexpr const static ysize DEFAULT_CAPACITY = 1;
 		constexpr const static ysize RESIZE_FACTOR = 2;
 		
-		ysize SIZE = 0;
-		ysize CAPACITY = 0;
-		T* DATA = nullptr;
+		ysize m_size = 0;
+		ysize m_capacity = 0;
+		T* m_data = nullptr;
 		public:
 			explicit Vector();
 			explicit Vector(ysize);
@@ -48,6 +48,8 @@ namespace Yazh::Types {
 			constexpr ysize capacity() const;
 			constexpr T* data() const;
 	};
+
+	
 } // namespace Yazh::Types
 
 #include"vector.tcc"
