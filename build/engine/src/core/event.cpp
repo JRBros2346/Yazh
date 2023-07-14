@@ -7,8 +7,8 @@
 
 namespace Yazh::Core::Event {
 	using RegisteredEvent = struct RegisteredEvent {
-		Listener* listener;
-		OnEvent callback;
+		Listener* listener = nullptr;
+		OnEvent callback = nullptr;
 	};
 
 // This should be more than enough codes...
@@ -19,16 +19,14 @@ namespace Yazh::Core::Event {
 	 */
 	static auto is_initialized = false;
 	// lookup table for event code.
-	static Types::Vector<RegisteredEvent> state[MAX_MESSAGE_CODES];
+	static Types::Vector<RegisteredEvent> state[MAX_MESSAGE_CODES] = {};
 
 	bool initialize() {
 		if (is_initialized)
 			return false;
 		is_initialized = false;
-		for (auto code_entry : state) {
-			code_entry.~Vector();
+		for (auto code_entry : state)
 			new(&code_entry) Types::Vector<RegisteredEvent>();
-		}
 		is_initialized = true;
 		return true;
 	}

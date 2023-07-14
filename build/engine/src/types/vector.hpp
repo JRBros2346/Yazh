@@ -12,7 +12,7 @@ namespace Yazh::Types {
 		ysize m_capacity = 0;
 		T* m_data = nullptr;
 		public:
-			explicit Vector();
+			Vector();
 			explicit Vector(ysize);
 			Vector(const Vector<T>&);
 			Vector(Vector<T>&&);
