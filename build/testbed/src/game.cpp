@@ -1,6 +1,6 @@
 #include"game.hpp"
 
-bool Game::initialize() {
+inline bool Game::initialize() {
 	Yazh::Core::Logger::Debug("Game::initialize() called!");
 	return true;
 }

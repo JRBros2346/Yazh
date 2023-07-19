@@ -30,7 +30,7 @@ namespace Yazh::Core::Application {
 	bool onEvent(u16, Event::Sender*, Event::Listener*, Event::Context);
 	bool onKey(u16, Event::Sender*, Event::Listener*, Event::Context);
 	
-	bool create(Game::VirtualGame* game) {
+	inline bool create(Game::VirtualGame* game) {
 		if(initialized) {
 			Logger::Error("Yazh::Application::create called more than once.");
 			return false;
@@ -82,7 +82,7 @@ namespace Yazh::Core::Application {
 		return true;
 	}
 	
-	bool run() {
+	inline bool run() {
 		Logger::Info(Memory::getMemoryUsageString());
 		while (state.is_running) {
 			if (!state.platform.pumpMessages())

@@ -17,7 +17,7 @@ namespace Yazh::Core::Logger {
 		return os;
 	};
 	
-	void reportAssertionFailure(std::string expression, std::string message, std::string file, i32 line) {
+	constexpr void reportAssertionFailure(std::string expression, std::string message, std::string file, i32 line) {
 		logOutput(LogLevel::FTL, "Assertion failure: {}, message: '{}', in file: {}, line: {}", expression, message, file, line);
 	}
 	

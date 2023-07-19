@@ -3,7 +3,7 @@
 #include"defines.hpp"
 
 namespace Yazh::Core {
-    inline f64 getAbsoluteTime();
+    f64 getAbsoluteTime();
 			
     // Sleep on the thread for the provided ms. This blocks the main thread.
     // Should only be used for giving time back to the OS for unused update power.

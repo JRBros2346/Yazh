@@ -8,7 +8,7 @@
 #	include<cstring>
 
 namespace Yazh {
-	bool Platform::startup(
+	inline bool Platform::startup(
 			const char* application_name,
 			i32 x,
 			i32 y,
@@ -131,7 +131,7 @@ namespace Yazh {
 		return true;
 	}
 	
-	void Platform::shutdown() {
+	inline void Platform::shutdown() {
 		// turns key repeats back on since this is global for the OS... just... wow.
 		XAutoRepeatOn(display);
 		

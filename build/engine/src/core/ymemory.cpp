@@ -6,7 +6,7 @@
 
 namespace Yazh::Core::Memory {
 	
-	std::string Stringify(Tag tag) {
+	inline std::string Stringify(Tag tag) {
 		switch(tag) {
 			case Tag::Unknown          : return "          Unknown";
 			case Tag::Array            : return "            Array";
@@ -35,11 +35,11 @@ namespace Yazh::Core::Memory {
 		ysize TaggedAllocation[(u8)Tag::MAX];
 	} stats;
 	
-	void initialize() {
+	inline void initialize() {
 		Platform::zeroMemory(&stats, sizeof(Statistics));
 	}
 	
-	void shutdown() {
+	inline void shutdown() {
 	}
 	
 	void* allocate(ysize size, Tag tag) {
@@ -75,7 +75,7 @@ namespace Yazh::Core::Memory {
 		return Platform::setMemory(dest, value, size);
 	}
 	
-	std::string getMemoryUsageString() {
+	inline std::string getMemoryUsageString() {
 		constexpr const ysize GiB = 1024 * 1024 * 1024;
 		constexpr const ysize MiB = 1024 * 1024;
 		constexpr const ysize KiB = 1024;

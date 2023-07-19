@@ -9,7 +9,7 @@ namespace Yazh {
 	f64 Platform::clock_frequency;
 	LARGE_INTEGER Platform::start_time;
 
-	bool Platform::startup(
+	inline bool Platform::startup(
 			const char* application_name,
 			i32 x,
 			i32 y,
@@ -96,7 +96,7 @@ namespace Yazh {
 		return true;
 	}
 
-	void Platform::shutdown() {
+	inline void Platform::shutdown() {
 		if (hwnd) {
 			DestroyWindow(hwnd);
 			hwnd = nullptr;
