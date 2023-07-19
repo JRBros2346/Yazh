@@ -42,8 +42,8 @@ namespace Yazh::Core::Event {
 		if(!is_initialized)
 			return false;
 
-		for(ysize i = 0; i < state[code].size(); ++i)
-			if(state[code].at(i).listener == listener) {
+		for(const auto& e : state[code])
+			if(e.listener == listener) {
 				// TODO: warn
 				return false;
 			}
@@ -85,13 +85,11 @@ namespace Yazh::Core::Event {
 		if(state[code].size() == 0)
 			return false;
 
-		for(ysize i = 0; i < state[code].size(); ++i) {
-			auto e = state[code].at(i);
+		for(const auto& e : state[code])
 			if(e.callback(code, sender, e.listener, data)) {
 				// Message has been handled, do not send to other listeners.
 				return true;
 			}
-		}
 
 		// Not found.
 		return false;

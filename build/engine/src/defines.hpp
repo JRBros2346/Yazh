@@ -22,6 +22,7 @@ using f64 = double;
 
 // Size type
 using ysize = u64;
+using yptrdiff = i64;
 
 // Properly define static assertions.
 #if defined(__clang__) || defined(__gcc__)

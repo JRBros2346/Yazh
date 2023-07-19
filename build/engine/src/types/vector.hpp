@@ -47,6 +47,48 @@ namespace Yazh::Types {
 			constexpr ysize size() const;
 			constexpr ysize capacity() const;
 			constexpr T* data() const;
+
+			class Iter {
+				T* ptr;
+				public:
+					constexpr Iter();
+					constexpr Iter(T*);
+					constexpr ~Iter();
+
+					constexpr T& operator*();
+					constexpr T* operator->();
+					constexpr const T& operator*() const;
+					constexpr const T* operator->() const;
+
+					constexpr Iter operator+(yptrdiff);
+					constexpr Iter operator-(yptrdiff);
+
+					constexpr Iter& operator=(const Iter&);
+					constexpr Iter& operator=(Iter&&);
+					constexpr Iter& operator+=(yptrdiff);
+					constexpr Iter& operator-=(yptrdiff);
+
+					constexpr Iter& operator++();
+					constexpr Iter operator++(int);
+					constexpr Iter& operator--();
+					constexpr Iter operator--(int);
+
+					constexpr bool operator==(const Iter&);
+					constexpr bool operator!=(const Iter&);
+					constexpr bool operator>=(const Iter&);
+					constexpr bool operator<=(const Iter&);
+					constexpr bool operator>(const Iter&);
+					constexpr bool operator<(const Iter&);
+			};
+
+			Iter begin();
+			Iter end();
+			Iter rbegin();
+			Iter rend();
+			const Iter cbegin() const;
+			const Iter cend() const;
+			const Iter crbegin() const;
+			const Iter crend() const;
 	};
 
 	

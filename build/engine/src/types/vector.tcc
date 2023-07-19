@@ -204,4 +204,103 @@ namespace Yazh::Types {
 	constexpr ysize Vector<T>::capacity() const { return m_capacity; }
 	template<typename T>
 	constexpr T* Vector<T>::data() const { return m_data; }
+
+	template<typename T>
+	constexpr Vector<T>::Iter::Iter() : ptr(nullptr) {
+	}
+	template<typename T>
+	constexpr Vector<T>::Iter::Iter(T* p) : ptr(p) {
+	}
+	template<typename T>
+	constexpr Vector<T>::Iter::~Iter() {
+	}
+
+	template<typename T>
+	constexpr T& Vector<T>::Iter::operator*() { return *ptr; }
+	template<typename T>
+	constexpr T* Vector<T>::Iter::operator->()  { return ptr; }
+	template<typename T>
+	constexpr const T& Vector<T>::Iter::operator*() const  { return *ptr; }
+	template<typename T>
+	constexpr const T* Vector<T>::Iter::operator->() const  { return ptr; }
+
+	template<typename T>
+	constexpr typename Vector<T>::Iter Vector<T>::Iter::operator+(yptrdiff offset) { return ptr + offset; }
+	template<typename T>
+	constexpr typename Vector<T>::Iter Vector<T>::Iter::operator-(yptrdiff offset) { return ptr - offset; }
+
+	template<typename T>
+	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator=(const Iter& other) {
+		ptr = other.ptr;
+		return *this;
+	}
+	template<typename T>
+	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator=(Iter&& other) {
+		ptr = std::move(other.ptr);
+		other.ptr = nullptr;
+		return *this;
+	}
+	template<typename T>
+	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator+=(yptrdiff offset) {
+		ptr += offset;
+		return *this;
+	}
+	template<typename T>
+	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator-=(yptrdiff offset) {
+		ptr -= offset;
+		return *this;
+	}
+
+	template<typename T>
+	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator++() {
+		++ptr;
+		return *this;
+	}
+	template<typename T>
+	constexpr typename Vector<T>::Iter Vector<T>::Iter::operator++(int) {
+		auto tmp = *this;
+		++ptr;
+		return tmp;
+	}
+	template<typename T>
+	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator--() {
+		--ptr;
+		return *this;
+	}
+	template<typename T>
+	constexpr typename Vector<T>::Iter Vector<T>::Iter::operator--(int) {
+		auto tmp = *this;
+		--ptr;
+		return tmp;
+	}
+
+	template<typename T>
+	constexpr bool Vector<T>::Iter::operator==(const Iter& other) { return ptr == other.ptr; }
+	template<typename T>
+	constexpr bool Vector<T>::Iter::operator!=(const Iter& other) { return ptr != other.ptr; }
+	template<typename T>
+	constexpr bool Vector<T>::Iter::operator>=(const Iter& other) { return ptr >= other.ptr; }
+	template<typename T>
+	constexpr bool Vector<T>::Iter::operator<=(const Iter& other) { return ptr <= other.ptr; }
+	template<typename T>
+	constexpr bool Vector<T>::Iter::operator>(const Iter& other) { return ptr > other.ptr; }
+	template<typename T>
+	constexpr bool Vector<T>::Iter::operator<(const Iter& other) { return ptr < other.ptr; }
+
+	template<typename T>
+	typename Vector<T>::Iter Vector<T>::begin() { return m_data; }
+	template<typename T>
+	typename Vector<T>::Iter Vector<T>::end() { return m_data + m_size; }
+	template<typename T>
+	typename Vector<T>::Iter Vector<T>::rbegin() { return m_data + m_size - 1; }
+	template<typename T>
+	typename Vector<T>::Iter Vector<T>::rend() { return m_data - 1; }
+	template<typename T>
+	const typename Vector<T>::Iter Vector<T>::cbegin() const { return m_data; }
+	template<typename T>
+	const typename Vector<T>::Iter Vector<T>::cend() const { return m_data + m_size; }
+	template<typename T>
+	const typename Vector<T>::Iter Vector<T>::crbegin() const { return m_data + m_size - 1; }
+	template<typename T>
+	const typename Vector<T>::Iter Vector<T>::crend() const  { return m_data - 1; }
 } // namespace Yazh::Types
