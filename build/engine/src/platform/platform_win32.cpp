@@ -8,6 +8,7 @@
 namespace Yazh {
 	f64 Platform::clock_frequency;
 	LARGE_INTEGER Platform::start_time;
+	DWORD Platform::prev_out_mode = 0;
 
 	inline bool Platform::startup(
 			const char* application_name,
@@ -16,12 +17,22 @@ namespace Yazh {
 			i32 width,
 			i32 height) {
 
-		h_instance = GetModuleHandleA(0);
+		h_instance = GetModuleHandleA(nullptr);
+		
+		auto h_output = GetStdHandle(STD_OUTPUT_HANDLE);
+		GetConsoleMode(h_output, &prev_out_mode);
+		auto requested_out_mode = ENABLE_VIRTUAL_TERMINAL_PROCESSING | DISABLE_NEWLINE_AUTO_RETURN;
+		auto out_mode = prev_out_mode | requested_out_mode;
+		if (!SetConsoleMode(h_output, out_mode)) {
+			Core::Logger::Info("Fallback to Enable Newline Auto Return...");
+			requested_out_mode = ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+			out_mode = prev_out_mode | requested_out_mode;
+			SetConsoleMode(h_output, out_mode);
+		}
 
 		// Setup and register window class.
 		HICON icon = LoadIcon(h_instance, IDI_APPLICATION);
-		WNDCLASSA wc;
-		memset(&wc, 0, sizeof(wc));
+		WNDCLASSA wc = {};
 		wc.style = CS_DBLCLKS; // Get double-clicks
 		wc.lpfnWndProc = Win32ProcessMessage;
 		wc.cbClsExtra = 0;
@@ -97,6 +108,7 @@ namespace Yazh {
 	}
 
 	inline void Platform::shutdown() {
+		SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), prev_out_mode);
 		if (hwnd) {
 			DestroyWindow(hwnd);
 			hwnd = nullptr;

@@ -13,6 +13,7 @@ namespace Yazh {
 		
 		HINSTANCE h_instance;
 		HWND hwnd;
+		static DWORD prev_out_mode;
 
 		public:
 			// Clock
