@@ -11,7 +11,7 @@ namespace Yazh::Core::Input {
 	using MouseState = struct MouseState {
 		i16 x;
 		i16 y;
-		bool buttons[(u16)Button::MAX];
+		bool buttons[static_cast<u8>(Button::MAX)];
 	};
 
 	using State = struct State {
@@ -47,25 +47,25 @@ namespace Yazh::Core::Input {
 
 	void process(Key key, bool pressed) {
 		// Only handle this if the state actually changed.
-		if (state.keyboard_now.keys[(u16)key] != pressed) {
+		if (state.keyboard_now.keys[static_cast<u16>(key)] != pressed) {
 			// Update internal state.
-			state.keyboard_now.keys[(u16)key] = pressed;
+			state.keyboard_now.keys[static_cast<u16>(key)] = pressed;
 
 			// Fire off an event for immediate processing.
 			Event::Context context;
-			context.U16[0] = (u16)key;
-			Event::Fire(pressed ? (u16)Event::SystemCode::KeyPressed : (u16)Event::SystemCode::KeyReleased, nullptr, context);
+			context.U16[0] = static_cast<u16>(key);
+			Event::Fire(pressed ? static_cast<u16>(Event::SystemCode::KeyPressed) : static_cast<u16>(Event::SystemCode::KeyReleased), nullptr, context);
 		}
 	}
 	void process(Button button, bool pressed) {
 		// Only handle this if the state actually changed.
-		if (state.mouse_now.buttons[(u16)button] != pressed) {
-			state.mouse_now.buttons[(u16)button] = pressed;
+		if (state.mouse_now.buttons[static_cast<u8>(button)] != pressed) {
+			state.mouse_now.buttons[static_cast<u8>(button)] = pressed;
 
 			// Fire the event.
 			Event::Context context;
-			context.U16[0] = (u16)button;
-			Event::Fire(pressed ? (u16)Event::SystemCode::ButtonPressed : (u16)Event::SystemCode::ButtonReleased, nullptr, context);
+			context.U16[0] = static_cast<u8>(button);
+			Event::Fire(pressed ? static_cast<u16>(Event::SystemCode::ButtonPressed) : static_cast<u16>(Event::SystemCode::ButtonReleased), nullptr, context);
 		}
 	}
 	void process(i16 x, i16 y) {
@@ -82,7 +82,7 @@ namespace Yazh::Core::Input {
 			Event::Context context;
 			context.U16[0] = x;
 			context.U16[1] = y;
-			Event::Fire((u16)Event::SystemCode::MouseMoved, nullptr, context);
+			Event::Fire(static_cast<u16>(Event::SystemCode::MouseMoved), nullptr, context);
 		}
 	}
 	void process(i8 z_delta) {
@@ -91,67 +91,67 @@ namespace Yazh::Core::Input {
 		// Fire the event.
 		Event::Context context;
 		context.U8[0] = z_delta;
-		Event::Fire((u16)Event::SystemCode::MouseWheel, nullptr, context);
+		Event::Fire(static_cast<u16>(Event::SystemCode::MouseWheel), nullptr, context);
 	}
 
 	bool isDown(Key key) {
 		if (!initialized)
 			return false;
-		return state.keyboard_now.keys[(u16)key] == true;
+		return state.keyboard_now.keys[static_cast<u16>(key)] == true;
 	}
 	bool isUp(Key key) {
 		if (!initialized)
 			return true;
-		return state.keyboard_now.keys[(u16)key] == false;
+		return state.keyboard_now.keys[static_cast<u16>(key)] == false;
 	}
 	bool wasDown(Key key) {
 		if (!initialized)
 			return false;
-		return state.keyboard_then.keys[(u16)key] == true;
+		return state.keyboard_then.keys[static_cast<u16>(key)] == true;
 	}
 	bool wasUp(Key key) {
 		if (!initialized)
 			return true;
-		return state.keyboard_then.keys[(u16)key] == false;
+		return state.keyboard_then.keys[static_cast<u16>(key)] == false;
 	}
 
 	bool isDown(Button button) {
 		if (!initialized)
 			return false;
-		return state.mouse_now.buttons[(u16)button] == true;
+		return state.mouse_now.buttons[static_cast<u8>(button)] == true;
 	}
 	bool isUp(Button button) {
 		if (!initialized)
 			return true;
-		return state.mouse_now.buttons[(u16)button] == false;
+		return state.mouse_now.buttons[static_cast<u8>(button)] == false;
 	}
 	bool wasDown(Button button) {
 		if (!initialized)
 			return false;
-		return state.mouse_then.buttons[(u16)button] == true;
+		return state.mouse_then.buttons[static_cast<u8>(button)] == true;
 	}
 	bool wasUp(Button button) {
 		if (!initialized)
 			return true;
-		return state.mouse_then.buttons[(u16)button] == false;
+		return state.mouse_then.buttons[static_cast<u8>(button)] == false;
 	}
 
-	void getMousePosition(i32* x, i32* y) {
+	void getMousePosition(i32& x, i32& y) {
 		if(!initialized) {
-			*x = 0;
-			*y = 0;
+			x = 0;
+			y = 0;
 			return;
 		}
-		*x = state.mouse_now.x;
-		*y = state.mouse_now.y;
+		x = state.mouse_now.x;
+		y = state.mouse_now.y;
 	}
-	void getPreviousMousePosition(i32* x, i32* y) {
+	void getPreviousMousePosition(i32& x, i32& y) {
 		if(!initialized) {
-			*x = 0;
-			*y = 0;
+			x = 0;
+			y = 0;
 			return;
 		}
-		*x = state.mouse_then.x;
-		*y = state.mouse_then.y;
+		x = state.mouse_then.x;
+		y = state.mouse_then.y;
 	}
 } // namespace Yazh::Core::Input

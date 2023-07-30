@@ -15,7 +15,7 @@ namespace Yazh::Core::Logger {
 #endif
 
 	// FATAL, ERROR, WARN, INFO, DEBUG, TRACE
-	enum class LogLevel {
+	enum class LogLevel : u8 {
 		FTL,
 		ERR,
 		WRN,
@@ -23,15 +23,10 @@ namespace Yazh::Core::Logger {
 		DBG,
 		TRC
 	};
-	static const char colors[6][6] = {
-		"\033[41m", // Red Background 
-		"\033[31m", // Red
-		"\033[33m", // Yellow
-		"\033[32m", // Green
-		"\033[34m", // Blue
-		"\033[37m"  // White
-	};
-	YAPI std::ostream& operator<<(std::ostream&, const LogLevel&);
+	static const u8 colors[6] = { 41, 31, 33, 32, 34, 37 };
+	static const char strings[6][6] = { "FATAL", "ERROR", "WARN", "INFO", "DEBUG", "TRACE" };
+
+	// YAPI std::ostream& operator<<(std::ostream&, const LogLevel&);
 
 	bool initialize();
 	void shutdown();

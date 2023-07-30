@@ -8,9 +8,9 @@ namespace Yazh::Core::Logger {
 		auto is_error = level < LogLevel::WRN;
 		
 		if (is_error)
-			std::cerr << level << ": " << colors[(ysize)level] << "\033[4m" << std::vformat(fmt, std::make_format_args(std::forward<Args>(args)...)) << "\033[m" << std::endl; // Underlined
+			std::cerr << std::format("\033[{0};1m[ {1:>5} ]\033[m: \033[{0};4m{2}\033[m", colors[static_cast<u8>(level)], strings[static_cast<u8>(level)], std::vformat(fmt, std::make_format_args(std::forward<Args>(args)...))) << std::endl; // Underlined
 		else
-			std::clog << level << ": " << colors[(ysize)level] << std::vformat(fmt, std::make_format_args(std::forward<Args>(args)...)) << "\033[m" << std::endl;
+			std::clog << std::format("\033[{0};1m[ {1:>5} ]\033[m: \033[{0}m{2}\033[m", colors[static_cast<u8>(level)], strings[static_cast<u8>(level)], std::vformat(fmt, std::make_format_args(std::forward<Args>(args)...))) << std::endl;
 	}
 
 	// Logs a fatal-level message.

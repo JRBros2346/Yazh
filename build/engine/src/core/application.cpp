@@ -58,9 +58,9 @@ namespace Yazh::Core::Application {
 			return false;
 		}
 
-		Event::Register((u16)Event::SystemCode::ApplicationQuit, nullptr, onEvent);
-		Event::Register((u16)Event::SystemCode::KeyPressed, nullptr, onKey);
-		Event::Register((u16)Event::SystemCode::KeyReleased, nullptr, onKey);
+		Event::Register(static_cast<u16>(Event::SystemCode::ApplicationQuit), nullptr, onEvent);
+		Event::Register(static_cast<u16>(Event::SystemCode::KeyPressed), nullptr, onKey);
+		Event::Register(static_cast<u16>(Event::SystemCode::KeyReleased), nullptr, onKey);
 		
 		if(!state.platform.startup(
 				game->app_config.name,
@@ -111,9 +111,9 @@ namespace Yazh::Core::Application {
 		state.is_running = false;
 
 		// Shutdown event system.
-		Event::Unregister((u16)Event::SystemCode::ApplicationQuit, nullptr, onEvent);
-		Event::Unregister((u16)Event::SystemCode::KeyPressed, nullptr, onKey);
-		Event::Unregister((u16)Event::SystemCode::KeyReleased, nullptr, onKey);
+		Event::Unregister(static_cast<u16>(Event::SystemCode::ApplicationQuit), nullptr, onEvent);
+		Event::Unregister(static_cast<u16>(Event::SystemCode::KeyPressed), nullptr, onKey);
+		Event::Unregister(static_cast<u16>(Event::SystemCode::KeyReleased), nullptr, onKey);
 		Event::shutdown();
 		Input::shutdown();
 		
@@ -124,7 +124,7 @@ namespace Yazh::Core::Application {
 
 	bool onEvent(u16 code, Event::Sender* sender, Event::Listener* listenerInst, Event::Context context) {
 		switch (code) {
-			case (u16)Event::SystemCode::ApplicationQuit: {
+			case static_cast<u16>(Event::SystemCode::ApplicationQuit): {
 				Logger::Info("Yazh::Event::SystemCode::ApplicationQuit received, shutting down.");
 				state.is_running = false;
 				return true;
@@ -135,11 +135,11 @@ namespace Yazh::Core::Application {
 	}
 
 	bool onKey(u16 code, Event::Sender* sender, Event::Listener* listenerInst, Event::Context context) {
-		if (code == (u16)Event::SystemCode::KeyPressed) {
-			auto key = (Input::Key)context.U16[0];
+		if (code == static_cast<u16>(Event::SystemCode::KeyPressed)) {
+			auto key = static_cast<Input::Key>(context.U16[0]);
 			if (key == Input::Key::Esc) {
 				// NOTE: Technically firing an event to itself, but there may be other listeners.
-				Event::Fire((u16)Event::SystemCode::ApplicationQuit, nullptr, {});
+				Event::Fire(static_cast<u16>(Event::SystemCode::ApplicationQuit), nullptr, {});
 
 				// Block anything else from processing this.
 				return true;
@@ -147,15 +147,15 @@ namespace Yazh::Core::Application {
 				// Example on checking for a key
 				Logger::Debug("Explicit - A key pressed!");
 			} else {
-				Logger::Debug("'{}' key pressed in window.", (char)key);
+				Logger::Debug("'{}' key pressed in window.", (char)static_cast<u8>(key));
 			}
-		} else if (code == (u16)Event::SystemCode::KeyReleased) {
-			auto key = (Input::Key)context.U16[0];
+		} else if (code == static_cast<u16>(Event::SystemCode::KeyReleased)) {
+			auto key = static_cast<Input::Key>(context.U16[0]);
 			if (key == Input::Key::B) {
 				// Example on checking for a key
 				Logger::Debug("Explicit - B key released!");
 			} else {
-				Logger::Debug("'{}' key released in window.", (char)key);
+				Logger::Debug("'{}' key released in window.", (char)static_cast<u8>(key));
 			}
 		}
 		return false;

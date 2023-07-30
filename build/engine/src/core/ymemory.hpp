@@ -3,7 +3,7 @@
 #include"defines.hpp"
 
 namespace Yazh::Core::Memory {
-	enum class Tag {
+	enum class Tag : u8 {
 		Unknown,
 		Array,
 		Vector,

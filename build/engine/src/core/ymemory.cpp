@@ -32,7 +32,7 @@ namespace Yazh::Core::Memory {
 	
 	static struct Statistics {
 		ysize TotalAllocation;
-		ysize TaggedAllocation[(u8)Tag::MAX];
+		ysize TaggedAllocation[static_cast<u8>(Tag::MAX)];
 	} stats;
 	
 	inline void initialize() {
@@ -81,8 +81,8 @@ namespace Yazh::Core::Memory {
 		constexpr const ysize KiB = 1024;
 		
 		std::string output = "System memory use (tagged):\n";
-		for (ysize t = 0; t < (u8)Tag::MAX; ++t) {
-			auto tag = (Tag)t;
+		for (ysize t = 0; t < static_cast<u8>(Tag::MAX); ++t) {
+			auto tag = static_cast<Tag>(t);
 			auto memory = stats.TaggedAllocation[t];
 			output += "    " + Stringify(tag) + " : ";
 			if (memory >= GiB)

@@ -3,7 +3,7 @@
 #include"defines.hpp"
 
 namespace Yazh::Core::Input {
-	using Button = enum class Button {
+	using Button = enum class Button : u8 {
 		Left,
 		Middle,
 		Right,
@@ -11,7 +11,7 @@ namespace Yazh::Core::Input {
 		MAX,
 	};
 
-	using Key = enum class Key {
+	using Key = enum class Key : u16 {
 		Backspace = 0X8,
 		Enter = 0XD,
 		Tab = 0X9,
@@ -157,8 +157,8 @@ namespace Yazh::Core::Input {
 	YAPI bool isUp(Button);
 	YAPI bool wasDown(Button);
 	YAPI bool wasUp(Button);
-	YAPI void getMousePosition(i32*, i32*);
-	YAPI void getPreviousMousePosition(i32*, i32*);
+	YAPI void getMousePosition(i32&, i32&);
+	YAPI void getPreviousMousePosition(i32&, i32&);
 
 	void process(Button, bool); // button
 	void process(i16, i16); // mouse move

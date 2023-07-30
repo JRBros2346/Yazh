@@ -63,7 +63,7 @@ namespace Yazh::Core::Event {
 	YAPI bool Fire(u16 code, Sender* sender, Context data);
 
 	// System internal event codes. Application should use codes beyond 255.
-	using SystemCode = enum class SystemCode {
+	using SystemCode = enum class SystemCode : u16 {
 		// Shuts the application down on the next frame.
 		ApplicationQuit = 0x01,
 
