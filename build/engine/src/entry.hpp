@@ -6,6 +6,8 @@
 #include"core/ymemory.hpp"
 #include"game_types.hpp"
 
+#include"types/vector.hpp"
+
 // Externally defined function to create game.
 namespace Yazh::Game { extern VirtualGame* createGame(); }
 
@@ -13,6 +15,14 @@ namespace Yazh::Game { extern VirtualGame* createGame(); }
  * The main entry point of the app.
  */
 int main(void) {
+	Yazh::Types::Vector<bool> v;
+	v.push_back(true);
+	v.push_back(false);
+	v.push_back(true);
+	v.push_back(true);
+	for (const auto& e : v)
+		Yazh::Core::Logger::Debug("{}", e);
+	
 	
 	Yazh::Core::Memory::initialize();
 	

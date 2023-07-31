@@ -4,7 +4,7 @@
 
 namespace Yazh::Types {
 	template<typename T>
-	class Vector {
+	class YAPI Vector {
 		constexpr const static ysize DEFAULT_CAPACITY = 1;
 		constexpr const static ysize RESIZE_FACTOR = 2;
 		
@@ -41,18 +41,19 @@ namespace Yazh::Types {
 			void shrink();
 			void resize();
 
-			T& operator=(const Vector<T>&);
-			T& operator=(Vector<T>&&);
+			Vector<T>& operator=(const Vector<T>&);
+			Vector<T>& operator=(Vector<T>&&);
 			
 			constexpr ysize size() const;
 			constexpr ysize capacity() const;
 			constexpr T* data() const;
 
 			class Iter {
-				T* ptr;
+				T* ptr = nullptr;
 				public:
 					constexpr Iter();
 					constexpr Iter(T*);
+					constexpr Iter(const Iter&);
 					constexpr ~Iter();
 
 					constexpr T& operator*();

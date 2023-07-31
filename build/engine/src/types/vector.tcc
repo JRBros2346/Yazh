@@ -169,14 +169,13 @@ namespace Yazh::Types {
 		T* block = (T*)Core::Memory::allocate(m_capacity * sizeof(T), Core::Memory::Tag::Vector);
 		for (ysize i = 0; i < m_size; ++i)
 			block[i] = std::move(m_data[i]);
-		// clear();
 		Core::Memory::free(m_data, m_capacity * sizeof(T), Core::Memory::Tag::Vector);
 		m_data = block;
 		block = nullptr;
 	}
 
 	template<typename T>
-	T& Vector<T>::operator=(const Vector<T>& other) {
+	Vector<T>& Vector<T>::operator=(const Vector<T>& other) {
 		Core::Memory::free(m_data, m_capacity * sizeof(T), Core::Memory::Tag::Vector);
 		m_size = other.m_size;
 		m_capacity = other.m_capacity;
@@ -186,7 +185,7 @@ namespace Yazh::Types {
 		return *this;
 	}
 	template<typename T>
-	T& Vector<T>::operator=(Vector<T>&& other) {
+	Vector<T>& Vector<T>::operator=(Vector<T>&& other) {
 		Core::Memory::free(m_data, m_capacity * sizeof(T), Core::Memory::Tag::Vector);
 		m_size = std::move(other.m_size);
 		m_capacity = std::move(other.m_capacity);
@@ -212,17 +211,20 @@ namespace Yazh::Types {
 	constexpr Vector<T>::Iter::Iter(T* p) : ptr(p) {
 	}
 	template<typename T>
+	constexpr Vector<T>::Iter::Iter(const Iter& other) : ptr(other.ptr) {
+	}
+	template<typename T>
 	constexpr Vector<T>::Iter::~Iter() {
 	}
 
 	template<typename T>
 	constexpr T& Vector<T>::Iter::operator*() { return *ptr; }
 	template<typename T>
-	constexpr T* Vector<T>::Iter::operator->()  { return ptr; }
+	constexpr T* Vector<T>::Iter::operator->() { return ptr; }
 	template<typename T>
-	constexpr const T& Vector<T>::Iter::operator*() const  { return *ptr; }
+	constexpr const T& Vector<T>::Iter::operator*() const { return *ptr; }
 	template<typename T>
-	constexpr const T* Vector<T>::Iter::operator->() const  { return ptr; }
+	constexpr const T* Vector<T>::Iter::operator->() const { return ptr; }
 
 	template<typename T>
 	constexpr typename Vector<T>::Iter Vector<T>::Iter::operator+(yptrdiff offset) { return ptr + offset; }
