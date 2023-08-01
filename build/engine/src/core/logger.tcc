@@ -12,21 +12,17 @@ namespace Yazh::Core::Logger {
 		else
 			std::clog << std::format("\033[{0};1m[ {1:>5} ]\033[m: \033[{0}m{2}\033[m", colors[static_cast<u8>(level)], strings[static_cast<u8>(level)], std::vformat(fmt, std::make_format_args(std::forward<Args>(args)...))) << std::endl;
 	}
-
 	// Logs a fatal-level message.
 	template<typename... Args>
 	constexpr void Fatal(std::string fmt, Args&&... args) {
 		logOutput(LogLevel::FTL, fmt, std::forward<Args>(args)...);
 	}
-
-#ifndef YERROR
-#	define YERROR
+	
 	// Logs an error-level message.
 	template<typename... Args>
 	constexpr void Error(std::string fmt, Args&&... args) {
 		logOutput(LogLevel::ERR, fmt, std::forward<Args>(args)...);
 	}
-#endif
 
 #if LOG_WARN_ENABLED
 	// Logs a warning-level message.
