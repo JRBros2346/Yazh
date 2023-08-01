@@ -32,7 +32,7 @@ namespace Yazh::Core::Application {
 	
 	inline bool create(Game::VirtualGame* game) {
 		if(initialized) {
-			Error("Yazh::Application::create called more than once.");
+			Core::Logger::Error("Yazh::Application::create called more than once.");
 			return false;
 		}
 		
@@ -43,18 +43,18 @@ namespace Yazh::Core::Application {
 		Input::initialize();
 		
 		// TODO: Remove this
-		Fatal("A test message: {}",3.14f);
-		Error("A test message: {}",3.14f);
-		Warn("A test message: {}",3.14f);
-		Info("A test message: {}",3.14f);
-		Debug("A test message: {}",3.14f);
-		Trace("A test message: {}",3.14f);
+		Core::Logger::Fatal("A test message: {}",3.14f);
+		Core::Logger::Error("A test message: {}",3.14f);
+		Core::Logger::Warn("A test message: {}",3.14f);
+		Core::Logger::Info("A test message: {}",3.14f);
+		Core::Logger::Debug("A test message: {}",3.14f);
+		Core::Logger::Trace("A test message: {}",3.14f);
 		
 		state.is_running = true;
 		state.is_suspended = false;
 
 		if (!Event::initialize()) {
-			Fatal("Event system failed initialization. Application cannot continue.");
+			Core::Logger::Fatal("Event system failed initialization. Application cannot continue.");
 			return false;
 		}
 
@@ -71,7 +71,7 @@ namespace Yazh::Core::Application {
 			return false;
 		
 		if(!state.game->initialize()) {
-			Fatal("Game failed to initialize.");
+			Core::Logger::Fatal("Game failed to initialize.");
 			return false;
 		}
 		

@@ -28,7 +28,7 @@ namespace Yazh::Core::Input {
 	void initialize() {
 		Memory::zero(&state, sizeof(State));
 		initialized = true;
-		Logger::Info("Input subsystem initialized.");
+		Info("Input subsystem initialized.");
 	}
 
 	void shutdown() {
