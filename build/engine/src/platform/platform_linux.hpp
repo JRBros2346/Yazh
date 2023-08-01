@@ -12,7 +12,7 @@
 #	include<sys/time.h>
 
 namespace Yazh {
-	class YAPI Platform : public VirtualPlatform {
+	class YAPI Platform : virtual VirtualPlatform {
 		Display* display;
 		xcb_connection_t* connection;
 		xcb_window_t window;
@@ -21,15 +21,22 @@ namespace Yazh {
 		xcb_atom_t wm_delete_win;
 
 		public:
-			bool startup(const char*, i32, i32, i32, i32);
-			void shutdown();
-			bool pumpMessages();
+			bool startup(const char*, i32, i32, i32, i32) final;
+			void shutdown() final;
+			bool pumpMessages() final;
 
 			static void* allocate(ysize, bool);
 			static void free(void*, ysize, bool);
 			static void* zeroMemory(void*, ysize);
 			static void* copyMemory(void*, const void*, ysize);
 			static void* setMemory(void*, i32, ysize);
+
+			static u64 getAbsoluteTime();
+
+			// Sleep on the thread for the provided ms. This blocks the main thread.
+			// Should only be used for giving time back to the OS for unused update power.
+			// Therefore it is not exported.
+			static void sleep(u64);
 	};
 } // namespace Yazh
 

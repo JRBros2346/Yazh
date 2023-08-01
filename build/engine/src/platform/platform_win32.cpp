@@ -42,9 +42,10 @@ namespace Yazh {
 		wc.hCursor = LoadCursor(nullptr, IDC_ARROW);  // nullptr; // Manage the cursor manually
 		wc.hbrBackground = nullptr;                   // Transparent
 		wc.lpszClassName = "yazh_window_class";
+		wc.cbSize = sizeof(WNDCLASSEXW);
 
 		if (!RegisterClassExA(&wc)) {
-			MessageBoxA(0, "Window registration failed", "Error", MB_ICONEXCLAMATION | MB_OK);
+			MessageBoxA(nullptr, "Window registration failed", "Error", MB_ICONEXCLAMATION | MB_OK);
 			return false;
 		}
 			// Create window
@@ -83,7 +84,7 @@ namespace Yazh {
 			nullptr, nullptr, hInstance, nullptr);
 
 		if (handle == nullptr) {
-			MessageBoxA(NULL, "Window creation failed!", "Error!", MB_ICONEXCLAMATION | MB_OK);
+			MessageBoxA(nullptr, "Window creation failed!", "Error!", MB_ICONEXCLAMATION | MB_OK);
 
 			Core::Logger::Fatal("Window creation failed!");
 			return false;
