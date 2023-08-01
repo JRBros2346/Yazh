@@ -5,9 +5,6 @@
 
 namespace Yazh::Core {
 	void sleep(f64 ms) {
-		using nano = std::chrono::nanoseconds;
-		using milli = std::chrono::milliseconds;
-		using clock = std::chrono::high_resolution_clock;
 
 		static f64 estimate = 5e6;
 		static f64 mean = 5e6;
@@ -15,11 +12,11 @@ namespace Yazh::Core {
 		static u64 count = 1;
 
 		while (ms > estimate) {
-			auto start = clock::now();
-			std::this_thread::sleep_for(milli(1));
-			auto end = clock::now();
+			auto start = std::chrono::high_resolution_clock::now();
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+			auto end = std::chrono::high_resolution_clock::now();
 
-			nano observed = end - start;
+			std::chrono::nanoseconds observed = end - start;
 			ms -= observed.count() / 1e6;
 
 			++count;
@@ -31,7 +28,7 @@ namespace Yazh::Core {
 		}
 
 		// spin lock
-		auto start = clock::now();
-		while ((clock::now() - start).count() / 1e6 < ms);
+		auto start = std::chrono::high_resolution_clock::now();
+		while ((std::chrono::high_resolution_clock::now() - start).count() / 1e6 < ms);
 	}
 } // namespace Yazh::Core

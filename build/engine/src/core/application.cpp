@@ -3,8 +3,8 @@
 
 #include"logger.hpp"
 
-#include"platform/platform_win32.cpp"
-#include"platform/platform_linux.cpp"
+#include"platform/platform_win32.hpp"
+#include"platform/platform_linux.hpp"
 #include"ymemory.hpp"
 #include"event.hpp"
 #include"input.hpp"
@@ -32,7 +32,7 @@ namespace Yazh::Core::Application {
 	
 	inline bool create(Game::VirtualGame* game) {
 		if(initialized) {
-			Logger::Error("Yazh::Application::create called more than once.");
+			Error("Yazh::Application::create called more than once.");
 			return false;
 		}
 		
@@ -43,18 +43,18 @@ namespace Yazh::Core::Application {
 		Input::initialize();
 		
 		// TODO: Remove this
-		Logger::Fatal("A test message: {}",3.14f);
-		Logger::Error("A test message: {}",3.14f);
-		Logger::Warn("A test message: {}",3.14f);
-		Logger::Info("A test message: {}",3.14f);
-		Logger::Debug("A test message: {}",3.14f);
-		Logger::Trace("A test message: {}",3.14f);
+		Fatal("A test message: {}",3.14f);
+		Error("A test message: {}",3.14f);
+		Warn("A test message: {}",3.14f);
+		Info("A test message: {}",3.14f);
+		Debug("A test message: {}",3.14f);
+		Trace("A test message: {}",3.14f);
 		
 		state.is_running = true;
 		state.is_suspended = false;
 
 		if (!Event::initialize()) {
-			Logger::Fatal("Event system failed initialization. Application cannot continue.");
+			Fatal("Event system failed initialization. Application cannot continue.");
 			return false;
 		}
 
@@ -71,7 +71,7 @@ namespace Yazh::Core::Application {
 			return false;
 		
 		if(!state.game->initialize()) {
-			Logger::Fatal("Game failed to initialize.");
+			Fatal("Game failed to initialize.");
 			return false;
 		}
 		
@@ -83,7 +83,7 @@ namespace Yazh::Core::Application {
 	}
 	
 	inline bool run() {
-		Logger::Info(Memory::getMemoryUsageString());
+		Info(Memory::getMemoryUsageString());
 		while (state.is_running) {
 			if (!state.platform.pumpMessages())
 				state.is_running = false;

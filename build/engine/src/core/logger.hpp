@@ -48,4 +48,13 @@ namespace Yazh::Core::Logger {
 	constexpr void Trace(std::string, Args&&...);
 } // namespace Yazh::Core::Logger
 
+namespace Yazh {
+	using Core::Logger::Fatal;
+	using Core::Logger::Error;
+	using Core::Logger::Warn;
+	using Core::Logger::Info;
+	using Core::Logger::Debug;
+	using Core::Logger::Trace;
+} // namespace Yazh
+
 #include"logger.tcc"

@@ -30,3 +30,12 @@ namespace Yazh::Core::Logger {
 		// TODO: cleanup logging/write queued entries.
 	}
 } // namespace Yazh::Core::Logger
+
+namespace Yazh {
+	using Core::Logger::Fatal;
+	using Core::Logger::Error;
+	using Core::Logger::Warn;
+	using Core::Logger::Info;
+	using Core::Logger::Debug;
+	using Core::Logger::Trace;
+} // namespace Yazh
