@@ -1,19 +1,19 @@
 #pragma once
 
-#include"platform.hpp"
 #include"defines.hpp"
+#include"platform.hpp"
 
 #if YPLATFORM_WINDOWS
 #	include<windows.h>
 #	include<windowsx.h> // param input extraction
 
 namespace Yazh {
-	class YAPI Platform : public VirtualPlatform {
+	class YAPI Platform : VirtualPlatform {
 		static LRESULT CALLBACK Win32ProcessMessage(HWND, u32, WPARAM, LPARAM);
 		
-		HINSTANCE h_instance;
-		HWND hwnd;
-		static DWORD prev_out_mode;
+		HINSTANCE hInstance;
+		HWND hWnd;
+		static DWORD dwPrevOutMode;
 
 		public:
 			// Clock

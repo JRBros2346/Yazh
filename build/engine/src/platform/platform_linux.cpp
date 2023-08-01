@@ -1,7 +1,7 @@
 // Linux Platform Layer
-#if YPLATFORM_LINUX
-#	include"platform_linux.hpp"
+#include"platform_linux.hpp"
 
+#if YPLATFORM_LINUX
 #	include"core/logger.hpp"
 
 #	include<cstdlib>

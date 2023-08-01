@@ -1,14 +1,14 @@
 // Windows platform layer.
-#if YPLATFORM_WINDOWS
-#	include"platform_win32.hpp"
+#include"platform_win32.hpp"
 
+#if YPLATFORM_WINDOWS
 #	include"core/logger.hpp"
 #	include"core/input.hpp"
 
 namespace Yazh {
 	f64 Platform::clock_frequency;
 	LARGE_INTEGER Platform::start_time;
-	DWORD Platform::prev_out_mode = 0;
+	DWORD Platform::dwPrevOutMode = 0;
 
 	inline bool Platform::startup(
 			const char* application_name,
@@ -17,70 +17,70 @@ namespace Yazh {
 			i32 width,
 			i32 height) {
 
-		h_instance = GetModuleHandleA(nullptr);
+		hInstance = GetModuleHandleA(nullptr);
 		
-		auto h_output = GetStdHandle(STD_OUTPUT_HANDLE);
-		GetConsoleMode(h_output, &prev_out_mode);
-		auto requested_out_mode = ENABLE_VIRTUAL_TERMINAL_PROCESSING | DISABLE_NEWLINE_AUTO_RETURN;
-		auto out_mode = prev_out_mode | requested_out_mode;
-		if (!SetConsoleMode(h_output, out_mode)) {
+		auto hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+		GetConsoleMode(hOutput, &dwPrevOutMode);
+		auto dwReqOutMode = ENABLE_VIRTUAL_TERMINAL_PROCESSING | DISABLE_NEWLINE_AUTO_RETURN;
+		auto dwOutMode = dwPrevOutMode | dwReqOutMode;
+		if (!SetConsoleMode(hOutput, dwOutMode)) {
 			Core::Logger::Info("Fallback to Enable Newline Auto Return...");
-			requested_out_mode = ENABLE_VIRTUAL_TERMINAL_PROCESSING;
-			out_mode = prev_out_mode | requested_out_mode;
-			SetConsoleMode(h_output, out_mode);
+			dwReqOutMode = ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+			dwOutMode = dwPrevOutMode | dwReqOutMode;
+			SetConsoleMode(hOutput, dwOutMode);
 		}
 
 		// Setup and register window class.
-		HICON icon = LoadIcon(h_instance, IDI_APPLICATION);
-		WNDCLASSA wc = {};
+		auto hIcon = LoadIcon(hInstance, IDI_APPLICATION);
+		WNDCLASSEXA wc = {};
 		wc.style = CS_DBLCLKS; // Get double-clicks
 		wc.lpfnWndProc = Win32ProcessMessage;
 		wc.cbClsExtra = 0;
 		wc.cbWndExtra = 0;
-		wc.hInstance = h_instance;
-		wc.hIcon = icon;
+		wc.hInstance = hInstance;
+		wc.hIcon = hIcon;
 		wc.hCursor = LoadCursor(nullptr, IDC_ARROW);  // nullptr; // Manage the cursor manually
 		wc.hbrBackground = nullptr;                   // Transparent
 		wc.lpszClassName = "yazh_window_class";
 
-		if (!RegisterClassA(&wc)) {
+		if (!RegisterClassExA(&wc)) {
 			MessageBoxA(0, "Window registration failed", "Error", MB_ICONEXCLAMATION | MB_OK);
 			return false;
 		}
 			// Create window
-		u32 client_x = x;
-		u32 client_y = y;
-		u32 client_width = width;
-		u32 client_height = height;
+		auto clientX = x;
+		auto clientY = y;
+		auto nClientWidth = width;
+		auto nClientHeight = height;
 
-		u32 window_x = client_x;
-		u32 window_y = client_y;
-		u32 window_width = client_width;
-		u32 window_height = client_height;
+		auto windowX = clientX;
+		auto windowY = clientY;
+		auto nWindowWidth = nClientWidth;
+		auto nWindowHeight = nClientHeight;
 
-		u32 window_style = WS_OVERLAPPED | WS_SYSMENU | WS_CAPTION;
-		u32 window_ex_style = WS_EX_APPWINDOW;
+		auto dwWindowStyle = WS_OVERLAPPED | WS_SYSMENU | WS_CAPTION;
+		auto dwWindowExStyle = WS_EX_APPWINDOW;
 
-		window_style |= WS_MAXIMIZEBOX;
-		window_style |= WS_MINIMIZEBOX;
-		window_style |= WS_THICKFRAME;
+		dwWindowStyle |= WS_MAXIMIZEBOX;
+		dwWindowStyle |= WS_MINIMIZEBOX;
+		dwWindowStyle |= WS_THICKFRAME;
 
 		// Obtain the size of the border.
-		RECT border_rect{0, 0, 0, 0};
-		AdjustWindowRectEx(&border_rect, window_style, 0, window_ex_style);
+		RECT rectBorder = {};
+		AdjustWindowRectEx(&rectBorder, dwWindowStyle, 0, dwWindowExStyle);
 
 		// In this case, the border rectangle is negative.
-		window_x += border_rect.left;
-		window_y += border_rect.top;
+		windowX += rectBorder.left;
+		windowY += rectBorder.top;
 
 		// Grow by the size of the OS border.
-		window_width += border_rect.right - border_rect.left;
-		window_height += border_rect.bottom - border_rect.top;
+		nWindowWidth += rectBorder.right - rectBorder.left;
+		nWindowHeight += rectBorder.bottom - rectBorder.top;
 
 		HWND handle = CreateWindowExA(
-			window_ex_style, "yazh_window_class", application_name,
-			window_style, window_x, window_y, window_width, window_height,
-			0, 0, h_instance, 0);
+			dwWindowExStyle, "yazh_window_class", application_name,
+			dwWindowStyle, windowX, windowY, nWindowWidth, nWindowHeight,
+			nullptr, nullptr, hInstance, nullptr);
 
 		if (handle == nullptr) {
 			MessageBoxA(NULL, "Window creation failed!", "Error!", MB_ICONEXCLAMATION | MB_OK);
@@ -88,34 +88,34 @@ namespace Yazh {
 			Core::Logger::Fatal("Window creation failed!");
 			return false;
 		} else {
-			hwnd = handle;
+			hWnd = handle;
 		}
 
 		// Show the window
 		auto should_activate = true; // TODO: if the window should not accept input, this should be false.
-		i32 show_window_command_flags = should_activate ? SW_SHOW : SW_SHOWNOACTIVATE;
+		auto dwShowWindowCommandFlags = should_activate ? SW_SHOW : SW_SHOWNOACTIVATE;
 		// If initially minimized, use SW_MINIMIZE : SW_SHOWMINNOACTIVE;
 		// If initially maximized, use SW_SHOWMAXIMIZED : SW_MAXIMIZE
-		ShowWindow(hwnd, show_window_command_flags);
+		ShowWindow(hWnd, dwShowWindowCommandFlags);
 
 		// Clock setup
-		LARGE_INTEGER frequency;
-		QueryPerformanceFrequency(&frequency);
-		clock_frequency = 1.0 / (f64)frequency.QuadPart;
+		LARGE_INTEGER lFrequency;
+		QueryPerformanceFrequency(&lFrequency);
+		clock_frequency = 1.0 / (f64)lFrequency.QuadPart;
 		QueryPerformanceCounter(&start_time);
 
 		return true;
 	}
 
 	inline void Platform::shutdown() {
-		SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), prev_out_mode);
-		if (hwnd) {
-			DestroyWindow(hwnd);
-			hwnd = nullptr;
+		SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), dwPrevOutMode);
+		if (hWnd) {
+			DestroyWindow(hWnd);
+			hWnd = nullptr;
 		}
 	}
 
-	bool Platform::pumpMessages() {
+	inline bool Platform::pumpMessages() {
 		MSG message;
 		while (PeekMessageA(&message, nullptr, 0, 0, PM_REMOVE)) {
 			TranslateMessage(&message);
@@ -125,27 +125,27 @@ namespace Yazh {
 		return true;
 	}
 
-	void* Platform::allocate(ysize size, bool aligned) {
+	inline void* Platform::allocate(ysize size, bool aligned) {
 		return ::operator new(size);
 	}
 
-	void Platform::free(void *block, ysize size, bool alligned) {
+	inline void Platform::free(void *block, ysize size, bool alligned) {
 		::operator delete(block, size);
 	}
 
-	void* Platform::zeroMemory(void *block, ysize size) {
+	inline void* Platform::zeroMemory(void *block, ysize size) {
 		return memset(block, 0, size);
 	}
 
-	void* Platform::copyMemory(void *dest, const void *source, ysize size) {
+	inline void* Platform::copyMemory(void *dest, const void *source, ysize size) {
 		return memcpy(dest, source, size);
 	}
 
-	void* Platform::setMemory(void *dest, i32 value, ysize size) {
+	inline void* Platform::setMemory(void *dest, i32 value, ysize size) {
 		return memset(dest, value, size);
 	}
 
-	LRESULT CALLBACK Platform::Win32ProcessMessage(HWND hwnd, u32 msg, WPARAM wp, LPARAM lp) {
+	LRESULT CALLBACK Platform::Win32ProcessMessage(HWND hWnd, u32 msg, WPARAM wp, LPARAM lp) {
 		switch (msg) {
 			case WM_ERASEBKGND:
 				// Notify the OS that erasing will be handled by the application to prevent flicker.
@@ -159,7 +159,7 @@ namespace Yazh {
 			case WM_SIZE:
 				// Get the updated size.
 				// RECT r;
-				// GetClientRect(hwnd, &r);
+				// GetClientRect(hWnd, &r);
 				// u32 width = r.right - r.left;
 				// u32 height = r.bottom - r.top;
 
@@ -222,7 +222,7 @@ namespace Yazh {
 			} break;
 		}
 
-		return DefWindowProcA(hwnd, msg, wp, lp);
+		return DefWindowProcA(hWnd, msg, wp, lp);
 	}
 } // namespace Yazh
 

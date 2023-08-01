@@ -1,7 +1,7 @@
 #pragma once
 
-#include"platform.hpp"
 #include"defines.hpp"
+#include"platform.hpp"
 
 #if YPLATFORM_LINUX
 #	include<xcb/xcb.h>
