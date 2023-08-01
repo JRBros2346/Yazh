@@ -51,21 +51,21 @@ namespace Yazh::Types {
 	}
 
 	template<typename T>
-	constexpr T& Vector<T>::operator[](ysize pos) {
+	T& Vector<T>::operator[](ysize pos) {
 		return m_data[pos];
 	}
 	template<typename T>
-	constexpr const T& Vector<T>::operator[](ysize pos) const {
+	const T& Vector<T>::operator[](ysize pos) const {
 		return m_data[pos];
 	}
 	template<typename T>
-	constexpr T& Vector<T>::at(ysize pos) {
+	T& Vector<T>::at(ysize pos) {
 		if (pos >= m_size)
 			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", m_size, pos);
 		return m_data[pos];
 	}
 	template<typename T>
-	constexpr const T& Vector<T>::at(ysize pos) const {
+	const T& Vector<T>::at(ysize pos) const {
 		if (pos >= m_size)
 			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", m_size, pos);
 		return m_data[pos];
@@ -198,96 +198,96 @@ namespace Yazh::Types {
 	}
 
 	template<typename T>
-	constexpr ysize Vector<T>::size() const { return m_size; }
+	ysize Vector<T>::size() const { return m_size; }
 	template<typename T>
-	constexpr ysize Vector<T>::capacity() const { return m_capacity; }
+	ysize Vector<T>::capacity() const { return m_capacity; }
 	template<typename T>
-	constexpr T* Vector<T>::data() const { return m_data; }
+	T* Vector<T>::data() const { return m_data; }
 
 	template<typename T>
-	constexpr Vector<T>::Iter::Iter() : ptr(nullptr) {
+	Vector<T>::Iter::Iter() : ptr(nullptr) {
 	}
 	template<typename T>
-	constexpr Vector<T>::Iter::Iter(T* p) : ptr(p) {
+	Vector<T>::Iter::Iter(T* p) : ptr(p) {
 	}
 	template<typename T>
-	constexpr Vector<T>::Iter::Iter(const Iter& other) : ptr(other.ptr) {
+	Vector<T>::Iter::Iter(const Iter& other) : ptr(other.ptr) {
 	}
 	template<typename T>
-	constexpr Vector<T>::Iter::~Iter() {
+	Vector<T>::Iter::~Iter() {
 	}
 
 	template<typename T>
-	constexpr T& Vector<T>::Iter::operator*() { return *ptr; }
+	T& Vector<T>::Iter::operator*() { return *ptr; }
 	template<typename T>
-	constexpr T* Vector<T>::Iter::operator->() { return ptr; }
+	T* Vector<T>::Iter::operator->() { return ptr; }
 	template<typename T>
-	constexpr const T& Vector<T>::Iter::operator*() const { return *ptr; }
+	const T& Vector<T>::Iter::operator*() const { return *ptr; }
 	template<typename T>
-	constexpr const T* Vector<T>::Iter::operator->() const { return ptr; }
+	const T* Vector<T>::Iter::operator->() const { return ptr; }
 
 	template<typename T>
-	constexpr typename Vector<T>::Iter Vector<T>::Iter::operator+(yptrdiff offset) { return ptr + offset; }
+	typename Vector<T>::Iter Vector<T>::Iter::operator+(yptrdiff offset) { return ptr + offset; }
 	template<typename T>
-	constexpr typename Vector<T>::Iter Vector<T>::Iter::operator-(yptrdiff offset) { return ptr - offset; }
+	typename Vector<T>::Iter Vector<T>::Iter::operator-(yptrdiff offset) { return ptr - offset; }
 
 	template<typename T>
-	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator=(const Iter& other) {
+	typename Vector<T>::Iter& Vector<T>::Iter::operator=(const Iter& other) {
 		ptr = other.ptr;
 		return *this;
 	}
 	template<typename T>
-	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator=(Iter&& other) {
+	typename Vector<T>::Iter& Vector<T>::Iter::operator=(Iter&& other) {
 		ptr = std::move(other.ptr);
 		other.ptr = nullptr;
 		return *this;
 	}
 	template<typename T>
-	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator+=(yptrdiff offset) {
+	typename Vector<T>::Iter& Vector<T>::Iter::operator+=(yptrdiff offset) {
 		ptr += offset;
 		return *this;
 	}
 	template<typename T>
-	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator-=(yptrdiff offset) {
+	typename Vector<T>::Iter& Vector<T>::Iter::operator-=(yptrdiff offset) {
 		ptr -= offset;
 		return *this;
 	}
 
 	template<typename T>
-	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator++() {
+	typename Vector<T>::Iter& Vector<T>::Iter::operator++() {
 		++ptr;
 		return *this;
 	}
 	template<typename T>
-	constexpr typename Vector<T>::Iter Vector<T>::Iter::operator++(int) {
+	typename Vector<T>::Iter Vector<T>::Iter::operator++(int) {
 		auto tmp = *this;
 		++ptr;
 		return tmp;
 	}
 	template<typename T>
-	constexpr typename Vector<T>::Iter& Vector<T>::Iter::operator--() {
+	typename Vector<T>::Iter& Vector<T>::Iter::operator--() {
 		--ptr;
 		return *this;
 	}
 	template<typename T>
-	constexpr typename Vector<T>::Iter Vector<T>::Iter::operator--(int) {
+	typename Vector<T>::Iter Vector<T>::Iter::operator--(int) {
 		auto tmp = *this;
 		--ptr;
 		return tmp;
 	}
 
 	template<typename T>
-	constexpr bool Vector<T>::Iter::operator==(const Iter& other) { return ptr == other.ptr; }
+	bool Vector<T>::Iter::operator==(const Iter& other) { return ptr == other.ptr; }
 	template<typename T>
-	constexpr bool Vector<T>::Iter::operator!=(const Iter& other) { return ptr != other.ptr; }
+	bool Vector<T>::Iter::operator!=(const Iter& other) { return ptr != other.ptr; }
 	template<typename T>
-	constexpr bool Vector<T>::Iter::operator>=(const Iter& other) { return ptr >= other.ptr; }
+	bool Vector<T>::Iter::operator>=(const Iter& other) { return ptr >= other.ptr; }
 	template<typename T>
-	constexpr bool Vector<T>::Iter::operator<=(const Iter& other) { return ptr <= other.ptr; }
+	bool Vector<T>::Iter::operator<=(const Iter& other) { return ptr <= other.ptr; }
 	template<typename T>
-	constexpr bool Vector<T>::Iter::operator>(const Iter& other) { return ptr > other.ptr; }
+	bool Vector<T>::Iter::operator>(const Iter& other) { return ptr > other.ptr; }
 	template<typename T>
-	constexpr bool Vector<T>::Iter::operator<(const Iter& other) { return ptr < other.ptr; }
+	bool Vector<T>::Iter::operator<(const Iter& other) { return ptr < other.ptr; }
 
 	template<typename T>
 	typename Vector<T>::Iter Vector<T>::begin() { return m_data; }

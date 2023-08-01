@@ -19,10 +19,10 @@ namespace Yazh::Types {
 			Vector(std::initializer_list<T>);
 			~Vector();
 
-			constexpr T& operator[](ysize);
-			constexpr const T& operator[](ysize) const;
-			constexpr T& at(ysize);
-			constexpr const T& at(ysize) const;
+			T& operator[](ysize);
+			const T& operator[](ysize) const;
+			T& at(ysize);
+			const T& at(ysize) const;
 
 			void push_back(const T&);
 			void push_at(ysize, const T&);
@@ -44,42 +44,42 @@ namespace Yazh::Types {
 			Vector<T>& operator=(const Vector<T>&);
 			Vector<T>& operator=(Vector<T>&&);
 			
-			constexpr ysize size() const;
-			constexpr ysize capacity() const;
-			constexpr T* data() const;
+			ysize size() const;
+			ysize capacity() const;
+			T* data() const;
 
 			class Iter {
 				T* ptr = nullptr;
 				public:
-					constexpr Iter();
-					constexpr Iter(T*);
-					constexpr Iter(const Iter&);
-					constexpr ~Iter();
+					Iter();
+					Iter(T*);
+					Iter(const Iter&);
+					~Iter();
 
-					constexpr T& operator*();
-					constexpr T* operator->();
-					constexpr const T& operator*() const;
-					constexpr const T* operator->() const;
+					T& operator*();
+					T* operator->();
+					const T& operator*() const;
+					const T* operator->() const;
 
-					constexpr Iter operator+(yptrdiff);
-					constexpr Iter operator-(yptrdiff);
+					Iter operator+(yptrdiff);
+					Iter operator-(yptrdiff);
 
-					constexpr Iter& operator=(const Iter&);
-					constexpr Iter& operator=(Iter&&);
-					constexpr Iter& operator+=(yptrdiff);
-					constexpr Iter& operator-=(yptrdiff);
+					Iter& operator=(const Iter&);
+					Iter& operator=(Iter&&);
+					Iter& operator+=(yptrdiff);
+					Iter& operator-=(yptrdiff);
 
-					constexpr Iter& operator++();
-					constexpr Iter operator++(int);
-					constexpr Iter& operator--();
-					constexpr Iter operator--(int);
+					Iter& operator++();
+					Iter operator++(int);
+					Iter& operator--();
+					Iter operator--(int);
 
-					constexpr bool operator==(const Iter&);
-					constexpr bool operator!=(const Iter&);
-					constexpr bool operator>=(const Iter&);
-					constexpr bool operator<=(const Iter&);
-					constexpr bool operator>(const Iter&);
-					constexpr bool operator<(const Iter&);
+					bool operator==(const Iter&);
+					bool operator!=(const Iter&);
+					bool operator>=(const Iter&);
+					bool operator<=(const Iter&);
+					bool operator>(const Iter&);
+					bool operator<(const Iter&);
 			};
 
 			Iter begin();
