@@ -36,8 +36,8 @@ namespace Yazh::Types {
 	template<typename T>
 	inline Vector<T>::Vector(std::initializer_list<T> elements)
 			: m_size(elements.size()),
-			  m_capacity(RESIZE_FACTOR * elements.size()) {
-		m_data = (T*)Core::Memory::allocate(RESIZE_FACTOR * elements.size() * sizeof(T), Core::Memory::Tag::Vector);
+			  m_capacity(elements.size()) {
+		m_data = (T*)Core::Memory::allocate(elements.size() * sizeof(T), Core::Memory::Tag::Vector);
 		ysize i = 0;
 		for (const auto &e : elements)
 			m_data[i++] = e;
@@ -148,7 +148,7 @@ namespace Yazh::Types {
 	}
 
 	template<typename T>
-	inline void Vector<T>::clear() {
+	void Vector<T>::clear() {
 		for (ysize i = 0; i < m_size; ++i)
 			m_data[i].~T();
 		m_size = 0;
