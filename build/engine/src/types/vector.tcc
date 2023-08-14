@@ -9,7 +9,7 @@ namespace Yazh::Types {
 		m_data = (T*)Core::Memory::allocate(DEFAULT_CAPACITY * sizeof(T), Core::Memory::Tag::Vector);
 	}
 	template<typename T>
-	inline Vector<T>::Vector(ysize capacity)
+	inline Vector<T>::Vector(std::size_t capacity)
 			: m_size(0),
 			  m_capacity(capacity) {
 		m_data = (T*)Core::Memory::allocate(capacity * sizeof(T), Core::Memory::Tag::Vector);
@@ -20,7 +20,7 @@ namespace Yazh::Types {
 			  m_capacity(other.m_capacity) {
 		m_data = (T*)Core::Memory::allocate(other.m_capacity * sizeof(T), Core::Memory::Tag::Vector);
 
-		for (ysize i = 0; i < other.m_size; ++i)
+		for (std::size_t i = 0; i < other.m_size; ++i)
 			m_data[i] = other.m_data[i];
 	}
 	template<typename T>
@@ -38,7 +38,7 @@ namespace Yazh::Types {
 			: m_size(elements.size()),
 			  m_capacity(elements.size()) {
 		m_data = (T*)Core::Memory::allocate(elements.size() * sizeof(T), Core::Memory::Tag::Vector);
-		ysize i = 0;
+		std::size_t i = 0;
 		for (const auto &e : elements)
 			m_data[i++] = e;
 	}
@@ -51,21 +51,21 @@ namespace Yazh::Types {
 	}
 
 	template<typename T>
-	inline T& Vector<T>::operator[](ysize pos) {
+	inline T& Vector<T>::operator[](std::size_t pos) {
 		return m_data[pos];
 	}
 	template<typename T>
-	inline const T& Vector<T>::operator[](ysize pos) const {
+	inline const T& Vector<T>::operator[](std::size_t pos) const {
 		return m_data[pos];
 	}
 	template<typename T>
-	inline T& Vector<T>::at(ysize pos) {
+	inline T& Vector<T>::at(std::size_t pos) {
 		if (pos >= m_size)
 			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", m_size, pos);
 		return m_data[pos];
 	}
 	template<typename T>
-	inline const T& Vector<T>::at(ysize pos) const {
+	inline const T& Vector<T>::at(std::size_t pos) const {
 		if (pos >= m_size)
 			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", m_size, pos);
 		return m_data[pos];
@@ -78,7 +78,7 @@ namespace Yazh::Types {
 		m_data[m_size++] = val;
 	}
 	template<typename T>
-	void Vector<T>::push_at(ysize pos, const T& val) {
+	void Vector<T>::push_at(std::size_t pos, const T& val) {
 		if (pos >= m_size)
 			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", m_size, pos);
 		else {
@@ -96,7 +96,7 @@ namespace Yazh::Types {
 		m_data[m_size++] = std::move(val);
 	}
 	template<typename T>
-	void Vector<T>::push_at(ysize pos, T&& val) {
+	void Vector<T>::push_at(std::size_t pos, T&& val) {
 		if (pos >= m_size)
 			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", m_size, pos);
 		else {
@@ -118,7 +118,7 @@ namespace Yazh::Types {
 	}
 	template<typename T>
 	template<typename... Args>
-	T& Vector<T>::emplace_at(ysize pos, Args&&... args) {
+	T& Vector<T>::emplace_at(std::size_t pos, Args&&... args) {
 		if (pos >= m_size)
 			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", m_size, pos);
 		if (m_size == m_capacity)
@@ -136,7 +136,7 @@ namespace Yazh::Types {
 		return val;
 	}
 	template<typename T>
-	T Vector<T>::pop_at(ysize pos) {
+	T Vector<T>::pop_at(std::size_t pos) {
 		if (pos >= m_size)
 			Core::Logger::Error("Index outside the bounds of this vector! Length: {}, index: {}", m_size, pos);
 		T val = std::move(m_data[pos]);
@@ -149,7 +149,7 @@ namespace Yazh::Types {
 
 	template<typename T>
 	void Vector<T>::clear() {
-		for (ysize i = 0; i < m_size; ++i)
+		for (std::size_t i = 0; i < m_size; ++i)
 			m_data[i].~T();
 		m_size = 0;
 	}
@@ -157,7 +157,7 @@ namespace Yazh::Types {
 	inline void Vector<T>::shrink() {
 		m_capacity = (m_size == 0) ? 1 : m_size;
 		T* block = (T*)Core::Memory::allocate(m_capacity * sizeof(T), Core::Memory::Tag::Vector);
-		for (ysize i = 0; i < m_size; ++i)
+		for (std::size_t i = 0; i < m_size; ++i)
 			block[i] = std::move(m_data[i]);
 		Core::Memory::free(m_data, m_capacity * sizeof(T), Core::Memory::Tag::Vector);
 		m_data = block;
@@ -167,7 +167,7 @@ namespace Yazh::Types {
 	inline void Vector<T>::resize() {
 		m_capacity *= RESIZE_FACTOR;
 		T* block = (T*)Core::Memory::allocate(m_capacity * sizeof(T), Core::Memory::Tag::Vector);
-		for (ysize i = 0; i < m_size; ++i)
+		for (std::size_t i = 0; i < m_size; ++i)
 			block[i] = std::move(m_data[i]);
 		Core::Memory::free(m_data, m_capacity * sizeof(T), Core::Memory::Tag::Vector);
 		m_data = block;
@@ -180,7 +180,7 @@ namespace Yazh::Types {
 		m_size = other.m_size;
 		m_capacity = other.m_capacity;
 		m_data = (T*)Core::Memory::allocate(m_capacity * sizeof(T), Core::Memory::Tag::Vector);
-		for (ysize i = 0; i < m_size; i++)
+		for (std::size_t i = 0; i < m_size; i++)
 			m_data[i] = other.m_data[i];
 		return *this;
 	}
@@ -198,9 +198,9 @@ namespace Yazh::Types {
 	}
 
 	template<typename T>
-	inline ysize Vector<T>::size() const { return m_size; }
+	inline std::size_t Vector<T>::size() const { return m_size; }
 	template<typename T>
-	inline ysize Vector<T>::capacity() const { return m_capacity; }
+	inline std::size_t Vector<T>::capacity() const { return m_capacity; }
 	template<typename T>
 	inline T* Vector<T>::data() const { return m_data; }
 
@@ -227,9 +227,9 @@ namespace Yazh::Types {
 	inline const T* Vector<T>::Iter::operator->() const { return ptr; }
 
 	template<typename T>
-	inline typename Vector<T>::Iter Vector<T>::Iter::operator+(yptrdiff offset) { return ptr + offset; }
+	inline typename Vector<T>::Iter Vector<T>::Iter::operator+(std::ptrdiff_t offset) { return ptr + offset; }
 	template<typename T>
-	inline typename Vector<T>::Iter Vector<T>::Iter::operator-(yptrdiff offset) { return ptr - offset; }
+	inline typename Vector<T>::Iter Vector<T>::Iter::operator-(std::ptrdiff_t offset) { return ptr - offset; }
 
 	template<typename T>
 	inline typename Vector<T>::Iter& Vector<T>::Iter::operator=(const Iter& other) {
@@ -243,12 +243,12 @@ namespace Yazh::Types {
 		return *this;
 	}
 	template<typename T>
-	inline typename Vector<T>::Iter& Vector<T>::Iter::operator+=(yptrdiff offset) {
+	inline typename Vector<T>::Iter& Vector<T>::Iter::operator+=(std::ptrdiff_t offset) {
 		ptr += offset;
 		return *this;
 	}
 	template<typename T>
-	inline typename Vector<T>::Iter& Vector<T>::Iter::operator-=(yptrdiff offset) {
+	inline typename Vector<T>::Iter& Vector<T>::Iter::operator-=(std::ptrdiff_t offset) {
 		ptr -= offset;
 		return *this;
 	}

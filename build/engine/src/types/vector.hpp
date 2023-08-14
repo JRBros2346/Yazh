@@ -5,37 +5,37 @@
 namespace Yazh::Types {
 	template<typename T>
 	class YAPI Vector {
-		constexpr const static ysize DEFAULT_CAPACITY = 1;
-		constexpr const static ysize RESIZE_FACTOR = 2;
+		constexpr static std::size_t DEFAULT_CAPACITY = 1;
+		constexpr static std::size_t RESIZE_FACTOR = 2;
 		
-		ysize m_size = 0;
-		ysize m_capacity = 0;
+		std::size_t m_size = 0;
+		std::size_t m_capacity = 0;
 		T* m_data = nullptr;
 		public:
 			Vector();
-			explicit Vector(ysize);
+			explicit Vector(std::size_t);
 			Vector(const Vector<T>&);
 			Vector(Vector<T>&&);
 			Vector(std::initializer_list<T>);
 			~Vector();
 
-			T& operator[](ysize);
-			const T& operator[](ysize) const;
-			T& at(ysize);
-			const T& at(ysize) const;
+			T& operator[](std::size_t);
+			const T& operator[](std::size_t) const;
+			T& at(std::size_t);
+			const T& at(std::size_t) const;
 
 			void push_back(const T&);
-			void push_at(ysize, const T&);
+			void push_at(std::size_t, const T&);
 			void push_back(T&&);
-			void push_at(ysize, T&&);
+			void push_at(std::size_t, T&&);
 
 			template<typename... Args>
 			T& emplace_back(Args&&...);
 			template<typename... Args>
-			T& emplace_at(ysize, Args&&...);
+			T& emplace_at(std::size_t, Args&&...);
 
 			T pop_back();
-			T pop_at(ysize);
+			T pop_at(std::size_t);
 			
 			void clear();
 			void shrink();
@@ -44,8 +44,8 @@ namespace Yazh::Types {
 			Vector<T>& operator=(const Vector<T>&);
 			Vector<T>& operator=(Vector<T>&&);
 			
-			ysize size() const;
-			ysize capacity() const;
+			std::size_t size() const;
+			std::size_t capacity() const;
 			T* data() const;
 
 			class Iter {
@@ -61,13 +61,13 @@ namespace Yazh::Types {
 					const T& operator*() const;
 					const T* operator->() const;
 
-					Iter operator+(yptrdiff);
-					Iter operator-(yptrdiff);
+					Iter operator+(std::ptrdiff_t);
+					Iter operator-(std::ptrdiff_t);
 
 					Iter& operator=(const Iter&);
 					Iter& operator=(Iter&&);
-					Iter& operator+=(yptrdiff);
-					Iter& operator-=(yptrdiff);
+					Iter& operator+=(std::ptrdiff_t);
+					Iter& operator-=(std::ptrdiff_t);
 
 					Iter& operator++();
 					Iter operator++(int);

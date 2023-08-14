@@ -24,11 +24,11 @@ namespace Yazh {
 			void shutdown() final;
 			bool pumpMessages() final;
 
-			static void* allocate(ysize, bool);
-			static void free(void*, ysize, bool);
-			static void* zeroMemory(void*, ysize);
-			static void* copyMemory(void*, const void*, ysize);
-			static void* setMemory(void*, i32, ysize);
+			static void* allocate(std::size_t, bool);
+			static void free(void*, std::size_t, bool);
+			static void* zeroMemory(void*, std::size_t);
+			static void* copyMemory(void*, const void*, std::size_t);
+			static void* setMemory(void*, i32, std::size_t);
 
 			static u64 getAbsoluteTime();
 

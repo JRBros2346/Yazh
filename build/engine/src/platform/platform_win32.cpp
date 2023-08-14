@@ -126,23 +126,23 @@ namespace Yazh {
 		return true;
 	}
 
-	inline void* Platform::allocate(ysize size, bool aligned) {
+	inline void* Platform::allocate(std::size_t size, bool aligned) {
 		return ::operator new(size);
 	}
 
-	inline void Platform::free(void *block, ysize size, bool alligned) {
+	inline void Platform::free(void *block, std::size_t size, bool alligned) {
 		::operator delete(block, size);
 	}
 
-	inline void* Platform::zeroMemory(void *block, ysize size) {
+	inline void* Platform::zeroMemory(void *block, std::size_t size) {
 		return memset(block, 0, size);
 	}
 
-	inline void* Platform::copyMemory(void *dest, const void *source, ysize size) {
+	inline void* Platform::copyMemory(void *dest, const void *source, std::size_t size) {
 		return memcpy(dest, source, size);
 	}
 
-	inline void* Platform::setMemory(void *dest, i32 value, ysize size) {
+	inline void* Platform::setMemory(void *dest, i32 value, std::size_t size) {
 		return memset(dest, value, size);
 	}
 

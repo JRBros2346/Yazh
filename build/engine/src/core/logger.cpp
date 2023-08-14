@@ -3,7 +3,7 @@
 
 namespace Yazh::Core::Logger {
 	// std::ostream& operator<<(std::ostream& os, const LogLevel& level) {
-	// 	os << colors[(ysize)level] << "\033[1m"; // Bold
+	// 	os << colors[(std::size_t)level] << "\033[1m"; // Bold
 	// 	switch(level) {
 	// 		case LogLevel::FTL:	os << "[ FATAL ]"; break;
 	// 		case LogLevel::ERR:	os << "[ ERROR ]"; break;

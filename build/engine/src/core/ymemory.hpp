@@ -29,15 +29,15 @@ namespace Yazh::Core::Memory {
 	YAPI void initialize();
 	YAPI void shutdown();
 	
-	YAPI void* allocate(ysize, Tag);
+	YAPI void* allocate(std::size_t, Tag);
 	
-	YAPI void free(void*, ysize, Tag);
+	YAPI void free(void*, std::size_t, Tag);
 	
-	YAPI void* zero(void*, ysize);
+	YAPI void* zero(void*, std::size_t);
 	
-	YAPI void* copy(void*, const void*, ysize);
+	YAPI void* copy(void*, const void*, std::size_t);
 	
-	YAPI void* set(void*, i32, ysize);
+	YAPI void* set(void*, i32, std::size_t);
 	
 	YAPI std::string getMemoryUsageString();
 } // namespace Yazh::Core::Memory

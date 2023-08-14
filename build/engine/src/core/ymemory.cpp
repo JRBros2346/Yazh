@@ -31,8 +31,8 @@ namespace Yazh::Core::Memory {
 	}
 	
 	static struct Statistics {
-		ysize TotalAllocation;
-		ysize TaggedAllocation[static_cast<u8>(Tag::MAX)];
+		std::size_t TotalAllocation;
+		std::size_t TaggedAllocation[static_cast<u8>(Tag::MAX)];
 	} stats;
 	
 	inline void initialize() {
@@ -42,7 +42,7 @@ namespace Yazh::Core::Memory {
 	inline void shutdown() {
 	}
 	
-	void* allocate(ysize size, Tag tag) {
+	void* allocate(std::size_t size, Tag tag) {
 		if (tag == Tag::Unknown)
 			Logger::Warn("Yazh::Memory::allocate called using Yazh::Memory::Tag::Unknown. Re-class this allocation.");
 		
@@ -55,7 +55,7 @@ namespace Yazh::Core::Memory {
 		return block;
 	}
 	
-	void free(void* block, ysize size, Tag tag) {
+	void free(void* block, std::size_t size, Tag tag) {
 		stats.TotalAllocation -= size;
 		stats.TaggedAllocation[(u8)tag] -= size;
 		
@@ -63,25 +63,25 @@ namespace Yazh::Core::Memory {
 		Platform::free(block, size, false);
 	}
 	
-	void* zero(void* block, ysize size) {
+	void* zero(void* block, std::size_t size) {
 		return Platform::zeroMemory(block, size);
 	}
 	
-	void* copy(void* dest, const void* source, ysize size) {
+	void* copy(void* dest, const void* source, std::size_t size) {
 		return Platform::copyMemory(dest, source, size);
 	}
 	
-	void* set(void* dest, i32 value, ysize size) {
+	void* set(void* dest, i32 value, std::size_t size) {
 		return Platform::setMemory(dest, value, size);
 	}
 	
 	inline std::string getMemoryUsageString() {
-		constexpr const ysize GiB = 1024 * 1024 * 1024;
-		constexpr const ysize MiB = 1024 * 1024;
-		constexpr const ysize KiB = 1024;
+		constexpr std::size_t GiB = 1024 * 1024 * 1024;
+		constexpr std::size_t MiB = 1024 * 1024;
+		constexpr std::size_t KiB = 1024;
 		
 		std::string output = "System memory use (tagged):\n";
-		for (ysize t = 0; t < static_cast<u8>(Tag::MAX); ++t) {
+		for (std::size_t t = 0; t < static_cast<u8>(Tag::MAX); ++t) {
 			auto tag = static_cast<Tag>(t);
 			auto memory = stats.TaggedAllocation[t];
 			output += "    " + Stringify(tag) + " : ";

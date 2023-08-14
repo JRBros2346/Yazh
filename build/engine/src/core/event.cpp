@@ -64,7 +64,7 @@ namespace Yazh::Core::Event {
 			return false;
 		}
 
-		for(ysize i = 0; i < state[code].size(); ++i) {
+		for(std::size_t i = 0; i < state[code].size(); ++i) {
 			auto e = state[code].at(i);
 			if(e.listener == listener && e.callback == on_event) {
 				// Found one, remove it
