@@ -20,4 +20,4 @@ Following [Kohi](https://github.com/travisvroman/kohi)'s name following four let
 - Run `testbed` in `bin` folder
 
 # Notice
-This has been archived to give way to my more unified game engine. I have planned to include android and web too, and I'm a better programmer now, than I was when I started it. Link to it [here](https://github.com/JRBros2346/yazh-unified)
+This has been archived to give way to my more unified game engine. I have planned to include android and web too, and I'm a better programmer now, than I was when I started it. Link to it [here](https://github.com/JRBros2346/Harp)
